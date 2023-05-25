@@ -44,7 +44,7 @@ extension UpcomingMoviesDatasource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableview.dequeueReusableCell(withIdentifier: MovieTableViewCell.reuseIdentifier, for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
-        cell.setup(movieName: items[indexPath.row].name)
+        cell.setup(movie: items[indexPath.row])
         return cell
     }
 }

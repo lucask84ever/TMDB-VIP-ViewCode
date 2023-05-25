@@ -49,13 +49,9 @@ class MovieTableViewCell: UITableViewCell {
     }
     
     // MARK: - Custom methods
-    func setup(movieName: String) {
-        movieTitle.text = movieName
-        moviePoster.showAnimatedSkeleton()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: { [weak self] in
-            self?.moviePoster.image = UIImage(named: "shrek")
-            self?.moviePoster.hideSkeleton()
-        })
+    func setup(movie: Movie) {
+        movieTitle.text = movie.name
+        moviePoster.downloadImage(ImageEndpoint.getImageUrl(movie.posterPath))
     }
     
 }

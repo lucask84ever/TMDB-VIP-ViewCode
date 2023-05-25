@@ -13,6 +13,12 @@ protocol UpcomingMoviesDelegate {
 }
 
 final class UpcomingMoviesView: UIView {
+    
+    let stack: UIStackView = {
+        let stack = UIStackView()
+        
+        return stack
+    }()
     // MARK: - Properties
     var datasource: UpcomingMoviesDatasource?
     private var movies: [Movie] = []
