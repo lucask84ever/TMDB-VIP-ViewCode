@@ -52,7 +52,7 @@ class MovieTableViewCell: UITableViewCell {
     // MARK: - Custom methods
     func setup(movie: Movie) {
         movieTitle.text = movie.name
-        moviePoster.downloadImage(ImageEndpoint.getImageUrl(movie.posterPath))
+        moviePoster.getImage(ImageEndpoint.getImageUrl(movie.posterPath))
     }
     
 }
