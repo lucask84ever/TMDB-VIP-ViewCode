@@ -34,6 +34,7 @@ class ImageLoader: UIImageView {
             return
         }
         image = cachedImage
+        hideSkeleton()
     }
     
     // MARK:  Private methods
