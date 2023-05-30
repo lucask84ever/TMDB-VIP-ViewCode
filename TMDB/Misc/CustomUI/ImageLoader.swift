@@ -38,10 +38,14 @@ class ImageLoader: UIImageView {
     }
     
     // MARK:  Private methods
+    /// Download a image from url typed as ImageEndpoint
+    /// - Parameter imageUrl: ImageEndpoint
     private func setupImageCache() {
         imageCache.totalCostLimit = 100 * 1024 * 1024 // 100 Mb cache
     }
     
+    /// Download a image from url typed as ImageEndpoint
+    /// - Parameter imageUrl: ImageEndpoint
     private func downloadImage(_ imageUrl: ImageEndpoint) {
         URLSession.shared.dataTask(with: imageUrl.url) { data, _, error in
             if let error = error {
@@ -61,10 +65,16 @@ class ImageLoader: UIImageView {
         }.resume()
     }
     
+    /// Retrieve a image from url typed as ImageEndpoint
+    /// - Parameter imageUrl: ImageEndpoint
+    /// - Returns: UIImage? if stored
     private func retrieveImageInCacheIfExists(_ imageUrl: ImageEndpoint) -> UIImage? {
         return imageCache.object(forKey: NSString(string: imageUrl.path)) as? UIImage
     }
     
+    /// Store a image from url typed as ImageEndpoint
+    /// - Parameter imageUrl: ImageEndpoint
+    /// - Parameter  image: UIImage
     private func storeImageInCache(_ imageKey: String, _ image: UIImage) {
         imageCache.setObject(image, forKey: NSString(string: imageKey))
     }
