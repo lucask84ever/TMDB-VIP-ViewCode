@@ -22,10 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navigation.pushViewController(upcomingMoviesViewController, animated: true)
             window?.makeKeyAndVisible()
         }
-        
         return true
     }
-    
-    
 }
 

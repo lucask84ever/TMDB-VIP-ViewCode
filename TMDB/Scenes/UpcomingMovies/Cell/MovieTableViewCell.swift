@@ -12,8 +12,8 @@ class MovieTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "movieCell"
     
-    lazy var moviePoster: UIImageView = {
-        let imageView = UIImageView()
+    lazy var moviePoster: ImageLoader = {
+        let imageView = ImageLoader()
         imageView.layer.cornerRadius = 8
         imageView.layer.shadowColor = UIColor.gray.cgColor
         imageView.isSkeletonable = true
