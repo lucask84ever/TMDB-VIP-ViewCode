@@ -45,6 +45,7 @@ class MovieTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         moviePoster.image = nil
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - DisplayingProtocol
 protocol UpcomingMoviesDisplaying: AnyObject {
-    func fetchedMovies(_ movies: Movies)
+    func fetchedMovies(_ movies: MoviesResponse)
 }
 
 // MARK: - ViewController
@@ -24,7 +24,7 @@ final class UpcomingMoviesViewController: BaseViewController<UpcomingMoviesInter
 
 // MARK: - Displaying
 extension UpcomingMoviesViewController: UpcomingMoviesDisplaying{
-    func fetchedMovies(_ movies: Movies) {
+    func fetchedMovies(_ movies: MoviesResponse) {
         DispatchQueue.main.async { [weak self] in
             self?.rootView.setupDatasource(movies.results)
         }
