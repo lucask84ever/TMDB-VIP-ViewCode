@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SearchMovieDisplaying {
+    func fetchedMovies(_ movies: MoviesResponse)
+}
+
 class SearchMovieViewController: BaseViewController<SearchMovieInteracting, SearchMovieView> {
 
     override func viewDidLoad() {

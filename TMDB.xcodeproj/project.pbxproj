@@ -15,6 +15,10 @@
 		102B17102A27008F00ECBC6A /* SearchMovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B170F2A27008F00ECBC6A /* SearchMovieService.swift */; };
 		102B17122A27009A00ECBC6A /* SearchMovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B17112A27009A00ECBC6A /* SearchMovieView.swift */; };
 		102B17142A2700BD00ECBC6A /* SearchMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B17132A2700BD00ECBC6A /* SearchMovieViewController.swift */; };
+		102B171A2A277BD400ECBC6A /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B17192A277BD400ECBC6A /* Date+Extension.swift */; };
+		102B171D2A277FC000ECBC6A /* SearchMoviePresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B171C2A277FC000ECBC6A /* SearchMoviePresenting.swift */; };
+		102B171F2A277FE100ECBC6A /* SearchMovieServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B171E2A277FE100ECBC6A /* SearchMovieServicing.swift */; };
+		102B17212A27831300ECBC6A /* SearchMovieInteracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102B17202A27831300ECBC6A /* SearchMovieInteracting.swift */; };
 		105AA1372A1BFC4D00E52448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1362A1BFC4D00E52448 /* AppDelegate.swift */; };
 		105AA1392A1BFC4D00E52448 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1382A1BFC4D00E52448 /* SceneDelegate.swift */; };
 		105AA1402A1BFC4F00E52448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 105AA13F2A1BFC4F00E52448 /* Assets.xcassets */; };
@@ -30,14 +34,12 @@
 		105AA16E2A1C123400E52448 /* UpcomingMoviesPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA16D2A1C123400E52448 /* UpcomingMoviesPresenting.swift */; };
 		105AA1702A1C143A00E52448 /* UpcomingMoviesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA16F2A1C143A00E52448 /* UpcomingMoviesService.swift */; };
 		105AA1722A1C20A600E52448 /* UpcomingMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1712A1C20A600E52448 /* UpcomingMoviesPresenter.swift */; };
-		105AA1752A1C33A200E52448 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 105AA1742A1C33A200E52448 /* SnapKit */; };
 		105AA1782A1C34BA00E52448 /* UpcomingMoviesDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1772A1C34BA00E52448 /* UpcomingMoviesDatasource.swift */; };
 		105AA17A2A1C34F900E52448 /* Datasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1792A1C34F900E52448 /* Datasource.swift */; };
 		105AA17D2A1C429200E52448 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA17C2A1C429200E52448 /* MovieTableViewCell.swift */; };
 		105AA1812A1C491900E52448 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1802A1C491900E52448 /* Movie.swift */; };
 		105AA1842A1C4A6800E52448 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1832A1C4A6800E52448 /* URLSession+Extension.swift */; };
 		105AA1872A1C4BEE00E52448 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1862A1C4BEE00E52448 /* Endpoint.swift */; };
-		105AA18A2A1CFAF600E52448 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 105AA1892A1CFAF600E52448 /* SkeletonView */; };
 		105AA18C2A1D0A7300E52448 /* ImageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA18B2A1D0A7200E52448 /* ImageEndpoint.swift */; };
 		105AA1932A1D2D8900E52448 /* DetailMovieFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1922A1D2D8900E52448 /* DetailMovieFactory.swift */; };
 		105AA1952A1D2DB300E52448 /* DetailMovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA1942A1D2DB300E52448 /* DetailMovieView.swift */; };
@@ -61,6 +63,10 @@
 		102B170F2A27008F00ECBC6A /* SearchMovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieService.swift; sourceTree = "<group>"; };
 		102B17112A27009A00ECBC6A /* SearchMovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieView.swift; sourceTree = "<group>"; };
 		102B17132A2700BD00ECBC6A /* SearchMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieViewController.swift; sourceTree = "<group>"; };
+		102B17192A277BD400ECBC6A /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		102B171C2A277FC000ECBC6A /* SearchMoviePresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviePresenting.swift; sourceTree = "<group>"; };
+		102B171E2A277FE100ECBC6A /* SearchMovieServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieServicing.swift; sourceTree = "<group>"; };
+		102B17202A27831300ECBC6A /* SearchMovieInteracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieInteracting.swift; sourceTree = "<group>"; };
 		105AA1332A1BFC4D00E52448 /* TMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		105AA1362A1BFC4D00E52448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		105AA1382A1BFC4D00E52448 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,8 +111,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				105AA18A2A1CFAF600E52448 /* SkeletonView in Frameworks */,
-				105AA1752A1C33A200E52448 /* SnapKit in Frameworks */,
 				EC73B78C9E4D6FD9254EE6C7 /* Pods_TMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,6 +138,24 @@
 				102B17132A2700BD00ECBC6A /* SearchMovieViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		102B17182A277BB800ECBC6A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				102B17192A277BD400ECBC6A /* Date+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		102B171B2A277FAE00ECBC6A /* SearchMovie */ = {
+			isa = PBXGroup;
+			children = (
+				102B171C2A277FC000ECBC6A /* SearchMoviePresenting.swift */,
+				102B171E2A277FE100ECBC6A /* SearchMovieServicing.swift */,
+				102B17202A27831300ECBC6A /* SearchMovieInteracting.swift */,
+			);
+			path = SearchMovie;
 			sourceTree = "<group>";
 		};
 		105AA12A2A1BFC4D00E52448 = {
@@ -189,6 +211,7 @@
 		105AA15D2A1BFE9A00E52448 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				102B171B2A277FAE00ECBC6A /* SearchMovie */,
 				105AA19E2A1D2E8100E52448 /* DetailMovie */,
 				105AA16C2A1C121000E52448 /* UpcomingMovies */,
 				105AA15F2A1BFEED00E52448 /* ViewcodeProtocol.swift */,
@@ -263,6 +286,7 @@
 		105AA18D2A1D0A9700E52448 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				102B17182A277BB800ECBC6A /* Extensions */,
 				102B16F92A26EF2D00ECBC6A /* Resources */,
 				10AF158F2A2696610082D478 /* CustomUI */,
 			);
@@ -337,8 +361,6 @@
 			);
 			name = TMDB;
 			packageProductDependencies = (
-				105AA1742A1C33A200E52448 /* SnapKit */,
-				105AA1892A1CFAF600E52448 /* SkeletonView */,
 			);
 			productName = TMDB;
 			productReference = 105AA1332A1BFC4D00E52448 /* TMDB.app */;
@@ -369,8 +391,6 @@
 			);
 			mainGroup = 105AA12A2A1BFC4D00E52448;
 			packageReferences = (
-				105AA1732A1C33A200E52448 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				105AA1882A1CFAF600E52448 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 105AA1342A1BFC4D00E52448 /* Products */;
 			projectDirPath = "";
@@ -459,6 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				102B17212A27831300ECBC6A /* SearchMovieInteracting.swift in Sources */,
 				105AA1972A1D2DC500E52448 /* DetailMoviePresenter.swift in Sources */,
 				105AA1372A1BFC4D00E52448 /* AppDelegate.swift in Sources */,
 				102B170A2A26FFE300ECBC6A /* SearchMovieFactory.swift in Sources */,
@@ -472,15 +493,18 @@
 				105AA1A42A1D2EB900E52448 /* DetailMoviePresenting.swift in Sources */,
 				105AA1992A1D2DD600E52448 /* DetailMovieInteractor.swift in Sources */,
 				105AA1392A1BFC4D00E52448 /* SceneDelegate.swift in Sources */,
+				102B171F2A277FE100ECBC6A /* SearchMovieServicing.swift in Sources */,
 				105AA1932A1D2D8900E52448 /* DetailMovieFactory.swift in Sources */,
 				105AA19B2A1D2DF000E52448 /* DetailMovieService.swift in Sources */,
 				105AA1602A1BFEED00E52448 /* ViewcodeProtocol.swift in Sources */,
 				105AA1652A1C06D900E52448 /* BaseViewController.swift in Sources */,
+				102B171A2A277BD400ECBC6A /* Date+Extension.swift in Sources */,
 				102B17122A27009A00ECBC6A /* SearchMovieView.swift in Sources */,
 				105AA1A22A1D2EA800E52448 /* DetailMovieServicing.swift in Sources */,
 				105AA1782A1C34BA00E52448 /* UpcomingMoviesDatasource.swift in Sources */,
 				105AA1702A1C143A00E52448 /* UpcomingMoviesService.swift in Sources */,
 				105AA15A2A1BFE3D00E52448 /* UpcomingMoviesFactory.swift in Sources */,
+				102B171D2A277FC000ECBC6A /* SearchMoviePresenting.swift in Sources */,
 				105AA17A2A1C34F900E52448 /* Datasource.swift in Sources */,
 				105AA19D2A1D2E0400E52448 /* DetailMovieViewController.swift in Sources */,
 				105AA1872A1C4BEE00E52448 /* Endpoint.swift in Sources */,
@@ -717,38 +741,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		105AA1732A1C33A200E52448 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		105AA1882A1CFAF600E52448 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		105AA1742A1C33A200E52448 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 105AA1732A1C33A200E52448 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		105AA1892A1CFAF600E52448 /* SkeletonView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 105AA1882A1CFAF600E52448 /* XCRemoteSwiftPackageReference "SkeletonView" */;
-			productName = SkeletonView;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 105AA12B2A1BFC4D00E52448 /* Project object */;
 }

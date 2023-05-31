@@ -7,10 +7,11 @@
 
 import Foundation
 
-protocol SearchMoviePresenting {
-    
-}
 
 class SearchMoviePresenter: SearchMoviePresenting {
+    var viewController: SearchMovieDisplaying?
     
+    func fetchedMovies(_ movies: MoviesResponse) {
+        viewController?.fetchedMovies(movies)
+    }
 }

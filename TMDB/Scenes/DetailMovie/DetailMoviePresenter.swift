@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+final class DetailMoviePresenter: DetailMoviePresenting {
+    var viewController: DetailMovieDisplaying?
+    
+    func fetchedMovieDetails(_ movie: Movie) {
+        
+    }
+}

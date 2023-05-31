@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias MoviesResult = ((Result<MoviesResponse, Error>) -> Void)
+
 protocol UpcomingMoviesServicing {
-    func fetchUpcomingMovies(_ page: Int, completion: @escaping ((Result<MoviesResponse, Error>) -> Void))
+    func fetchUpcomingMovies(_ page: Int, completion: @escaping MoviesResult)
 }

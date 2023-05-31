@@ -7,10 +7,8 @@
 
 import Foundation
 
-protocol SearchMovieServicing {
-    
-}
-
 class SearchMovieService: SearchMovieServicing {
-    
+    func fetchSearchMovie(_ textToSearch: String, completion: @escaping MoviesResult) {
+        
+    }
 }

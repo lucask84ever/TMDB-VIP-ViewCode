@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+class DetailMovieService: DetailMovieServicing {
+    func fetchMovieTrailer() {
+        
+    }
+}

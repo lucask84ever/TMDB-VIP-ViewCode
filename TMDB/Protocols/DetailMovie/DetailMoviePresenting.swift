@@ -9,4 +9,6 @@ import Foundation
 
 protocol DetailMoviePresenting {
     var viewController: DetailMovieDisplaying? { get set }
+    
+    func fetchedMovieDetails(_ movie: Movie)
 }
