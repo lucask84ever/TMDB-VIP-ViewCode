@@ -9,7 +9,8 @@ import Foundation
 
 struct Endpoint {
     var path: String
-    var queryItems: [URLQueryItem] = [URLQueryItem(name: "api_key", value: "1f54bd990f1cdfb230adb312546d765d")]
+    var queryItems: [URLQueryItem] = [URLQueryItem(name: "api_key", value: "1f54bd990f1cdfb230adb312546d765d"),
+                                      URLQueryItem(name: "language", value: "pt-BR")]
 }
 
 extension Endpoint {

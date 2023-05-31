@@ -16,14 +16,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        
+        let tabbarController = UITabBarController()
         let navigationController = UINavigationController()
+        tabbarController.setViewControllers([navigationController], animated: true)
         let upcomingMoviesViewController = UpcomingMoviesFactory.make()
         navigationController.pushViewController(upcomingMoviesViewController,
                                                 animated: true)
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = navigationController
+        window.rootViewController = tabbarController
         self.window = window
         window.makeKeyAndVisible()
         

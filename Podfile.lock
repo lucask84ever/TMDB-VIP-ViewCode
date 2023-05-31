@@ -1,0 +1,24 @@
+PODS:
+  - SkeletonView (1.30.4)
+  - SnapKit (5.6.0)
+  - SwiftGen (6.6.2)
+
+DEPENDENCIES:
+  - SkeletonView
+  - SnapKit (~> 5.6.0)
+  - SwiftGen (~> 6.0)
+
+SPEC REPOS:
+  trunk:
+    - SkeletonView
+    - SnapKit
+    - SwiftGen
+
+SPEC CHECKSUMS:
+  SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
+
+PODFILE CHECKSUM: 4b45a143377d8d1362398d0ce607152d76dc6e76
+
+COCOAPODS: 1.11.3

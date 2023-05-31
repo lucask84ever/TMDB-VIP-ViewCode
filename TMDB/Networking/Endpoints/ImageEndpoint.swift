@@ -9,6 +9,7 @@ import Foundation
 
 struct ImageEndpoint {
     var path: String
+    let queryItems = [URLQueryItem(name: "language", value: "pt-BR")]
 }
 
 extension ImageEndpoint {

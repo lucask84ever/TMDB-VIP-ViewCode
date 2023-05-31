@@ -17,7 +17,8 @@ final class UpcomingMoviesViewController: BaseViewController<UpcomingMoviesInter
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Upcoming"
+        title = TMDBStrings.navigationBarUpcomingMovieTitle
+        navigationController?.navigationBar.isHidden = true
         rootView.backgroundColor = .white
     }
 }
