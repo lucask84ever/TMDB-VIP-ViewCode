@@ -49,7 +49,8 @@ extension UpcomingMoviesView: ViewcodeProtocol {
     
     func buildViewConstraints() {
         moviesTableview.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            $0.left.right.equalToSuperview()
         }
     }
     

@@ -10,5 +10,5 @@ import Foundation
 protocol UpcomingMoviesPresenting {
     var viewController: UpcomingMoviesDisplaying? { get set }
     
-    func fetchedMovies(_ movies: Movies)
+    func fetchedMovies(_ movies: MoviesResponse)
 }

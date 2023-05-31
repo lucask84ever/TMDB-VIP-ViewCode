@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - DisplayingProtocol
 protocol UpcomingMoviesDisplaying: AnyObject {
-    func fetchedMovies(_ movies: Movies)
+    func fetchedMovies(_ movies: MoviesResponse)
 }
 
 // MARK: - ViewController
@@ -17,14 +17,15 @@ final class UpcomingMoviesViewController: BaseViewController<UpcomingMoviesInter
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Upcoming"
+        title = TMDBStrings.navigationBarUpcomingMovieTitle
+        navigationController?.navigationBar.isHidden = true
         rootView.backgroundColor = .white
     }
 }
 
 // MARK: - Displaying
 extension UpcomingMoviesViewController: UpcomingMoviesDisplaying{
-    func fetchedMovies(_ movies: Movies) {
+    func fetchedMovies(_ movies: MoviesResponse) {
         DispatchQueue.main.async { [weak self] in
             self?.rootView.setupDatasource(movies.results)
         }

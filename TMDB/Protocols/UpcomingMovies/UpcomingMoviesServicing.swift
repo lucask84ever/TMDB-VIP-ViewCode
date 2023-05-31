@@ -8,5 +8,5 @@
 import Foundation
 
 protocol UpcomingMoviesServicing {
-    func fetchUpcomingMovies(_ page: Int, completion: @escaping ((Result<Movies, Error>) -> Void))
+    func fetchUpcomingMovies(_ page: Int, completion: @escaping ((Result<MoviesResponse, Error>) -> Void))
 }

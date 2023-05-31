@@ -9,8 +9,8 @@ import Foundation
 
 extension URLSession {
     func request<T: Codable>(url: URL?,
-                                 expecting: T.Type,
-                                 completion: @escaping(Result<T, Error>) -> Void) {
+                             expecting: T.Type,
+                             completion: @escaping(Result<T, Error>) -> Void) {
         guard let url = url else {
             completion(.failure(NSError(domain: "", code: -1)))
             return
@@ -25,7 +25,6 @@ extension URLSession {
                 }
                 return
             }
-            
             
             do {
                 let result = try JSONDecoder().decode(expecting, from: data)

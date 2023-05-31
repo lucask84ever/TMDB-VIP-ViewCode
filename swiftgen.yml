@@ -1,0 +1,8 @@
+strings:
+  inputs: TMDB/Misc/Resources/Localizable.strings
+  outputs:
+    templateName: structured-swift5
+    output: TMDB/Misc/Resources/Strings.generated.swift
+    params:
+      publicAccess: false
+      enumName: "TMDBStrings"

@@ -12,8 +12,8 @@ class MovieTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "movieCell"
     
-    lazy var moviePoster: UIImageView = {
-        let imageView = UIImageView()
+    lazy var moviePoster: ImageLoader = {
+        let imageView = ImageLoader()
         imageView.layer.cornerRadius = 8
         imageView.layer.shadowColor = UIColor.gray.cgColor
         imageView.isSkeletonable = true
@@ -45,13 +45,14 @@ class MovieTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         moviePoster.image = nil
     }
     
     // MARK: - Custom methods
     func setup(movie: Movie) {
         movieTitle.text = movie.name
-        moviePoster.downloadImage(ImageEndpoint.getImageUrl(movie.posterPath))
+        moviePoster.getImage(ImageEndpoint.getImageUrl(movie.posterPath))
     }
     
 }

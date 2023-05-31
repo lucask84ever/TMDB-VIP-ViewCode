@@ -10,7 +10,7 @@ import Foundation
 final class UpcomingMoviesPresenter: UpcomingMoviesPresenting {
     weak var viewController: UpcomingMoviesDisplaying?
     
-    func fetchedMovies(_ movies: Movies) {
+    func fetchedMovies(_ movies: MoviesResponse) {
         viewController?.fetchedMovies(movies)
     }
 }
