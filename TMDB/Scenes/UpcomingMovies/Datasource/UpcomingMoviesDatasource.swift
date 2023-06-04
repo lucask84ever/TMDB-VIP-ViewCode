@@ -54,7 +54,7 @@ extension UpcomingMoviesDatasource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndex = indexPath.row
         if items.indices.contains(selectedIndex) {
-            delegate.selectMovie(items[selectedIndex].name)
+            delegate.selectMovie(items[selectedIndex])
         }
     }
     

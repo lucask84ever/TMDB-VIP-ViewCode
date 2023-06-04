@@ -8,7 +8,7 @@
 import Foundation
 
 extension URLSession {
-    func request<T: Codable>(url: URL?,
+    func request<T: Decodable>(url: URL?,
                              expecting: T.Type,
                              completion: @escaping(Result<T, Error>) -> Void) {
         guard let url = url else {

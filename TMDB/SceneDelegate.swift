@@ -11,17 +11,11 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let tabbarController = UITabBarController()
-        let navigationController = UINavigationController()
-        tabbarController.setViewControllers([navigationController], animated: true)
-        let upcomingMoviesViewController = UpcomingMoviesFactory.make()
-        navigationController.pushViewController(upcomingMoviesViewController,
-                                                animated: true)
+        let tabbarController = Coordinator.initialSetup()
         
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = tabbarController

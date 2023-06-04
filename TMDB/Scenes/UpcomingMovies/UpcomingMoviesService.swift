@@ -8,7 +8,7 @@
 import Foundation
 
 class UpcomingMoviesService: UpcomingMoviesServicing {
-    func fetchUpcomingMovies(_ page: Int, completion: @escaping ((Result<MoviesResponse, Error>) -> Void)) {
+    func fetchUpcomingMovies(_ page: Int, completion: @escaping MoviesResult) {
         let session = URLSession.shared
         session.request(url: Endpoint.upcomingMovies.url, expecting: MoviesResponse.self) { result in
             completion(result)

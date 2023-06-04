@@ -28,4 +28,8 @@ final class UpcomingMoviesInteractor: UpcomingMoviesInteracting {
             }
         }
     }
+    
+    func showDetailedMovie(_ movie: Movie) {
+        presenter.detailedMovie(movie)
+    }
 }

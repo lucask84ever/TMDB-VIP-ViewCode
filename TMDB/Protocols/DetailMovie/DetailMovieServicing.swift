@@ -6,7 +6,11 @@
 //
 
 import Foundation
+typealias TrailerResult = (Result<VideosResponse, Error>) -> Void
+typealias MovieDetailsResult = (Result<DetailedMovie, Error>) -> Void
 
 protocol DetailMovieServicing {
-    func fetchMovieTrailer()
+    func fetchMovieTrailer(_ movieId: Int, completion: @escaping TrailerResult)
+    
+    func fetchMovieDetails(_ movieId: Int, completion: @escaping MovieDetailsResult)
 }

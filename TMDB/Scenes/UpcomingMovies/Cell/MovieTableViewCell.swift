@@ -12,10 +12,15 @@ class MovieTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "movieCell"
     
+    lazy var filmImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "film")
+        return imageView
+    }()
+    
     lazy var moviePoster: ImageLoader = {
         let imageView = ImageLoader()
         imageView.layer.cornerRadius = 8
-        imageView.layer.shadowColor = UIColor.gray.cgColor
         imageView.isSkeletonable = true
         imageView.layer.shadowRadius = 8
         return imageView
@@ -23,7 +28,9 @@ class MovieTableViewCell: UITableViewCell {
     
     lazy var movieTitle: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.textAlignment = .natural
+        label.textColor = ColorName.textColor.color
+        label.numberOfLines = 0
         return label
     }()
 
@@ -40,8 +47,8 @@ class MovieTableViewCell: UITableViewCell {
     
     // MARK: - Overrided cell methods
     override func setSelected(_ selected: Bool, animated: Bool) {
+        selectionStyle = .none
         super.setSelected(selected, animated: animated)
-        
     }
     
     override func prepareForReuse() {
@@ -62,25 +69,38 @@ extension MovieTableViewCell: ViewcodeProtocol {
     func setupLayout() {
         buildViewHierarchy()
         buildViewConstraints()
+        additionalConfig()
     }
     func buildViewHierarchy() {
+        addSubview(filmImage)
         addSubview(movieTitle)
         addSubview(moviePoster)
     }
     
     func buildViewConstraints() {
+        
+        filmImage.snp.makeConstraints {
+            $0.top.left.bottom.equalToSuperview()
+            $0.width.equalTo(32)
+        }
+        
         moviePoster.snp.makeConstraints {
             $0.height.equalTo(200)
             $0.width.equalTo(140)
             $0.top.equalToSuperview().offset(16)
-            $0.centerX.equalToSuperview()
+            $0.left.equalTo(filmImage.snp.right).offset(16)
+            $0.bottom.equalToSuperview().inset(16)
         }
 
         movieTitle.snp.makeConstraints {
-            $0.top.equalTo(self.moviePoster.snp.bottom).offset(8)
+            $0.top.equalTo(self.moviePoster)
             $0.right.equalToSuperview().offset(-8)
-            $0.left.equalToSuperview().offset(8)
+            $0.left.equalTo(moviePoster.snp.right).offset(8)
             $0.bottom.equalToSuperview().offset(-8)
         }
+    }
+    
+    func additionalConfig() {
+        backgroundColor = ColorName.backgroundColor.color
     }
 }

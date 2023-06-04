@@ -9,10 +9,12 @@ import UIKit
 import SnapKit
 
 protocol UpcomingMoviesDelegate {
-    func selectMovie(_ movieName: String)
+    func selectMovie(_ movie: Movie)
 }
 
 final class UpcomingMoviesView: UIView {
+    
+    var selectedMovie: ((Movie) -> Void)?
     
     let stack: UIStackView = {
         let stack = UIStackView()
@@ -25,6 +27,7 @@ final class UpcomingMoviesView: UIView {
     // MARK: - View Items
     lazy var moviesTableview: UITableView = {
         let tableview = UITableView()
+        tableview.separatorColor = .black
         return tableview
     }()
     
@@ -60,8 +63,8 @@ extension UpcomingMoviesView: ViewcodeProtocol {
 }
 
 extension UpcomingMoviesView: UpcomingMoviesDelegate {
-    func selectMovie(_ movieName: String) {
-        print(movieName)
+    func selectMovie(_ movie: Movie) {
+        selectedMovie?(movie)
     }
 }
 

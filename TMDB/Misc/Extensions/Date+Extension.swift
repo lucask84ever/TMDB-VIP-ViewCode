@@ -10,7 +10,8 @@ import Foundation
 public enum DateFormat: String {
     
     /// `dd-MM-yyyy` format
-    case ddMMyyyyHyphen = "dd-MM-yyyy"
+    case ddMMyyyyBars = "dd/MM/yyyy"
+    case yyyyMMddHyphen = "yyyy-MM-dd"
     
     /// `yyyy-MM-dd HH:mm:ss` format
     case yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss"

@@ -9,6 +9,8 @@ import Foundation
 
 protocol UpcomingMoviesPresenting {
     var viewController: UpcomingMoviesDisplaying? { get set }
-    
+    var router: UpcomingMoviesRouting { get set }
     func fetchedMovies(_ movies: MoviesResponse)
+    
+    func detailedMovie(_ movie: Movie)
 }
