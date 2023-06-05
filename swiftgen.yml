@@ -6,3 +6,9 @@ strings:
     params:
       publicAccess: false
       enumName: "TMDBStrings"
+
+colors:
+  inputs: TMDB/Misc/Resources/Colors.txt
+  outputs:
+    templateName: swift5
+    output: TMDB/Misc/Resources/Colors.generated.swift

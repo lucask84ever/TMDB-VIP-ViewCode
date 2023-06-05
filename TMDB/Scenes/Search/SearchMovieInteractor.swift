@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol SearchMovieInteracting {
-    
-}
-
 class SearchMovieInteractor: SearchMovieInteracting {
     
     let presenter: SearchMoviePresenting

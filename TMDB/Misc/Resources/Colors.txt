@@ -1,0 +1,6 @@
+
+# Background
+backgroundColor     : #242A32FF
+
+# Text Color
+textColor           : #FFFFFFFF

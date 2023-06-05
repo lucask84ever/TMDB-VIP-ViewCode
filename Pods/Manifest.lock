@@ -2,23 +2,27 @@ PODS:
   - SkeletonView (1.30.4)
   - SnapKit (5.6.0)
   - SwiftGen (6.6.2)
+  - youtube-ios-player-helper (1.0.4)
 
 DEPENDENCIES:
   - SkeletonView
   - SnapKit (~> 5.6.0)
   - SwiftGen (~> 6.0)
+  - youtube-ios-player-helper (~> 1.0.4)
 
 SPEC REPOS:
   trunk:
     - SkeletonView
     - SnapKit
     - SwiftGen
+    - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
+  youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
 
-PODFILE CHECKSUM: 4b45a143377d8d1362398d0ce607152d76dc6e76
+PODFILE CHECKSUM: 3535df89274a3d164bedb5c54ce70254b7e00e73
 
 COCOAPODS: 1.11.3

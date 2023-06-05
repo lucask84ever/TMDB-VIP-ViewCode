@@ -8,4 +8,5 @@
 import Foundation
 protocol UpcomingMoviesInteracting {
     func fetchUpcomingMovies(_ page: Int)
+    func showDetailedMovie(_ movie: Movie)
 }

@@ -10,12 +10,16 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum TMDBStrings {
-  /// Lançamentos
-  internal static let navigationBarUpcomingMovieTitle = TMDBStrings.tr("Localizable", "NavigationBarUpcomingMovieTitle", fallback: "Lançamentos")
+  /// Duração
+  internal static let detailMovieDuration = TMDBStrings.tr("Localizable", "DetailMovieDuration", fallback: "Duração")
+  /// Lançamento
+  internal static let detailMovieReleaseYear = TMDBStrings.tr("Localizable", "DetailMovieReleaseYear", fallback: "Lançamento")
+  /// Detalhes
+  internal static let navigationBarDetailMovieTitle = TMDBStrings.tr("Localizable", "NavigationBarDetailMovieTitle", fallback: "Detalhes")
   /// Buscar filme
   internal static let tabbarSearchMovieTitle = TMDBStrings.tr("Localizable", "TabbarSearchMovieTitle", fallback: "Buscar filme")
-  /// Lançamentos
-  internal static let tabbarUpcomingMovieTitle = TMDBStrings.tr("Localizable", "TabbarUpcomingMovieTitle", fallback: "Lançamentos")
+  /// Em breve
+  internal static let tabbarUpcomingMovieTitle = TMDBStrings.tr("Localizable", "TabbarUpcomingMovieTitle", fallback: "Em breve")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

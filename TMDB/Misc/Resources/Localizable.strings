@@ -1,4 +1,8 @@
 // MARK: Upcoming movies
-"NavigationBarUpcomingMovieTitle" = "Lançamentos";
-"TabbarUpcomingMovieTitle" = "Lançamentos";
+"NavigationBarDetailMovieTitle" = "Detalhes";
+"TabbarUpcomingMovieTitle" = "Em breve";
 "TabbarSearchMovieTitle" = "Buscar filme";
+
+// MARK: Detail
+"DetailMovieReleaseYear" = "Lançamento";
+"DetailMovieDuration" = "Duração";
