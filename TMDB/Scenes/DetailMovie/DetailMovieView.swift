@@ -207,7 +207,7 @@ extension DetailMovieView {
     }
     
     func setOverview(_ overview: String) {
-        movieOverviewLabel.text = overview
+        movieOverviewLabel.text = !overview.isEmpty ? overview : "Indisponível atualmente"
     }
     
     func setPosterImage(_ posterImageUrl: String) {

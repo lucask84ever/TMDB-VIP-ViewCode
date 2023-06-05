@@ -12,12 +12,6 @@ class MovieTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "movieCell"
     
-    lazy var filmImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "film")
-        return imageView
-    }()
-    
     lazy var moviePoster: ImageLoader = {
         let imageView = ImageLoader()
         imageView.layer.cornerRadius = 8
@@ -72,23 +66,17 @@ extension MovieTableViewCell: ViewcodeProtocol {
         additionalConfig()
     }
     func buildViewHierarchy() {
-        addSubview(filmImage)
         addSubview(movieTitle)
         addSubview(moviePoster)
     }
     
     func buildViewConstraints() {
         
-        filmImage.snp.makeConstraints {
-            $0.top.left.bottom.equalToSuperview()
-            $0.width.equalTo(32)
-        }
-        
         moviePoster.snp.makeConstraints {
             $0.height.equalTo(200)
             $0.width.equalTo(140)
             $0.top.equalToSuperview().offset(16)
-            $0.left.equalTo(filmImage.snp.right).offset(16)
+            $0.left.equalToSuperview().offset(16)
             $0.bottom.equalToSuperview().inset(16)
         }
 
