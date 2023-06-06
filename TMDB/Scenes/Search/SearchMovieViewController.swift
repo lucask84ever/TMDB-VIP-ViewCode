@@ -8,14 +8,12 @@
 import UIKit
 
 protocol SearchMovieDisplaying {
-    func fetchedMovies(_ movies: MoviesResponse)
+    func fetchedMovies(_ searchedName: String,_ movies: MoviesResponse)
 }
 
 class SearchMovieViewController: BaseViewController<SearchMovieInteracting, SearchMovieView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 }

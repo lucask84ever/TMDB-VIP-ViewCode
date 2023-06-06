@@ -21,9 +21,18 @@ internal struct ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#242a32"></span>
   /// Alpha: 100% <br/> (0x242a32ff)
   internal static let backgroundColor = ColorName(rgbaValue: 0x242a32ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#0296e5"></span>
+  /// Alpha: 100% <br/> (0x0296e5ff)
+  internal static let tabBarLine = ColorName(rgbaValue: 0x0296e5ff)
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ffffff"></span>
   /// Alpha: 100% <br/> (0xffffffff)
   internal static let textColor = ColorName(rgbaValue: 0xffffffff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#3a3f47"></span>
+  /// Alpha: 100% <br/> (0x3a3f47ff)
+  internal static let textfieldBackground = ColorName(rgbaValue: 0x3a3f47ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#67686d"></span>
+  /// Alpha: 100% <br/> (0x67686dff)
+  internal static let textfieldTextIcon = ColorName(rgbaValue: 0x67686dff)
 }
 // swiftlint:enable identifier_name line_length type_body_length
 

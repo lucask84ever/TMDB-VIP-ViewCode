@@ -1,6 +1,13 @@
 
 # Background
-backgroundColor     : #242A32FF
+backgroundColor      : #242A32FF
 
 # Text Color
-textColor           : #FFFFFFFF
+textColor            : #FFFFFFFF
+
+# Textfield
+textfieldBackground  : #3A3F47FF
+textfieldTextIcon    : #67686DFF
+
+# Tabbarline
+tabBarLine           : #0296E5FF
