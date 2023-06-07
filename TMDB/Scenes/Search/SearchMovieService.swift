@@ -13,7 +13,7 @@ protocol SearchMovieServicing {
     func fetchSearchMovie(_ textToSearch: String, completion: @escaping MoviesResult)
 }
 
-class SearchMovieService: SearchMovieServicing {
+final class SearchMovieService: SearchMovieServicing {
     func fetchSearchMovie(_ textToSearch: String, completion: @escaping MoviesResult) {
         
     }

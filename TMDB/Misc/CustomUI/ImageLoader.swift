@@ -8,7 +8,7 @@
 import SkeletonView
 import UIKit.UIImageView
 
-class ImageLoader: UIImageView {
+final class ImageLoader: UIImageView {
     // Properties
     private var imageCache: NSCache<NSString, AnyObject>
     

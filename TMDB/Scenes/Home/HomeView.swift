@@ -114,7 +114,7 @@ final class HomeView: UIView {
     }
 }
 
-extension HomeView: ViewcodeProtocol {
+extension HomeView: ViewCodeProtocol {
     func buildViewHierarchy() {
         addSubview(wantToWatchLabel)
         addSubview(searchMovieTextfield)

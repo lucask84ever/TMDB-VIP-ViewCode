@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class BaseViewController<Interactor, V: UIView>: UIViewController, ViewcodeProtocol {
+open class BaseViewController<Interactor, V: UIView>: UIViewController, ViewCodeProtocol {
     // MARK: - Properties
 
     public let interactor: Interactor

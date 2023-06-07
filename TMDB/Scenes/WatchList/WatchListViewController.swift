@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WatchListViewController: BaseViewController<WatchListInteractiog, WatchListView> {
+final class WatchListViewController: BaseViewController<WatchListInteractiog, WatchListView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

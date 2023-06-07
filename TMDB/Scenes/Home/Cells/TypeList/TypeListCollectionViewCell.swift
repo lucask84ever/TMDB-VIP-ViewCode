@@ -27,7 +27,7 @@ enum TypeListEnum: CaseIterable {
     }
 }
 
-class TypeListCollectionViewCell: UICollectionViewCell {
+final class TypeListCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "typeMovieList"
     
@@ -74,7 +74,7 @@ class TypeListCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension TypeListCollectionViewCell: ViewcodeProtocol {
+extension TypeListCollectionViewCell: ViewCodeProtocol {
     func buildViewHierarchy() {
         addSubview(textLabel)
         addSubview(selectionLine)

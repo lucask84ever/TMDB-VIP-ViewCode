@@ -15,7 +15,7 @@ protocol SearchMoviePresenting {
 }
 
 
-class SearchMoviePresenter: SearchMoviePresenting {
+final class SearchMoviePresenter: SearchMoviePresenting {
     var viewController: SearchMovieDisplaying?
     
     func fetchedMovies(_ movies: MoviesResponse) {

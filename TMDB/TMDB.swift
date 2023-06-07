@@ -11,7 +11,7 @@ protocol ParentRouting {
     static func initialSetup() -> UITabBarController
 }
 
-class TMDB: ParentRouting {
+final class TMDB: ParentRouting {
     static func initialSetup() -> UITabBarController {
         let tabbar = UITabBarController()
         setupTabBar(tabbar.tabBar)

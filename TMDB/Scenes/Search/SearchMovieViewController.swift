@@ -11,7 +11,7 @@ protocol SearchMovieDisplaying {
     func fetchedMovies(_ searchedName: String,_ movies: MoviesResponse)
 }
 
-class SearchMovieViewController: BaseViewController<SearchMovieInteracting, SearchMovieView> {
+final class SearchMovieViewController: BaseViewController<SearchMovieInteracting, SearchMovieView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

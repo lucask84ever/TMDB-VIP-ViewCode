@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WatchListView: UIView {
+final class WatchListView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -25,7 +25,7 @@ class WatchListView: UIView {
     }
 }
 
-extension WatchListView: ViewcodeProtocol {
+extension WatchListView: ViewCodeProtocol {
     func buildViewHierarchy() {
         
     }

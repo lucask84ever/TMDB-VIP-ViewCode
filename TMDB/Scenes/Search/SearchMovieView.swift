@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchMovieView: UIView {
+final class SearchMovieView: UIView {
     
     internal enum LayoutContraints {
         static let imageHeightAndWidth: CGFloat = 76
@@ -36,7 +36,7 @@ class SearchMovieView: UIView {
     }
 }
 
-extension SearchMovieView: ViewcodeProtocol {
+extension SearchMovieView: ViewCodeProtocol {
     func buildViewHierarchy() {
         addSubview(emptyListImage)
     }
