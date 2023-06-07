@@ -25,6 +25,9 @@ final class HomeView: UIView {
     var typeMovieListDelegate: TypeListDelegate?
     var typeMovieListDataSource: TypeListDataSource?
     
+    var bottomMoviesDelegate: TypeMovieDelegate?
+    var bottomMoviesDataSource: TypeMovieDataSource?
+    
     private lazy var wantToWatchLabel: UILabel = {
         let label = UILabel()
         label.text = TMDBStrings.Home.Label.wantToWatch
@@ -72,11 +75,21 @@ final class HomeView: UIView {
         return collectionView
     }()
     
+    private lazy var bottomMoviesCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.backgroundColor = ColorName.backgroundColor.color
+        collectionView.showsVerticalScrollIndicator = false
+        return collectionView
+    }()
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
-//        setupTypeMovieLayout()
+        setupTypeMovieLayout()
+        setupBottomMoviesCollectionView()
     }
     
     @available(*, unavailable)
@@ -98,7 +111,7 @@ final class HomeView: UIView {
             self?.topMoviesCollectionView.delegate = self?.topRatedDelegate
             self?.topMoviesCollectionView.dataSource = self?.topRatedDataSource
             self?.topMoviesCollectionView.reloadData()
-            self?.setupTypeMovieLayout()
+            self?.bottomMoviesDataSource?.updateMovieType(movies)
         }
     }
     
@@ -106,6 +119,12 @@ final class HomeView: UIView {
         typeMovieListDelegate = TypeListDelegate(collectionView: moviesListCollectionView, delegate: self)
         typeMovieListDataSource = TypeListDataSource(collectionView: moviesListCollectionView)
         moviesListCollectionView.reloadData()
+    }
+    
+    private func setupBottomMoviesCollectionView() {
+        bottomMoviesDelegate = TypeMovieDelegate(items: [], collectionView: bottomMoviesCollectionView)
+        bottomMoviesDataSource = TypeMovieDataSource(items: [], collectionView: bottomMoviesCollectionView)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -120,6 +139,7 @@ extension HomeView: ViewCodeProtocol {
         addSubview(searchMovieTextfield)
         addSubview(topMoviesCollectionView)
         addSubview(moviesListCollectionView)
+        addSubview(bottomMoviesCollectionView)
     }
     
     func buildViewConstraints() {
@@ -147,17 +167,17 @@ extension HomeView: ViewCodeProtocol {
             $0.height.equalTo(LayoutConstants.movieListHeight)
             $0.top.equalTo(topMoviesCollectionView.snp.bottom).offset(LayoutConstants.baseDistance)
         }
+        
+        bottomMoviesCollectionView.snp.makeConstraints {
+            $0.top.equalTo(moviesListCollectionView.snp.bottom).offset(LayoutConstants.baseDistance)
+            $0.leading.trailing.equalTo(moviesListCollectionView)
+            $0.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
     }
     
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
-//        let tapOutside = UITapGestureRecognizer(target: self, action: #selector(touchOutside))
-//        self.addGestureRecognizer(tapOutside)
-    }
-    
-    @objc
-    private func touchOutside() {
-        endEditing(true)
     }
 }
 

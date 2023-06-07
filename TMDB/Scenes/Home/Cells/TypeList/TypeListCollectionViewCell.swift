@@ -29,7 +29,7 @@ enum TypeListEnum: CaseIterable {
 
 final class TypeListCollectionViewCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "typeMovieList"
+    static let reuseIdentifier = String(describing: TypeListCollectionViewCell.self)
     
     override var isSelected: Bool {
         didSet {

@@ -58,6 +58,7 @@
 		105AA18C2A1D0A7300E52448 /* ImageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA18B2A1D0A7200E52448 /* ImageEndpoint.swift */; };
 		108523692A30FE8000FC4FD4 /* TypeMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108523682A30FE8000FC4FD4 /* TypeMovieCollectionViewCell.swift */; };
 		1085236B2A30FFA100FC4FD4 /* TypeMovieDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085236A2A30FFA100FC4FD4 /* TypeMovieDelegate.swift */; };
+		1085236D2A3102D100FC4FD4 /* TypeMovieDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1085236C2A3102D100FC4FD4 /* TypeMovieDataSource.swift */; };
 		10AF15912A2696750082D478 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AF15902A2696750082D478 /* ImageLoader.swift */; };
 		EC73B78C9E4D6FD9254EE6C7 /* Pods_TMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B440D38331C1C8C058258C56 /* Pods_TMDB.framework */; };
 /* End PBXBuildFile section */
@@ -116,6 +117,7 @@
 		105AA18B2A1D0A7200E52448 /* ImageEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoint.swift; sourceTree = "<group>"; };
 		108523682A30FE8000FC4FD4 /* TypeMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeMovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		1085236A2A30FFA100FC4FD4 /* TypeMovieDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeMovieDelegate.swift; sourceTree = "<group>"; };
+		1085236C2A3102D100FC4FD4 /* TypeMovieDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeMovieDataSource.swift; sourceTree = "<group>"; };
 		10AF15902A2696750082D478 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		64F376B7E260D80BD996661C /* Pods-TMDB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDB.release.xcconfig"; path = "Target Support Files/Pods-TMDB/Pods-TMDB.release.xcconfig"; sourceTree = "<group>"; };
 		B440D38331C1C8C058258C56 /* Pods_TMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -335,6 +337,7 @@
 			children = (
 				108523682A30FE8000FC4FD4 /* TypeMovieCollectionViewCell.swift */,
 				1085236A2A30FFA100FC4FD4 /* TypeMovieDelegate.swift */,
+				1085236C2A3102D100FC4FD4 /* TypeMovieDataSource.swift */,
 			);
 			path = TypeMovieCell;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				104F47FC2A2ED22000DFF113 /* WatchListService.swift in Sources */,
 				102B170C2A27006F00ECBC6A /* SearchMovieInteractor.swift in Sources */,
 				102B16FD2A26EFED00ECBC6A /* Strings.generated.swift in Sources */,
+				1085236D2A3102D100FC4FD4 /* TypeMovieDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
