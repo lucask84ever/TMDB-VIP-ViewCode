@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TopRatedMoviesDatasource: NSObject {
+final class TopRatedMoviesDataSource: NSObject {
     weak var collectionView: UICollectionView?
     var items: [Movie]
     
@@ -29,7 +29,7 @@ final class TopRatedMoviesDatasource: NSObject {
     }
 }
 
-extension TopRatedMoviesDatasource: UICollectionViewDataSource {
+extension TopRatedMoviesDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }

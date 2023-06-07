@@ -9,17 +9,21 @@ import SnapKit
 import UIKit
 
 final class HomeView: UIView {
-    
     internal enum LayoutConstants {
         static let labelHeight: CGFloat = 28
         static let textfieldHeight: CGFloat = 48
         static let baseDistance: CGFloat = 16
+        static let cornerRadius: CGFloat = 16
         static let topTableViewHeight: CGFloat = 250
         static let topRatedSpaceBetweenCell: CGFloat = 32
+        static let movieListHeight: CGFloat = 42
     }
     
-    var topRatedDataSource: TopRatedMoviesDatasource?
+    var topRatedDataSource: TopRatedMoviesDataSource?
     var topRatedDelegate: TopRatedMoviesDelegate?
+    
+    var typeMovieListDelegate: TypeListDelegate?
+    var typeMovieListDataSource: TypeListDataSource?
     
     private lazy var wantToWatchLabel: UILabel = {
         let label = UILabel()
@@ -30,17 +34,22 @@ final class HomeView: UIView {
     
     private lazy var searchMovieTextfield: CustomTextfield = {
         let textfield = CustomTextfield()
-        let lensImage = UIImageView(image: UIImage(named: "search"))
-        textfield.layer.cornerRadius = 16
-        lensImage.tintColor = ColorName.textfieldTextIcon.color
+        if let image = UIImage(named: "search"), let ciImage = CIImage(image: image) {
+            
+            let lensImage = UIImageView(image: image)
+            lensImage.tintColor = ColorName.textfieldTextIcon.color
+            lensImage.transform = CGAffineTransform(scaleX: -1, y: 1)
+            textfield.rightView = lensImage
+            
+            textfield.rightViewMode = .always
+        }
+        textfield.layer.cornerRadius = LayoutConstants.cornerRadius
         textfield.textColor = ColorName.textfieldTextIcon.color
         let attributedPlaceholder = NSAttributedString(string: TMDBStrings.Home.Textfield.searchPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: ColorName.textfieldTextIcon.color])
         textfield.attributedPlaceholder = attributedPlaceholder
         textfield.backgroundColor = ColorName.textfieldBackground.color
         textfield.leftView = UIView()
         textfield.leftViewMode = .always
-        textfield.rightView = lensImage
-        textfield.rightViewMode = .always
         return textfield
     }()
     
@@ -53,10 +62,21 @@ final class HomeView: UIView {
         return collectionView
     }()
     
+    private lazy var moviesListCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.backgroundColor = ColorName.backgroundColor.color
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isScrollEnabled = false
+        return collectionView
+    }()
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
+//        setupTypeMovieLayout()
     }
     
     @available(*, unavailable)
@@ -71,14 +91,26 @@ final class HomeView: UIView {
     }
     
     private func setupTopRatedCollectionView(_ movies: [Movie]) {
-        topRatedDataSource = TopRatedMoviesDatasource(collectionView: topMoviesCollectionView, items: movies)
+        topRatedDataSource = TopRatedMoviesDataSource(collectionView: topMoviesCollectionView, items: movies)
         
         topRatedDelegate = TopRatedMoviesDelegate(collectionView: topMoviesCollectionView, delegate: self, items: movies)
         DispatchQueue.main.async { [weak self] in
             self?.topMoviesCollectionView.delegate = self?.topRatedDelegate
             self?.topMoviesCollectionView.dataSource = self?.topRatedDataSource
             self?.topMoviesCollectionView.reloadData()
+            self?.setupTypeMovieLayout()
         }
+    }
+    
+    private func setupTypeMovieLayout() {
+        typeMovieListDelegate = TypeListDelegate(collectionView: moviesListCollectionView, delegate: self)
+        typeMovieListDataSource = TypeListDataSource(collectionView: moviesListCollectionView)
+        moviesListCollectionView.reloadData()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        endEditing(true)
     }
 }
 
@@ -87,6 +119,7 @@ extension HomeView: ViewcodeProtocol {
         addSubview(wantToWatchLabel)
         addSubview(searchMovieTextfield)
         addSubview(topMoviesCollectionView)
+        addSubview(moviesListCollectionView)
     }
     
     func buildViewConstraints() {
@@ -108,12 +141,18 @@ extension HomeView: ViewcodeProtocol {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(LayoutConstants.topTableViewHeight)
         }
+        
+        moviesListCollectionView.snp.makeConstraints {
+            $0.leading.trailing.equalTo(searchMovieTextfield)
+            $0.height.equalTo(LayoutConstants.movieListHeight)
+            $0.top.equalTo(topMoviesCollectionView.snp.bottom).offset(LayoutConstants.baseDistance)
+        }
     }
     
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
-        let tapOutside = UITapGestureRecognizer(target: self, action: #selector(touchOutside))
-        self.addGestureRecognizer(tapOutside)
+//        let tapOutside = UITapGestureRecognizer(target: self, action: #selector(touchOutside))
+//        self.addGestureRecognizer(tapOutside)
     }
     
     @objc
@@ -131,5 +170,11 @@ extension HomeView {
 extension HomeView: HomeTopRatedMoviesDelegate {
     func selectMovie(_ movie: Movie) {
         print(movie.name)
+    }
+}
+
+extension HomeView: HomeMovieListDelegate {
+    func selectedType(_ listType: TypeListEnum) {
+        print(listType.text)
     }
 }

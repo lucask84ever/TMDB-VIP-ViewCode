@@ -17,7 +17,7 @@ final class TopRatedMoviesDelegate: NSObject {
         static let zero: CGFloat = 0
     }
     
-    weak var collectionView: UICollectionView?
+    var collectionView: UICollectionView?
     var delegate: HomeTopRatedMoviesDelegate
     var items: [Movie]
     
@@ -28,6 +28,9 @@ final class TopRatedMoviesDelegate: NSObject {
         self.delegate = delegate
         self.items = items
         super.init()
+        DispatchQueue.main.async {
+            self.collectionView?.delegate = self
+        }
     }
 }
 

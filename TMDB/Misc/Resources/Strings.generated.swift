@@ -25,6 +25,16 @@ internal enum TMDBStrings {
       /// What do you want to watch?
       internal static let wantToWatch = TMDBStrings.tr("Localizable", "Home.Label.WantToWatch", fallback: "What do you want to watch?")
     }
+    internal enum ListMovie {
+      /// Now playing
+      internal static let nowPlaying = TMDBStrings.tr("Localizable", "Home.ListMovie.NowPlaying", fallback: "Now playing")
+      /// Popular
+      internal static let popular = TMDBStrings.tr("Localizable", "Home.ListMovie.Popular", fallback: "Popular")
+      /// Top rated
+      internal static let topRated = TMDBStrings.tr("Localizable", "Home.ListMovie.TopRated", fallback: "Top rated")
+      /// Upcoming
+      internal static let upcoming = TMDBStrings.tr("Localizable", "Home.ListMovie.Upcoming", fallback: "Upcoming")
+    }
     internal enum Textfield {
       /// Search
       internal static let searchPlaceHolder = TMDBStrings.tr("Localizable", "Home.Textfield.SearchPlaceHolder", fallback: "Search")

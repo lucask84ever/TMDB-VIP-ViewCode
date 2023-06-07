@@ -15,3 +15,9 @@
 // MARK: Home
 "Home.Label.WantToWatch" = "What do you want to watch?";
 "Home.Textfield.SearchPlaceHolder" = "Search";
+
+// MARK: List Movies
+"Home.ListMovie.NowPlaying" = "Now playing";
+"Home.ListMovie.Upcoming" = "Upcoming";
+"Home.ListMovie.TopRated" = "Top rated";
+"Home.ListMovie.Popular" = "Popular";
