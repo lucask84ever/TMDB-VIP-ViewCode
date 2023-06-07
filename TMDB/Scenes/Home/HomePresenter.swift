@@ -9,8 +9,14 @@ import Foundation
 
 protocol HomePresenting {
     var viewController: HomeViewController? { get set }
+    
+    func fetchTopRatedMovies(_ movies: [Movie])
 }
 
 final class HomePresenter: HomePresenting {
     weak var viewController: HomeViewController?
+    
+    func fetchTopRatedMovies(_ movies: [Movie]) {
+        viewController?.fetchTopRatedMovie(movies)
+    }
 }

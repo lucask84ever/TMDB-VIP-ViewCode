@@ -12,7 +12,7 @@ class HomeFactory {
     static func make() -> HomeViewController {
         let service = HomeService()
         let presenter = HomePresenter()
-        let interactor = HomeInteractor(servicing: service, presenter: presenter)
+        let interactor = HomeInteractor(service: service, presenter: presenter)
         let viewController = HomeViewController(interactor: interactor)
         
         viewController.title = TMDBStrings.Tabbar.home

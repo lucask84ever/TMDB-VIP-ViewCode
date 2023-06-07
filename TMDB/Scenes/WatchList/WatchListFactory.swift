@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 class WatchListFactory {
     static func make() -> WatchListViewController {
         let service = WatchListService()

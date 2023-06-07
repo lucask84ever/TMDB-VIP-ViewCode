@@ -8,13 +8,11 @@
 import UIKit
 
 enum Route {
-    case back
     case detail(Movie)
 }
 
 protocol HomeRouting {
     var viewController: UIViewController? { get set }
-    
     func routeTo(_ route: Route)
 }
 

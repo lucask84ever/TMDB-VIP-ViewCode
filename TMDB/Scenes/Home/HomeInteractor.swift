@@ -8,17 +8,31 @@
 import Foundation
 
 protocol HomeInteracting {
-    var servicing: HomeServicing { get set }
+    var service: HomeServicing { get set }
     var presenter: HomePresenting { get set }
+    
+    func fetchTopRatedMovies()
 }
 
 final class HomeInteractor: HomeInteracting {
-    var servicing: HomeServicing
+    var service: HomeServicing
     
     var presenter: HomePresenting
     
-    init(servicing: HomeServicing, presenter: HomePresenting) {
-        self.servicing = servicing
+    init(service: HomeServicing, presenter: HomePresenting) {
+        self.service = service
         self.presenter = presenter
     }
+    
+    func fetchTopRatedMovies() {
+        service.fetchMovies(.topRatedMovies, 1) { [weak self] result in
+            switch result {
+            case .success(let movieResponse):
+                self?.presenter.fetchTopRatedMovies(movieResponse.results)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
 }

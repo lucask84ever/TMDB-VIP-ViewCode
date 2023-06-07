@@ -13,17 +13,22 @@ final class HomeView: UIView {
     internal enum LayoutConstants {
         static let labelHeight: CGFloat = 28
         static let textfieldHeight: CGFloat = 48
-        static let distanceLabelTextfield: CGFloat = 16
+        static let baseDistance: CGFloat = 16
+        static let topTableViewHeight: CGFloat = 250
+        static let topRatedSpaceBetweenCell: CGFloat = 32
     }
     
-    lazy var wantToWatchLabel: UILabel = {
+    var topRatedDataSource: TopRatedMoviesDatasource?
+    var topRatedDelegate: TopRatedMoviesDelegate?
+    
+    private lazy var wantToWatchLabel: UILabel = {
         let label = UILabel()
         label.text = TMDBStrings.Home.Label.wantToWatch
         label.textColor = ColorName.textColor.color
         return label
     }()
     
-    lazy var searchMovieTextfield: CustomTextfield = {
+    private lazy var searchMovieTextfield: CustomTextfield = {
         let textfield = CustomTextfield()
         let lensImage = UIImageView(image: UIImage(named: "search"))
         textfield.layer.cornerRadius = 16
@@ -37,6 +42,15 @@ final class HomeView: UIView {
         textfield.rightView = lensImage
         textfield.rightViewMode = .always
         return textfield
+    }()
+    
+    private lazy var topMoviesCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.backgroundColor = ColorName.backgroundColor.color
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
     }()
     
     // MARK: - Init
@@ -55,12 +69,24 @@ final class HomeView: UIView {
         buildViewConstraints()
         additionalConfig()
     }
+    
+    private func setupTopRatedCollectionView(_ movies: [Movie]) {
+        topRatedDataSource = TopRatedMoviesDatasource(collectionView: topMoviesCollectionView, items: movies)
+        
+        topRatedDelegate = TopRatedMoviesDelegate(collectionView: topMoviesCollectionView, delegate: self, items: movies)
+        DispatchQueue.main.async { [weak self] in
+            self?.topMoviesCollectionView.delegate = self?.topRatedDelegate
+            self?.topMoviesCollectionView.dataSource = self?.topRatedDataSource
+            self?.topMoviesCollectionView.reloadData()
+        }
+    }
 }
 
 extension HomeView: ViewcodeProtocol {
     func buildViewHierarchy() {
         addSubview(wantToWatchLabel)
         addSubview(searchMovieTextfield)
+        addSubview(topMoviesCollectionView)
     }
     
     func buildViewConstraints() {
@@ -74,7 +100,13 @@ extension HomeView: ViewcodeProtocol {
         searchMovieTextfield.snp.makeConstraints {
             $0.leading.trailing.equalTo(wantToWatchLabel)
             $0.height.equalTo(LayoutConstants.textfieldHeight)
-            $0.top.equalTo(wantToWatchLabel.snp.bottom).offset(LayoutConstants.distanceLabelTextfield)
+            $0.top.equalTo(wantToWatchLabel.snp.bottom).offset(LayoutConstants.baseDistance)
+        }
+        
+        topMoviesCollectionView.snp.makeConstraints {
+            $0.top.equalTo(searchMovieTextfield.snp.bottom).offset(LayoutConstants.baseDistance)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(LayoutConstants.topTableViewHeight)
         }
     }
     
@@ -87,5 +119,17 @@ extension HomeView: ViewcodeProtocol {
     @objc
     private func touchOutside() {
         endEditing(true)
+    }
+}
+
+extension HomeView {
+    func setTopRated(_ movies: [Movie]) {
+        setupTopRatedCollectionView(movies)
+    }
+}
+
+extension HomeView: HomeTopRatedMoviesDelegate {
+    func selectMovie(_ movie: Movie) {
+        print(movie.name)
     }
 }

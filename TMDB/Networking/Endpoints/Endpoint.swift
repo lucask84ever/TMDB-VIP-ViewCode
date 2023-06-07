@@ -33,6 +33,10 @@ extension Endpoint {
         Endpoint(path: "movie/upcoming")
     }
     
+    static var topRatedMovies: Self {
+        Endpoint(path: "movie/top_rated")
+    }
+    
     static func trailers(_ id: Int) -> Self {
         Endpoint(path: "movie/\(id)/videos")
     }
