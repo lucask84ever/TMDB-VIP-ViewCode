@@ -7,11 +7,20 @@
 
 import Foundation
 
+protocol SearchMoviePresenting {
+    
+    var viewController: SearchMovieDisplaying? { get set }
+    var router: SearchMovieRouting? { get set }
+    
+    func fetchedMovies(_ movies: MoviesResponse)
+}
 
-class SearchMoviePresenter: SearchMoviePresenting {
+
+final class SearchMoviePresenter: SearchMoviePresenting {
     var viewController: SearchMovieDisplaying?
+    var router: SearchMovieRouting?
     
     func fetchedMovies(_ movies: MoviesResponse) {
-        viewController?.fetchedMovies(movies)
+        viewController?.fetchedMovies("", movies)
     }
 }

@@ -20,6 +20,34 @@ internal enum TMDBStrings {
   internal static let tabbarSearchMovieTitle = TMDBStrings.tr("Localizable", "TabbarSearchMovieTitle", fallback: "Buscar filme")
   /// Em breve
   internal static let tabbarUpcomingMovieTitle = TMDBStrings.tr("Localizable", "TabbarUpcomingMovieTitle", fallback: "Em breve")
+  internal enum Home {
+    internal enum Label {
+      /// What do you want to watch?
+      internal static let wantToWatch = TMDBStrings.tr("Localizable", "Home.Label.WantToWatch", fallback: "What do you want to watch?")
+    }
+    internal enum ListMovie {
+      /// Now playing
+      internal static let nowPlaying = TMDBStrings.tr("Localizable", "Home.ListMovie.NowPlaying", fallback: "Now playing")
+      /// Popular
+      internal static let popular = TMDBStrings.tr("Localizable", "Home.ListMovie.Popular", fallback: "Popular")
+      /// Top rated
+      internal static let topRated = TMDBStrings.tr("Localizable", "Home.ListMovie.TopRated", fallback: "Top rated")
+      /// Upcoming
+      internal static let upcoming = TMDBStrings.tr("Localizable", "Home.ListMovie.Upcoming", fallback: "Upcoming")
+    }
+    internal enum Textfield {
+      /// Search
+      internal static let searchPlaceHolder = TMDBStrings.tr("Localizable", "Home.Textfield.SearchPlaceHolder", fallback: "Search")
+    }
+  }
+  internal enum Tabbar {
+    /// Home
+    internal static let home = TMDBStrings.tr("Localizable", "Tabbar.home", fallback: "Home")
+    /// Search
+    internal static let search = TMDBStrings.tr("Localizable", "Tabbar.search", fallback: "Search")
+    /// Watch list
+    internal static let watchList = TMDBStrings.tr("Localizable", "Tabbar.watchList", fallback: "Watch list")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

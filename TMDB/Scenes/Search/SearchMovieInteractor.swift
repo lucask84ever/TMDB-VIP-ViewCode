@@ -7,10 +7,15 @@
 
 import Foundation
 
+protocol SearchMovieInteracting {
+    var presenter: SearchMoviePresenting { get set }
+    var service: SearchMovieServicing { get set }
+}
+
 class SearchMovieInteractor: SearchMovieInteracting {
     
-    let presenter: SearchMoviePresenting
-    let service: SearchMovieServicing
+    var presenter: SearchMoviePresenting
+    var service: SearchMovieServicing
     
     init(presenter: SearchMoviePresenting, service: SearchMovieServicing) {
         self.presenter = presenter

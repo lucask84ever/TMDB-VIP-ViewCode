@@ -7,7 +7,13 @@
 
 import Foundation
 
-class SearchMovieService: SearchMovieServicing {
+typealias MoviesResult = ((Result<MoviesResponse, Error>) -> Void)
+
+protocol SearchMovieServicing {
+    func fetchSearchMovie(_ textToSearch: String, completion: @escaping MoviesResult)
+}
+
+final class SearchMovieService: SearchMovieServicing {
     func fetchSearchMovie(_ textToSearch: String, completion: @escaping MoviesResult) {
         
     }
