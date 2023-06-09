@@ -23,11 +23,6 @@ final class HomeViewController: BaseViewController<HomeInteracting, HomeView> {
         super.viewWillAppear(animated)
         rootView.setInitialSelection()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        rootView.remakeMovieListConstraints()
-    }
 }
 
 extension HomeViewController: HomeDisplaying {

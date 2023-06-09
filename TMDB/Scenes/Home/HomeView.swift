@@ -17,6 +17,7 @@ final class HomeView: UIView {
         static let topTableViewHeight: CGFloat = 250
         static let topRatedSpaceBetweenCell: CGFloat = 32
         static let movieListHeight: CGFloat = 42
+        static let minimunDistance: CGFloat = 8
     }
     
     var topRatedDataSource: TopRatedMoviesDataSource?
@@ -117,7 +118,9 @@ final class HomeView: UIView {
             self?.topMoviesCollectionView.dataSource = self?.topRatedDataSource
             self?.topMoviesCollectionView.reloadData()
             self?.bottomMoviesDataSource?.updateMovieType(movies)
+            self?.remakeMovieListConstraints()
         }
+        
     }
     
     private func setupTypeMovieLayout() {
@@ -153,8 +156,7 @@ extension HomeView: ViewCodeProtocol {
         
         scrollView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
-            $0.height.equalToSuperview()
-            $0.width.equalToSuperview()
+            $0.width.left.right.bottom.equalToSuperview()
         }
         
         contentView.snp.makeConstraints {
@@ -164,9 +166,9 @@ extension HomeView: ViewCodeProtocol {
         }
         
         wantToWatchLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(8)
-            $0.leading.equalToSuperview().offset(16)
-            $0.trailing.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().offset(LayoutConstants.minimunDistance)
+            $0.leading.equalToSuperview().offset(LayoutConstants.baseDistance)
+            $0.trailing.equalToSuperview().inset(LayoutConstants.baseDistance)
             $0.height.equalTo(LayoutConstants.labelHeight)
         }
         
@@ -185,7 +187,7 @@ extension HomeView: ViewCodeProtocol {
         moviesListCollectionView.snp.makeConstraints {
             $0.leading.trailing.equalTo(searchMovieTextfield)
             $0.height.equalTo(LayoutConstants.movieListHeight)
-            $0.top.equalTo(topMoviesCollectionView.snp.bottom).offset(LayoutConstants.baseDistance)
+            $0.top.equalTo(topMoviesCollectionView.snp.bottom)
         }
         
         bottomMoviesCollectionView.snp.makeConstraints {
@@ -193,7 +195,6 @@ extension HomeView: ViewCodeProtocol {
             $0.leading.trailing.equalTo(moviesListCollectionView)
             $0.bottom.equalToSuperview()
         }
-        
     }
     
     func additionalConfig() {
@@ -205,8 +206,8 @@ extension HomeView: ViewCodeProtocol {
             bottomMoviesCollectionView.snp.remakeConstraints {
                 $0.top.equalTo(moviesListCollectionView.snp.bottom).offset(LayoutConstants.baseDistance)
                 $0.leading.trailing.equalTo(moviesListCollectionView)
-                $0.height.equalTo(totalHeight)
-                $0.bottom.equalToSuperview()
+                $0.height.equalTo(totalHeight).priority(.high)
+                $0.bottom.equalToSuperview().inset(LayoutConstants.minimunDistance)
             }
         }
     }
