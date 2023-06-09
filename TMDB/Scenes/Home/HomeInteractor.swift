@@ -11,7 +11,10 @@ protocol HomeInteracting {
     var service: HomeServicing { get set }
     var presenter: HomePresenting { get set }
     
+    func fetchNowPlayingMovies()
+    func fetchUpcoming()
     func fetchTopRatedMovies()
+    func fetchPopularMovies()
 }
 
 final class HomeInteractor: HomeInteracting {
@@ -22,6 +25,28 @@ final class HomeInteractor: HomeInteracting {
     init(service: HomeServicing, presenter: HomePresenting) {
         self.service = service
         self.presenter = presenter
+    }
+    
+    func fetchNowPlayingMovies() {
+        service.fetchMovies(.nowPlayingMovies, 1) { [weak self] result in
+            switch result {
+            case .success(let movieResponse):
+                self?.presenter.fetchPlayingNow(movieResponse.results)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchUpcoming() {
+        service.fetchMovies(.upcomingMovies, 1) { [weak self] result in
+            switch result {
+            case .success(let movieResponse):
+                self?.presenter.fetchUpcomingMovies(movieResponse.results)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func fetchTopRatedMovies() {
@@ -35,4 +60,14 @@ final class HomeInteractor: HomeInteracting {
         }
     }
     
+    func fetchPopularMovies() {
+        service.fetchMovies(.popularMovies, 1) { [weak self] result in
+            switch result {
+            case .success(let movieResponse):
+                self?.presenter.fetchPopularMovies(movieResponse.results)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

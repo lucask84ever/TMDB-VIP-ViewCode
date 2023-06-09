@@ -11,12 +11,26 @@ protocol HomePresenting {
     var viewController: HomeViewController? { get set }
     
     func fetchTopRatedMovies(_ movies: [Movie])
+    func fetchUpcomingMovies(_ movies: [Movie])
+    func fetchPopularMovies(_ movies: [Movie])
+    func fetchPlayingNow(_ movies: [Movie])
 }
-
 final class HomePresenter: HomePresenting {
     weak var viewController: HomeViewController?
     
     func fetchTopRatedMovies(_ movies: [Movie]) {
         viewController?.fetchTopRatedMovie(movies)
+    }
+    
+    func fetchUpcomingMovies(_ movies: [Movie]) {
+        viewController?.fetchUpcoming(movies)
+    }
+    
+    func fetchPopularMovies(_ movies: [Movie]) {
+        viewController?.fetchPopular(movies)
+    }
+    
+    func fetchPlayingNow(_ movies: [Movie]) {
+        viewController?.fetchPlayingNow(movies)
     }
 }

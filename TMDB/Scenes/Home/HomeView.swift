@@ -19,9 +19,9 @@ final class HomeView: UIView {
         static let movieListHeight: CGFloat = 42
         static let minimunDistance: CGFloat = 8
     }
-    
-    var topRatedDataSource: TopRatedMoviesDataSource?
-    var topRatedDelegate: TopRatedMoviesDelegate?
+    // MARK: Properties
+    var topRatedDataSource: TopFiveCategoryMoviesDataSource?
+    var topRatedDelegate: TopFiveCategoryMovieDelegate?
     
     var typeMovieListDelegate: TypeListDelegate?
     var typeMovieListDataSource: TypeListDataSource?
@@ -29,6 +29,13 @@ final class HomeView: UIView {
     var bottomMoviesDelegate: TypeMovieDelegate?
     var bottomMoviesDataSource: TypeMovieDataSource?
     
+    var typeMovies = Dictionary<TypeListEnum, [Movie]>()
+    var selectedCategory: TypeListEnum = .nowPlaying
+    
+    // MARK: Actions
+    var changeListType: ((TypeListEnum) -> Void)?
+    
+    // MARK: UIElements
     private lazy var scrollView: UIScrollView = UIScrollView()
     
     private lazy var contentView: UIView = UIView()
@@ -110,9 +117,9 @@ final class HomeView: UIView {
     }
     
     private func setupTopRatedCollectionView(_ movies: [Movie]) {
-        topRatedDataSource = TopRatedMoviesDataSource(collectionView: topMoviesCollectionView, items: movies)
+        topRatedDataSource = TopFiveCategoryMoviesDataSource(collectionView: topMoviesCollectionView, items: movies)
         
-        topRatedDelegate = TopRatedMoviesDelegate(collectionView: topMoviesCollectionView, delegate: self, items: movies)
+        topRatedDelegate = TopFiveCategoryMovieDelegate(collectionView: topMoviesCollectionView, delegate: self, items: movies)
         DispatchQueue.main.async { [weak self] in
             self?.topMoviesCollectionView.delegate = self?.topRatedDelegate
             self?.topMoviesCollectionView.dataSource = self?.topRatedDataSource
@@ -221,6 +228,22 @@ extension HomeView {
 
 extension HomeView {
     func setTopRated(_ movies: [Movie]) {
+        typeMovies[.topRated] = movies
+        setupTopRatedCollectionView(movies)
+    }
+    
+    func setPopular(_ movies: [Movie]) {
+        typeMovies[.popular] = movies
+        setupTopRatedCollectionView(movies)
+    }
+    
+    func setNowPlaying(_ movies: [Movie]) {
+        typeMovies[.nowPlaying] = movies
+        setupTopRatedCollectionView(movies)
+    }
+    
+    func setUpcoming(_ movies: [Movie]) {
+        typeMovies[.upcoming] = movies
         setupTopRatedCollectionView(movies)
     }
 }
@@ -233,6 +256,11 @@ extension HomeView: HomeTopRatedMoviesDelegate {
 
 extension HomeView: HomeMovieListDelegate {
     func selectedType(_ listType: TypeListEnum) {
-        print(listType.text)
+        selectedCategory = listType
+        guard let movies = typeMovies[listType], !movies.isEmpty else {
+            changeListType?(listType)
+            return
+        }
+        setupTopRatedCollectionView(movies)
     }
 }
