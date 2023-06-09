@@ -9,17 +9,25 @@ import UIKit
 
 final class TypeMovieDelegate: NSObject {
     
-    internal enum Constants {
+    internal enum Layout {
         static let cellHeight: CGFloat = 146
         static let cellWidth: CGFloat = 100
         static let posterProportion: CGFloat = cellHeight / cellWidth
         static let spaceBetweenColumns: CGFloat = 8
-        static let spaceBetweenRows: CGFloat = 0
+        static let spaceBetweenRows: CGFloat = 8
+    }
+    
+    internal enum Constants {
+        static let numberOfRows: Int = 7
         static let numberOfColumns: Int = 3
+        static let numberOfSpacesBetweenRowsInCollectionView: Int = 16
+        static let numberOfSpacesBetweenColumnsInCollectionView: Int = 4
     }
     
     var collectionView: UICollectionView?
     var items: [Movie]
+    var movieHeight: CGFloat = 0
+    
     init(items: [Movie], collectionView: UICollectionView?) {
         self.items = items
         self.collectionView = collectionView
@@ -29,6 +37,10 @@ final class TypeMovieDelegate: NSObject {
     
     private func setupCollectionView() {
         collectionView?.delegate = self
+    }
+    
+    func getTotalHeight() -> CGFloat {
+        return CGFloat(Constants.numberOfRows) * movieHeight + CGFloat(Constants.numberOfSpacesBetweenRowsInCollectionView) * Layout.spaceBetweenRows
     }
 }
 
@@ -42,8 +54,9 @@ extension TypeMovieDelegate: UICollectionViewDelegate {
 
 extension TypeMovieDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = (collectionView.frame.width - 4 * Constants.spaceBetweenColumns) / CGFloat(Constants.numberOfColumns)
-        let height: CGFloat = width * Constants.posterProportion
-        return CGSize(width: width, height: height)
+        let spaceBetweenColumns: CGFloat = CGFloat(Constants.numberOfSpacesBetweenColumnsInCollectionView)
+        let width: CGFloat = (collectionView.frame.width - spaceBetweenColumns * Layout.spaceBetweenColumns) / CGFloat(Constants.numberOfColumns)
+        movieHeight = width * Layout.posterProportion
+        return CGSize(width: width, height: movieHeight)
     }
 }

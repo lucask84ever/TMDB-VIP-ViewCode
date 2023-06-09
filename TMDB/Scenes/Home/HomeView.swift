@@ -28,6 +28,10 @@ final class HomeView: UIView {
     var bottomMoviesDelegate: TypeMovieDelegate?
     var bottomMoviesDataSource: TypeMovieDataSource?
     
+    private lazy var scrollView: UIScrollView = UIScrollView()
+    
+    private lazy var contentView: UIView = UIView()
+    
     private lazy var wantToWatchLabel: UILabel = {
         let label = UILabel()
         label.text = TMDBStrings.Home.Label.wantToWatch
@@ -81,6 +85,7 @@ final class HomeView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = ColorName.backgroundColor.color
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
@@ -135,16 +140,31 @@ final class HomeView: UIView {
 
 extension HomeView: ViewCodeProtocol {
     func buildViewHierarchy() {
-        addSubview(wantToWatchLabel)
-        addSubview(searchMovieTextfield)
-        addSubview(topMoviesCollectionView)
-        addSubview(moviesListCollectionView)
-        addSubview(bottomMoviesCollectionView)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(wantToWatchLabel)
+        contentView.addSubview(searchMovieTextfield)
+        contentView.addSubview(topMoviesCollectionView)
+        contentView.addSubview(moviesListCollectionView)
+        contentView.addSubview(bottomMoviesCollectionView)
     }
     
     func buildViewConstraints() {
+        
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide)
+            $0.height.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.greaterThanOrEqualToSuperview()
+        }
+        
         wantToWatchLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(8)
+            $0.top.equalToSuperview().offset(8)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(LayoutConstants.labelHeight)
@@ -155,13 +175,13 @@ extension HomeView: ViewCodeProtocol {
             $0.height.equalTo(LayoutConstants.textfieldHeight)
             $0.top.equalTo(wantToWatchLabel.snp.bottom).offset(LayoutConstants.baseDistance)
         }
-        
+
         topMoviesCollectionView.snp.makeConstraints {
             $0.top.equalTo(searchMovieTextfield.snp.bottom).offset(LayoutConstants.baseDistance)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(LayoutConstants.topTableViewHeight)
         }
-        
+
         moviesListCollectionView.snp.makeConstraints {
             $0.leading.trailing.equalTo(searchMovieTextfield)
             $0.height.equalTo(LayoutConstants.movieListHeight)
@@ -171,13 +191,30 @@ extension HomeView: ViewCodeProtocol {
         bottomMoviesCollectionView.snp.makeConstraints {
             $0.top.equalTo(moviesListCollectionView.snp.bottom).offset(LayoutConstants.baseDistance)
             $0.leading.trailing.equalTo(moviesListCollectionView)
-            $0.bottom.equalTo(safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
         }
         
     }
     
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
+    }
+    
+    func remakeMovieListConstraints() {
+        if let totalHeight = bottomMoviesDelegate?.getTotalHeight() {
+            bottomMoviesCollectionView.snp.remakeConstraints {
+                $0.top.equalTo(moviesListCollectionView.snp.bottom).offset(LayoutConstants.baseDistance)
+                $0.leading.trailing.equalTo(moviesListCollectionView)
+                $0.height.equalTo(totalHeight)
+                $0.bottom.equalToSuperview()
+            }
+        }
+    }
+}
+
+extension HomeView {
+    func setInitialSelection() {
+        typeMovieListDelegate?.setInitialValue()
     }
 }
 

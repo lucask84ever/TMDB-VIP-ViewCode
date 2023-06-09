@@ -18,6 +18,16 @@ final class HomeViewController: BaseViewController<HomeInteracting, HomeView> {
         navigationController?.navigationBar.isHidden = true
         interactor.fetchTopRatedMovies()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        rootView.setInitialSelection()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        rootView.remakeMovieListConstraints()
+    }
 }
 
 extension HomeViewController: HomeDisplaying {

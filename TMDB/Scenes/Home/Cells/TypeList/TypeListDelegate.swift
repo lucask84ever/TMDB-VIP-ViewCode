@@ -16,6 +16,12 @@ final class TypeListDelegate: NSObject {
         static let popularWidth: CGFloat = 72
     }
     
+    internal enum Constants {
+        static let nowPlayingIndex: Int = 0
+        static let popularIndex: Int = 3
+        static let zero: Int = 0
+    }
+    
     private var collectionView: UICollectionView
     private var typeMovieList: [TypeListEnum] = TypeListEnum.allCases
     private var delegate: HomeMovieListDelegate
@@ -25,7 +31,11 @@ final class TypeListDelegate: NSObject {
         self.delegate = delegate
         super.init()
         collectionView.delegate = self
-        collectionView.delegate?.collectionView?(collectionView, didSelectItemAt: IndexPath(row: 0, section: 0))
+    }
+    
+    func setInitialValue() {
+        let initialSelection = IndexPath(row: Constants.zero, section: Constants.zero)
+        collectionView.selectItem(at: initialSelection, animated: false, scrollPosition: .top)
     }
 }
 
@@ -39,10 +49,11 @@ extension TypeListDelegate: UICollectionViewDelegate {
 
 extension TypeListDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row == 0 {
+        if indexPath.row == Constants.nowPlayingIndex {
             return CGSize(width: Layout.nowPlayingWidth, height: Layout.cellHeight)
         }
-        if indexPath.row == 3 {
+        
+        if indexPath.row == Constants.popularIndex {
             return CGSize(width: Layout.popularWidth, height: Layout.cellHeight)
         }
         return CGSize(width: Layout.defaultWidth, height: Layout.cellHeight)
