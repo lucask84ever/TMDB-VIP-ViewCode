@@ -15,12 +15,15 @@ final class TypeMovieDelegate: NSObject {
         static let posterProportion: CGFloat = cellHeight / cellWidth
         static let spaceBetweenColumns: CGFloat = 8
         static let spaceBetweenRows: CGFloat = 8
+        static let windowWidth: CGFloat = UIWindow().bounds.width
+        static let margins: CGFloat = 32 // 16 from leading and trailing
+        static let collectionWidth: CGFloat = windowWidth - margins
     }
     
     internal enum Constants {
         static let numberOfRows: Int = 7
         static let numberOfColumns: Int = 3
-        static let numberOfSpacesBetweenRowsInCollectionView: Int = 16
+        static let numberOfSpacesBetweenRowsInCollectionView: Int = 8
         static let numberOfSpacesBetweenColumnsInCollectionView: Int = 4
     }
     
@@ -40,7 +43,13 @@ final class TypeMovieDelegate: NSObject {
     }
     
     func getTotalHeight() -> CGFloat {
-        return CGFloat(Constants.numberOfRows) * movieHeight + CGFloat(Constants.numberOfSpacesBetweenRowsInCollectionView) * Layout.spaceBetweenRows
+        let spaceBetweenColumns: CGFloat = CGFloat(Constants.numberOfSpacesBetweenColumnsInCollectionView)
+        let width: CGFloat = (Layout.collectionWidth - spaceBetweenColumns * Layout.spaceBetweenColumns) / CGFloat(Constants.numberOfColumns)
+        let height = width * Layout.posterProportion
+        let cellsHeight = CGFloat(Constants.numberOfRows) * height
+        let spaceBetweenRows = CGFloat(Constants.numberOfSpacesBetweenRowsInCollectionView) * Layout.spaceBetweenRows
+        let totalSpace = cellsHeight + spaceBetweenRows
+        return totalSpace
     }
 }
 
