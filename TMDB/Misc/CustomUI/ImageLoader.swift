@@ -29,19 +29,20 @@ final class ImageLoader: UIImageView {
     // MARK: Public methdos
     func getImage(_ imageUrl: ImageEndpoint) {
         showAnimatedSkeleton()
+        print("getting image")
         guard let cachedImage = retrieveImageInCacheIfExists(imageUrl) else {
             downloadImage(imageUrl)
+            print("downloading image")
             return
         }
         image = cachedImage
+        print("cached image")
         hideSkeleton()
     }
     
     // MARK:  Private methods
-    /// Download a image from url typed as ImageEndpoint
-    /// - Parameter imageUrl: ImageEndpoint
     private func setupImageCache() {
-        imageCache.totalCostLimit = 100 * 1024 * 1024 // 100 Mb cache
+        imageCache.countLimit = 100
     }
     
     /// Download a image from url typed as ImageEndpoint

@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class TopRatedCollectionViewCell: UICollectionViewCell {
+final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
     // MARK: ReuseIdentifier
-    static let reuseIdentifier = String(describing: TopRatedCollectionViewCell.self)
+    static let reuseIdentifier = String(describing: TopFiveCategoryMovieCollectionViewCell.self)
     
     // MARK: Layout constants
     internal enum Layout {
@@ -66,7 +66,7 @@ final class TopRatedCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension TopRatedCollectionViewCell: ViewCodeProtocol {
+extension TopFiveCategoryMovieCollectionViewCell: ViewCodeProtocol {
     func buildViewHierarchy() {
         addSubview(posterImageView)
         addSubview(positionImageView)

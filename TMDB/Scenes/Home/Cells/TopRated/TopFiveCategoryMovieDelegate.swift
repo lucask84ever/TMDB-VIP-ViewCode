@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TopRatedMoviesDelegate: NSObject {
+final class TopFiveCategoryMovieDelegate: NSObject {
     
     internal enum Layout {
         static let cellWidth: CGFloat = 144
@@ -34,14 +34,14 @@ final class TopRatedMoviesDelegate: NSObject {
     }
 }
 
-extension TopRatedMoviesDelegate: UICollectionViewDelegate {
+extension TopFiveCategoryMovieDelegate: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedMovie = items[indexPath.row]
         delegate.selectMovie(selectedMovie)
     }
 }
 
-extension TopRatedMoviesDelegate: UICollectionViewDelegateFlowLayout {
+extension TopFiveCategoryMovieDelegate: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: Layout.cellWidth, height: Layout.cellHeight)

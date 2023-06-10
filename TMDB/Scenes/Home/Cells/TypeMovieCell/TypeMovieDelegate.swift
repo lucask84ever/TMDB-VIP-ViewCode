@@ -29,7 +29,6 @@ final class TypeMovieDelegate: NSObject {
     
     var collectionView: UICollectionView?
     var items: [Movie]
-    var movieHeight: CGFloat = 0
     
     init(items: [Movie], collectionView: UICollectionView?) {
         self.items = items
@@ -57,7 +56,6 @@ extension TypeMovieDelegate: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedItem = indexPath.row
         let selectedMovieName = items[selectedItem].name
-        print(selectedMovieName)
     }
 }
 
@@ -65,7 +63,7 @@ extension TypeMovieDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let spaceBetweenColumns: CGFloat = CGFloat(Constants.numberOfSpacesBetweenColumnsInCollectionView)
         let width: CGFloat = (collectionView.frame.width - spaceBetweenColumns * Layout.spaceBetweenColumns) / CGFloat(Constants.numberOfColumns)
-        movieHeight = width * Layout.posterProportion
+        let movieHeight = width * Layout.posterProportion
         return CGSize(width: width, height: movieHeight)
     }
 }

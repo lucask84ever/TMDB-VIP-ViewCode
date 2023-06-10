@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class TopRatedMoviesDataSource: NSObject {
+final class TopFiveCategoryMoviesDataSource: NSObject {
     weak var collectionView: UICollectionView?
     var items: [Movie]
     
-    typealias Cell = TopRatedCollectionViewCell
+    typealias Cell = TopFiveCategoryMovieCollectionViewCell
     
     init(collectionView: UICollectionView,
          items: [Movie]) {
@@ -29,7 +29,7 @@ final class TopRatedMoviesDataSource: NSObject {
     }
 }
 
-extension TopRatedMoviesDataSource: UICollectionViewDataSource {
+extension TopFiveCategoryMoviesDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
