@@ -9,11 +9,11 @@ import UIKit
 
 final class CustomTextfield: UITextField {
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRectInset(bounds, 16, 10)
+        return bounds.insetBy(dx: 16, dy: 10)
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRectInset(bounds, 16, 10)
+        return bounds.insetBy(dx: 16, dy: 10)
     }
     
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {

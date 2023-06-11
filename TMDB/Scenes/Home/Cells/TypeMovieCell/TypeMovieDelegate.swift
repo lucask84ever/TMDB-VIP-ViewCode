@@ -55,7 +55,10 @@ final class TypeMovieDelegate: NSObject {
 extension TypeMovieDelegate: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedItem = indexPath.row
-        let selectedMovieName = items[selectedItem].name
+        if items.indices.contains(selectedItem) {
+            let selectedMovieName = items[selectedItem].name
+            print(selectedMovieName)
+        }
     }
 }
 
