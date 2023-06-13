@@ -120,7 +120,7 @@ final class HomeView: UIView {
     
     private func setupTopRatedCollectionView() {
         topRatedDataSource = TopFiveCategoryMoviesDataSource(collectionView: topMoviesCollectionView, items: [])
-        topRatedDelegate = TopFiveCategoryMovieDelegate(collectionView: topMoviesCollectionView, delegate: self, items: [])
+        topRatedDelegate = TopFiveCategoryMovieDelegate(collectionView: topMoviesCollectionView, delegate: self)
     }
     
     private func setupTypeMovieLayout() {
@@ -136,6 +136,7 @@ final class HomeView: UIView {
     
     private func addMoviesTop5(_ movies: [Movie]) {
         topRatedDataSource?.addMovies(movies)
+        topRatedDelegate?.addMovies(movies)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
