@@ -37,7 +37,11 @@ final class HomeView: UIView {
     var changeListType: ((TypeListEnum) -> Void)?
     
     // MARK: UIElements
-    private lazy var scrollView: UIScrollView = UIScrollView()
+    private lazy var scrollView: UIScrollView =  {
+        let scroll = UIScrollView()
+        scroll.keyboardDismissMode = .onDrag
+        return scroll
+    }()
     
     private lazy var contentView: UIView = UIView()
     
@@ -139,9 +143,12 @@ final class HomeView: UIView {
         topRatedDelegate?.addMovies(movies)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        endEditing(true)
+    private func addMoviesBottomCollection(_ movies: [Movie]) {
+        bottomMoviesDataSource?.updateMovieType(movies)
+        bottomMoviesDelegate?.addMovies(movies)
+        DispatchQueue.main.async { [weak self] in
+            self?.remakeMovieListConstraints()
+        }
     }
 }
 
@@ -228,21 +235,25 @@ extension HomeView {
     func setTopRated(_ movies: [Movie]) {
         typeMovies[.topRated] = movies
         addMoviesTop5(movies)
+        addMoviesBottomCollection(movies)
     }
     
     func setPopular(_ movies: [Movie]) {
         typeMovies[.popular] = movies
         addMoviesTop5(movies)
+        addMoviesBottomCollection(movies)
     }
     
     func setNowPlaying(_ movies: [Movie]) {
         typeMovies[.nowPlaying] = movies
         addMoviesTop5(movies)
+        addMoviesBottomCollection(movies)
     }
     
     func setUpcoming(_ movies: [Movie]) {
         typeMovies[.upcoming] = movies
         addMoviesTop5(movies)
+        addMoviesBottomCollection(movies)
     }
 }
 
@@ -261,5 +272,6 @@ extension HomeView: HomeMovieListDelegate {
         }
         topRatedDelegate?.addMovies(movies)
         topRatedDataSource?.addMovies(movies)
+        addMoviesBottomCollection(movies)
     }
 }

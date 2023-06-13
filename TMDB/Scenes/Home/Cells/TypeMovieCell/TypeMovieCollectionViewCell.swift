@@ -12,13 +12,19 @@ final class TypeMovieCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = String(describing: TypeMovieCollectionViewCell.self)
     
+    // MARK: Layout constants
+    internal enum Layout {
+        static let posterCornerRadius: CGFloat = 16
+    }
+    
     private lazy var posterImageLoader: ImageLoader = {
-        let image = ImageLoader()
-        image.isSkeletonable = true
-        image.showGradientSkeleton()
-        image.layer.cornerRadius = 16
-        image.layer.masksToBounds = true
-        return image
+        let imageView = ImageLoader()
+        imageView.contentMode = .scaleToFill
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = Layout.posterCornerRadius
+        
+        imageView.isSkeletonable = true
+        return imageView
     }()
     
     override init(frame: CGRect) {
@@ -50,7 +56,7 @@ final class TypeMovieCollectionViewCell: UICollectionViewCell {
 
 extension TypeMovieCollectionViewCell: ViewCodeProtocol {
     func buildViewHierarchy() {
-        addSubview(posterImageLoader)
+        contentView.addSubview(posterImageLoader)
     }
     
     func buildViewConstraints() {
@@ -60,6 +66,9 @@ extension TypeMovieCollectionViewCell: ViewCodeProtocol {
     }
     
     func additionalConfig() {
-        posterImageLoader.showGradientSkeleton()
+        clipsToBounds = false
+        isSkeletonable = true
+        contentView.isSkeletonable = true
+        posterImageLoader.isSkeletonable = true
     }
 }

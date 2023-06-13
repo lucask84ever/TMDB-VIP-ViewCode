@@ -50,6 +50,14 @@ final class TypeMovieDelegate: NSObject {
         let totalSpace = cellsHeight + spaceBetweenRows
         return totalSpace
     }
+    
+    func addMovies(_ movies: [Movie]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.items = movies
+            self?.collectionView?.reloadData()
+        }
+        
+    }
 }
 
 extension TypeMovieDelegate: UICollectionViewDelegate {

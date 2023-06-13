@@ -21,9 +21,11 @@ final class TypeMovieDataSource: NSObject {
     }
     
     func updateMovieType(_ movies: [Movie]) {
-        items.removeAll()
-        items.append(contentsOf: movies)
-        collectionView?.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.items.removeAll()
+            self?.items.append(contentsOf: movies)
+            self?.collectionView?.reloadData()
+        }
     }
     
     private func setupCollectionView() {
