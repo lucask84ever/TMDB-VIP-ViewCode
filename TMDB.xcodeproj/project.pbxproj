@@ -173,7 +173,6 @@
 			isa = PBXGroup;
 			children = (
 				104F480B2A2EE1BA00DFF113 /* Cells */,
-				104F48062A2EE02700DFF113 /* CollectionProtocols */,
 				104F47DA2A2E6B4B00DFF113 /* HomeFactory.swift */,
 				104F47DE2A2E6B9400DFF113 /* HomeInteractor.swift */,
 				104F47E22A2E6BD100DFF113 /* HomePresenter.swift */,
@@ -199,31 +198,24 @@
 			path = WatchList;
 			sourceTree = "<group>";
 		};
-		104F48062A2EE02700DFF113 /* CollectionProtocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CollectionProtocols;
-			sourceTree = "<group>";
-		};
 		104F480B2A2EE1BA00DFF113 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				108523672A30FE5C00FC4FD4 /* TypeMovieCell */,
 				104F481B2A302AA700DFF113 /* TypeList */,
-				104F480E2A2F872500DFF113 /* TopRated */,
+				104F480E2A2F872500DFF113 /* TopFive */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		104F480E2A2F872500DFF113 /* TopRated */ = {
+		104F480E2A2F872500DFF113 /* TopFive */ = {
 			isa = PBXGroup;
 			children = (
 				104F480C2A2EE1E900DFF113 /* TopFiveCategoryMovieCollectionViewCell.swift */,
 				104F48072A2EE03F00DFF113 /* TopFiveCategoryMoviesDataSource.swift */,
 				104F480F2A2F874500DFF113 /* TopFiveCategoryMovieDelegate.swift */,
 			);
-			path = TopRated;
+			path = TopFive;
 			sourceTree = "<group>";
 		};
 		104F481B2A302AA700DFF113 /* TypeList */ = {

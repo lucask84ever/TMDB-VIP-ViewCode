@@ -28,9 +28,15 @@ final class TopFiveCategoryMovieDelegate: NSObject {
         self.delegate = delegate
         self.items = items
         super.init()
-        DispatchQueue.main.async {
-            self.collectionView?.delegate = self
-        }
+        setupCollectionView()
+    }
+    
+    func setupCollectionView() {
+        collectionView?.delegate = self
+    }
+    
+    func addMovies(_ movies: [Movie]) {
+        
     }
 }
 

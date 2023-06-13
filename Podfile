@@ -4,6 +4,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 def visual_pods
+  pod 'SDWebImage'
   pod 'SkeletonView'
   pod 'SnapKit', '~> 5.6.0'
 end

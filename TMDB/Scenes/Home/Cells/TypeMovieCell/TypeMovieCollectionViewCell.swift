@@ -5,6 +5,7 @@
 //  Created by Lucas Lima on 07/06/23.
 //
 
+import SkeletonView
 import UIKit
 
 final class TypeMovieCollectionViewCell: UICollectionViewCell {
@@ -14,7 +15,7 @@ final class TypeMovieCollectionViewCell: UICollectionViewCell {
     private lazy var posterImageLoader: ImageLoader = {
         let image = ImageLoader()
         image.isSkeletonable = true
-        image.startSkeletonAnimation()
+        image.showGradientSkeleton()
         image.layer.cornerRadius = 16
         image.layer.masksToBounds = true
         return image
@@ -33,6 +34,7 @@ final class TypeMovieCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         buildViewHierarchy()
         buildViewConstraints()
+        additionalConfig()
     }
     
     override func prepareForReuse() {
@@ -55,5 +57,9 @@ extension TypeMovieCollectionViewCell: ViewCodeProtocol {
         posterImageLoader.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func additionalConfig() {
+        posterImageLoader.showGradientSkeleton()
     }
 }

@@ -5,6 +5,7 @@
 //  Created by Lucas Lima on 06/06/23.
 //
 
+import SkeletonView
 import UIKit
 
 final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
@@ -28,7 +29,7 @@ final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = Layout.posterCornerRadius
         
         imageView.isSkeletonable = true
-        imageView.startSkeletonAnimation()
+        imageView.showAnimatedGradientSkeleton()
         return imageView
     }()
     
@@ -51,6 +52,11 @@ final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        posterImageView.image = nil
+    }
+    
     // MARK: Custom methods
     private func setupLayout() {
         buildViewHierarchy()
@@ -64,12 +70,16 @@ final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
         let imageUrl = ImageEndpoint(path: movie.posterPath)
         posterImageView.getImage(imageUrl)
     }
+    
+    func showSkeleton() {
+        posterImageView.showAnimatedGradientSkeleton()
+    }
 }
 
 extension TopFiveCategoryMovieCollectionViewCell: ViewCodeProtocol {
     func buildViewHierarchy() {
-        addSubview(posterImageView)
-        addSubview(positionImageView)
+        contentView.addSubview(posterImageView)
+        contentView.addSubview(positionImageView)
     }
     
     func buildViewConstraints() {
