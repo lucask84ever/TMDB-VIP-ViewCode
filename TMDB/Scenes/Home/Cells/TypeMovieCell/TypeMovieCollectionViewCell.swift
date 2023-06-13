@@ -5,19 +5,26 @@
 //  Created by Lucas Lima on 07/06/23.
 //
 
+import SkeletonView
 import UIKit
 
 final class TypeMovieCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = String(describing: TypeMovieCollectionViewCell.self)
     
+    // MARK: Layout constants
+    internal enum Layout {
+        static let posterCornerRadius: CGFloat = 16
+    }
+    
     private lazy var posterImageLoader: ImageLoader = {
-        let image = ImageLoader()
-        image.isSkeletonable = true
-        image.startSkeletonAnimation()
-        image.layer.cornerRadius = 16
-        image.layer.masksToBounds = true
-        return image
+        let imageView = ImageLoader()
+        imageView.contentMode = .scaleToFill
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = Layout.posterCornerRadius
+        
+        imageView.isSkeletonable = true
+        return imageView
     }()
     
     override init(frame: CGRect) {
@@ -33,6 +40,7 @@ final class TypeMovieCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         buildViewHierarchy()
         buildViewConstraints()
+        additionalConfig()
     }
     
     override func prepareForReuse() {
@@ -48,12 +56,19 @@ final class TypeMovieCollectionViewCell: UICollectionViewCell {
 
 extension TypeMovieCollectionViewCell: ViewCodeProtocol {
     func buildViewHierarchy() {
-        addSubview(posterImageLoader)
+        contentView.addSubview(posterImageLoader)
     }
     
     func buildViewConstraints() {
         posterImageLoader.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func additionalConfig() {
+        clipsToBounds = false
+        isSkeletonable = true
+        contentView.isSkeletonable = true
+        posterImageLoader.isSkeletonable = true
     }
 }

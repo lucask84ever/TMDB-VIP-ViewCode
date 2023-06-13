@@ -5,6 +5,7 @@
 //  Created by Lucas Lima on 05/06/23.
 //
 
+import SkeletonView
 import SnapKit
 import UIKit
 
@@ -36,7 +37,11 @@ final class HomeView: UIView {
     var changeListType: ((TypeListEnum) -> Void)?
     
     // MARK: UIElements
-    private lazy var scrollView: UIScrollView = UIScrollView()
+    private lazy var scrollView: UIScrollView =  {
+        let scroll = UIScrollView()
+        scroll.keyboardDismissMode = .onDrag
+        return scroll
+    }()
     
     private lazy var contentView: UIView = UIView()
     
@@ -103,6 +108,7 @@ final class HomeView: UIView {
         setupLayout()
         setupTypeMovieLayout()
         setupBottomMoviesCollectionView()
+        setupTopRatedCollectionView()
     }
     
     @available(*, unavailable)
@@ -116,24 +122,14 @@ final class HomeView: UIView {
         additionalConfig()
     }
     
-    private func setupTopRatedCollectionView(_ movies: [Movie]) {
-        topRatedDataSource = TopFiveCategoryMoviesDataSource(collectionView: topMoviesCollectionView, items: movies)
-        
-        topRatedDelegate = TopFiveCategoryMovieDelegate(collectionView: topMoviesCollectionView, delegate: self, items: movies)
-        DispatchQueue.main.async { [weak self] in
-            self?.topMoviesCollectionView.delegate = self?.topRatedDelegate
-            self?.topMoviesCollectionView.dataSource = self?.topRatedDataSource
-            self?.topMoviesCollectionView.reloadData()
-            self?.bottomMoviesDataSource?.updateMovieType(movies)
-            self?.remakeMovieListConstraints()
-        }
-        
+    private func setupTopRatedCollectionView() {
+        topRatedDataSource = TopFiveCategoryMoviesDataSource(collectionView: topMoviesCollectionView, items: [])
+        topRatedDelegate = TopFiveCategoryMovieDelegate(collectionView: topMoviesCollectionView, delegate: self)
     }
     
     private func setupTypeMovieLayout() {
         typeMovieListDelegate = TypeListDelegate(collectionView: moviesListCollectionView, delegate: self)
         typeMovieListDataSource = TypeListDataSource(collectionView: moviesListCollectionView)
-        moviesListCollectionView.reloadData()
     }
     
     private func setupBottomMoviesCollectionView() {
@@ -142,9 +138,17 @@ final class HomeView: UIView {
         
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        endEditing(true)
+    private func addMoviesTop5(_ movies: [Movie]) {
+        topRatedDataSource?.addMovies(movies)
+        topRatedDelegate?.addMovies(movies)
+    }
+    
+    private func addMoviesBottomCollection(_ movies: [Movie]) {
+        bottomMoviesDataSource?.updateMovieType(movies)
+        bottomMoviesDelegate?.addMovies(movies)
+        DispatchQueue.main.async { [weak self] in
+            self?.remakeMovieListConstraints()
+        }
     }
 }
 
@@ -206,6 +210,7 @@ extension HomeView: ViewCodeProtocol {
     
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
+        topMoviesCollectionView.isSkeletonable = true
     }
     
     func remakeMovieListConstraints() {
@@ -229,22 +234,26 @@ extension HomeView {
 extension HomeView {
     func setTopRated(_ movies: [Movie]) {
         typeMovies[.topRated] = movies
-        setupTopRatedCollectionView(movies)
+        addMoviesTop5(movies)
+        addMoviesBottomCollection(movies)
     }
     
     func setPopular(_ movies: [Movie]) {
         typeMovies[.popular] = movies
-        setupTopRatedCollectionView(movies)
+        addMoviesTop5(movies)
+        addMoviesBottomCollection(movies)
     }
     
     func setNowPlaying(_ movies: [Movie]) {
         typeMovies[.nowPlaying] = movies
-        setupTopRatedCollectionView(movies)
+        addMoviesTop5(movies)
+        addMoviesBottomCollection(movies)
     }
     
     func setUpcoming(_ movies: [Movie]) {
         typeMovies[.upcoming] = movies
-        setupTopRatedCollectionView(movies)
+        addMoviesTop5(movies)
+        addMoviesBottomCollection(movies)
     }
 }
 
@@ -261,6 +270,8 @@ extension HomeView: HomeMovieListDelegate {
             changeListType?(listType)
             return
         }
-        setupTopRatedCollectionView(movies)
+        topRatedDelegate?.addMovies(movies)
+        topRatedDataSource?.addMovies(movies)
+        addMoviesBottomCollection(movies)
     }
 }

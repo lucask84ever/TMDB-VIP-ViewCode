@@ -19,25 +19,31 @@ final class TopFiveCategoryMovieDelegate: NSObject {
     
     var collectionView: UICollectionView?
     var delegate: HomeTopRatedMoviesDelegate
-    var items: [Movie]
+    var items: [Movie]?
     
     init(collectionView: UICollectionView,
-         delegate: HomeTopRatedMoviesDelegate,
-         items: [Movie]) {
+         delegate: HomeTopRatedMoviesDelegate) {
         self.collectionView = collectionView
         self.delegate = delegate
-        self.items = items
         super.init()
-        DispatchQueue.main.async {
-            self.collectionView?.delegate = self
-        }
+        setupCollectionView()
+    }
+    
+    func setupCollectionView() {
+        collectionView?.delegate = self
+    }
+    
+    func addMovies(_ movies: [Movie]) {
+        items = movies
     }
 }
 
 extension TopFiveCategoryMovieDelegate: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedMovie = items[indexPath.row]
-        delegate.selectMovie(selectedMovie)
+        let selectedItem = indexPath.row
+        if let contains = items?.indices.contains(selectedItem), contains, let selectedMovie = items?[selectedItem] {
+            delegate.selectMovie(selectedMovie)
+        }
     }
 }
 

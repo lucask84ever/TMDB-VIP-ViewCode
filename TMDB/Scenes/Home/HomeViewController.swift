@@ -19,13 +19,17 @@ final class HomeViewController: BaseViewController<HomeInteracting, HomeView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
-        interactor.fetchNowPlayingMovies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         rootView.setInitialSelection()
         setupClosure()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        interactor.fetchNowPlayingMovies()
     }
 }
 

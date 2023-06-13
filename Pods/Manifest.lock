@@ -1,10 +1,14 @@
 PODS:
+  - SDWebImage (5.16.0):
+    - SDWebImage/Core (= 5.16.0)
+  - SDWebImage/Core (5.16.0)
   - SkeletonView (1.30.4)
   - SnapKit (5.6.0)
   - SwiftGen (6.6.2)
   - youtube-ios-player-helper (1.0.4)
 
 DEPENDENCIES:
+  - SDWebImage
   - SkeletonView
   - SnapKit (~> 5.6.0)
   - SwiftGen (~> 6.0)
@@ -12,17 +16,19 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - SDWebImage
     - SkeletonView
     - SnapKit
     - SwiftGen
     - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
+  SDWebImage: 2aea163b50bfcb569a2726b6a754c54a4506fcf6
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
 
-PODFILE CHECKSUM: 3535df89274a3d164bedb5c54ce70254b7e00e73
+PODFILE CHECKSUM: 0df2a6e5f1e5357b5e9c1e542c06ddad24931a24
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
