@@ -29,7 +29,6 @@ final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = Layout.posterCornerRadius
         
         imageView.isSkeletonable = true
-        imageView.showAnimatedGradientSkeleton()
         return imageView
     }()
     
@@ -70,10 +69,6 @@ final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
         let imageUrl = ImageEndpoint(path: movie.posterPath)
         posterImageView.getImage(imageUrl)
     }
-    
-    func showSkeleton() {
-        posterImageView.showAnimatedGradientSkeleton()
-    }
 }
 
 extension TopFiveCategoryMovieCollectionViewCell: ViewCodeProtocol {
@@ -99,5 +94,8 @@ extension TopFiveCategoryMovieCollectionViewCell: ViewCodeProtocol {
     
     func additionalConfig() {
         clipsToBounds = false
+        isSkeletonable = true
+        contentView.isSkeletonable = true
+        posterImageView.isSkeletonable = true
     }
 }

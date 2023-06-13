@@ -75,7 +75,6 @@ final class HomeView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = ColorName.backgroundColor.color
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isSkeletonable = true
         return collectionView
     }()
     
@@ -133,6 +132,10 @@ final class HomeView: UIView {
         bottomMoviesDelegate = TypeMovieDelegate(items: [], collectionView: bottomMoviesCollectionView)
         bottomMoviesDataSource = TypeMovieDataSource(items: [], collectionView: bottomMoviesCollectionView)
         
+    }
+    
+    private func addMoviesTop5(_ movies: [Movie]) {
+        topRatedDataSource?.addMovies(movies)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -199,6 +202,7 @@ extension HomeView: ViewCodeProtocol {
     
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
+        topMoviesCollectionView.isSkeletonable = true
     }
     
     func remakeMovieListConstraints() {
@@ -222,22 +226,22 @@ extension HomeView {
 extension HomeView {
     func setTopRated(_ movies: [Movie]) {
         typeMovies[.topRated] = movies
-//        setupTopRatedCollectionView(movies)
+        addMoviesTop5(movies)
     }
     
     func setPopular(_ movies: [Movie]) {
         typeMovies[.popular] = movies
-//        setupTopRatedCollectionView(movies)
+        addMoviesTop5(movies)
     }
     
     func setNowPlaying(_ movies: [Movie]) {
         typeMovies[.nowPlaying] = movies
-//        setupTopRatedCollectionView(movies)
+        addMoviesTop5(movies)
     }
     
     func setUpcoming(_ movies: [Movie]) {
         typeMovies[.upcoming] = movies
-//        setupTopRatedCollectionView(movies)
+        addMoviesTop5(movies)
     }
 }
 

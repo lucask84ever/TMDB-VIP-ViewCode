@@ -10,11 +10,17 @@ import SkeletonView
 import UIKit.UIImageView
 
 final class ImageLoader: UIImageView {
+    
+    internal enum Constants {
+        static let transitionTime: CGFloat = 0.5
+    }
+    
     private var imageUrl: String?
     
     // MARK: Initializes
     init() {
         super.init(frame: .zero)
+        showAnimatedGradientSkeleton()
     }
     
     @available(*, unavailable)
@@ -25,13 +31,9 @@ final class ImageLoader: UIImageView {
     // MARK: Public methdos
     func getImage(_ imageUrl: ImageEndpoint) {
         showAnimatedGradientSkeleton()
-        sd_setImage(with: imageUrl.url) { [weak self] image, error, _, _ in
-            if let error = error {
-                print(error.localizedDescription)
-                self?.image = UIImage()
-            }
+        sd_setImage(with: imageUrl.url, placeholderImage: nil, options: .queryMemoryData, progress: nil) { [weak self] image, error, _, _ in
             self?.image = image
-            self?.hideSkeleton()
+            self?.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(Constants.transitionTime))
         }
     }
 }

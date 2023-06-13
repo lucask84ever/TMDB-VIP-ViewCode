@@ -28,31 +28,17 @@ final class TopFiveCategoryMoviesDataSource: NSObject {
     }
     
     func addMovies(_ movies: [Movie]) {
-        items = movies
-        collectionView?.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.items = movies
+            self?.collectionView?.reloadData()
+        }
     }
 }
 
-extension TopFiveCategoryMoviesDataSource: SkeletonCollectionViewDataSource {
-    
-    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
-        return Cell.reuseIdentifier
-    }
-    
-    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
-    }
-
-    func collectionSkeletonView(_ skeletonView: UICollectionView, skeletonCellForItemAt indexPath: IndexPath) -> UICollectionViewCell? {
-        let cell = skeletonView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath) as? Cell
-        cell?.isSkeletonable = true
-        cell?.showSkeleton()
-        return cell
-    }
-    
+extension TopFiveCategoryMoviesDataSource: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.isEmpty ? 3 : 5
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,6 +50,7 @@ extension TopFiveCategoryMoviesDataSource: SkeletonCollectionViewDataSource {
             let movie = items[current]
             cell.setup(movie, current)
         }
+        cell.showAnimatedGradientSkeleton()
         return cell
     }
 }
