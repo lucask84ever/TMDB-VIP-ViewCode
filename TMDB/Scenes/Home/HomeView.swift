@@ -48,29 +48,9 @@ final class HomeView: UIView {
     private lazy var wantToWatchLabel: UILabel = {
         let label = UILabel()
         label.text = TMDBStrings.Home.Label.wantToWatch
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = ColorName.textColor.color
         return label
-    }()
-    
-    private lazy var searchMovieTextfield: CustomTextfield = {
-        let textfield = CustomTextfield()
-        if let image = UIImage(named: "search"), let ciImage = CIImage(image: image) {
-            
-            let lensImage = UIImageView(image: image)
-            lensImage.tintColor = ColorName.textfieldTextIcon.color
-            lensImage.transform = CGAffineTransform(scaleX: -1, y: 1)
-            textfield.rightView = lensImage
-            
-            textfield.rightViewMode = .always
-        }
-        textfield.layer.cornerRadius = LayoutConstants.cornerRadius
-        textfield.textColor = ColorName.textfieldTextIcon.color
-        let attributedPlaceholder = NSAttributedString(string: TMDBStrings.Home.Textfield.searchPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: ColorName.textfieldTextIcon.color])
-        textfield.attributedPlaceholder = attributedPlaceholder
-        textfield.backgroundColor = ColorName.textfieldBackground.color
-        textfield.leftView = UIView()
-        textfield.leftViewMode = .always
-        return textfield
     }()
     
     private lazy var topMoviesCollectionView: UICollectionView = {
@@ -157,7 +137,6 @@ extension HomeView: ViewCodeProtocol {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(wantToWatchLabel)
-        contentView.addSubview(searchMovieTextfield)
         contentView.addSubview(topMoviesCollectionView)
         contentView.addSubview(moviesListCollectionView)
         contentView.addSubview(bottomMoviesCollectionView)
@@ -182,21 +161,15 @@ extension HomeView: ViewCodeProtocol {
             $0.trailing.equalToSuperview().inset(LayoutConstants.baseDistance)
             $0.height.equalTo(LayoutConstants.labelHeight)
         }
-        
-        searchMovieTextfield.snp.makeConstraints {
-            $0.leading.trailing.equalTo(wantToWatchLabel)
-            $0.height.equalTo(LayoutConstants.textfieldHeight)
-            $0.top.equalTo(wantToWatchLabel.snp.bottom).offset(LayoutConstants.baseDistance)
-        }
 
         topMoviesCollectionView.snp.makeConstraints {
-            $0.top.equalTo(searchMovieTextfield.snp.bottom).offset(LayoutConstants.baseDistance)
+            $0.top.equalTo(wantToWatchLabel.snp.bottom).offset(LayoutConstants.baseDistance)
             $0.left.right.equalToSuperview()
             $0.height.equalTo(LayoutConstants.topTableViewHeight)
         }
 
         moviesListCollectionView.snp.makeConstraints {
-            $0.leading.trailing.equalTo(searchMovieTextfield)
+            $0.leading.trailing.equalTo(wantToWatchLabel)
             $0.height.equalTo(LayoutConstants.movieListHeight)
             $0.top.equalTo(topMoviesCollectionView.snp.bottom)
         }
