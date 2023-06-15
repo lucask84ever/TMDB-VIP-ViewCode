@@ -36,7 +36,6 @@ final class HomeViewController: BaseViewController<HomeInteracting, HomeView> {
 extension HomeViewController {
     private func setupClosure() {
         rootView.changeListType = { [weak self] type in
-            print(type)
             switch type {
             case .nowPlaying:
                 self?.interactor.fetchNowPlayingMovies()
@@ -47,6 +46,10 @@ extension HomeViewController {
             case .popular:
                 self?.interactor.fetchPopularMovies()
             }
+        }
+        
+        rootView.selectMovie = { [weak self] movie in
+            self?.interactor.routeToDetailMovie(movie)
         }
     }
 }

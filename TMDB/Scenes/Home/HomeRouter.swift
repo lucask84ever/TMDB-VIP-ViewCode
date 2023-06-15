@@ -22,6 +22,11 @@ final class HomeRouter {
 
 extension HomeRouter: HomeRouting {
     func routeTo(_ route: Route) {
-        
+        let navigation = viewController?.navigationController
+        switch route {
+        case .detail(let movie):
+            let viewController = DetailMovieFactory.make(movie)
+            navigation?.pushViewController(viewController, animated: true)
+        }
     }
 }

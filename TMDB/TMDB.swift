@@ -8,11 +8,11 @@
 import UIKit
 
 protocol ParentRouting {
-    static func initialSetup() -> UITabBarController
+    static func initialSetup() -> UINavigationController 
 }
 
 final class TMDB: ParentRouting {
-    static func initialSetup() -> UITabBarController {
+    static func initialSetup() -> UINavigationController {
         let tabbar = UITabBarController()
         setupTabBar(tabbar.tabBar)
         let navigationController = UINavigationController()
@@ -35,7 +35,7 @@ final class TMDB: ParentRouting {
         homeViewController.tabBarController?.tabBar.items?[0].image = UIImage(named: "home")
         searchViewController.tabBarController?.tabBar.items?[1].image = UIImage(named: "search")
         searchViewController.tabBarController?.tabBar.items?[2].image = UIImage(named: "mark")
-        return tabbar
+        return UINavigationController(rootViewController: tabbar)
     }
     
     static private func setupTabBar(_ tabbar: UITabBar?) {

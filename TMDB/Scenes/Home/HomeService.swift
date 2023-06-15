@@ -15,7 +15,8 @@ final class HomeService: HomeServicing {
     
     func fetchMovies(_ endpoint: Endpoint, _ page: Int = 1, completion: @escaping MoviesResult) {
         let session = URLSession.shared
-        session.request(url: endpoint.url, expecting: MoviesResponse.self) { result in
+        session.request(url: endpoint.url,
+                        expecting: MoviesResponse.self) { result in
             completion(result)
         }
     }

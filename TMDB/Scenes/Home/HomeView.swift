@@ -35,6 +35,7 @@ final class HomeView: UIView {
     
     // MARK: Actions
     var changeListType: ((TypeListEnum) -> Void)?
+    var selectMovie: ((Movie) -> Void)?
     
     // MARK: UIElements
     private lazy var scrollView: UIScrollView =  {
@@ -232,7 +233,7 @@ extension HomeView {
 
 extension HomeView: HomeTopRatedMoviesDelegate {
     func selectMovie(_ movie: Movie) {
-        print(movie.name)
+        selectMovie?(movie)
     }
 }
 
