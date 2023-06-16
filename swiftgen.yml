@@ -6,7 +6,6 @@ strings:
     params:
       publicAccess: false
       enumName: "TMDBStrings"
-
 colors:
   inputs: TMDB/Misc/Resources/Colors.txt
   outputs:

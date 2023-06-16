@@ -10,16 +10,20 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum TMDBStrings {
-  /// Duração
-  internal static let detailMovieDuration = TMDBStrings.tr("Localizable", "DetailMovieDuration", fallback: "Duração")
-  /// Lançamento
-  internal static let detailMovieReleaseYear = TMDBStrings.tr("Localizable", "DetailMovieReleaseYear", fallback: "Lançamento")
-  /// Detalhes
-  internal static let navigationBarDetailMovieTitle = TMDBStrings.tr("Localizable", "NavigationBarDetailMovieTitle", fallback: "Detalhes")
-  /// Buscar filme
-  internal static let tabbarSearchMovieTitle = TMDBStrings.tr("Localizable", "TabbarSearchMovieTitle", fallback: "Buscar filme")
-  /// Em breve
-  internal static let tabbarUpcomingMovieTitle = TMDBStrings.tr("Localizable", "TabbarUpcomingMovieTitle", fallback: "Em breve")
+  internal enum Detail {
+    /// Detail
+    internal static let navigationTitle = TMDBStrings.tr("Localizable", "Detail.navigationTitle", fallback: "Detail")
+    internal enum Selection {
+      /// About Movie
+      internal static let about = TMDBStrings.tr("Localizable", "Detail.selection.about", fallback: "About Movie")
+      /// Cast
+      internal static let cast = TMDBStrings.tr("Localizable", "Detail.selection.cast", fallback: "Cast")
+      /// Reviews
+      internal static let reviews = TMDBStrings.tr("Localizable", "Detail.selection.reviews", fallback: "Reviews")
+      /// Trailer
+      internal static let trailer = TMDBStrings.tr("Localizable", "Detail.selection.trailer", fallback: "Trailer")
+    }
+  }
   internal enum Home {
     internal enum Label {
       /// What do you want to watch?

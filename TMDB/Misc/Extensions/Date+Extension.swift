@@ -11,6 +11,7 @@ public enum DateFormat: String {
     case ddMMyyyyBars = "dd/MM/yyyy"
     case yyyyMMddHyphen = "yyyy-MM-dd"
     case yyyyMMddTHHmmss = "yyyy-MM-dd'T'HH:mm:ss"
+    case yyyy = "yyyy"
 }
 
 public extension Date {
