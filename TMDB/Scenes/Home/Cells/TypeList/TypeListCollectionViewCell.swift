@@ -27,6 +27,26 @@ enum TypeListEnum: CaseIterable {
     }
 }
 
+enum MovieDetailTypeEnum: CaseIterable {
+    case about
+    case trailer
+    case cast
+    case reviews
+    
+    var text: String {
+        switch self {
+        case .about:
+            return TMDBStrings.Detail.Selection.about
+        case .trailer:
+            return TMDBStrings.Detail.Selection.trailer
+        case .cast:
+            return TMDBStrings.Detail.Selection.cast
+        case .reviews:
+            return TMDBStrings.Detail.Selection.reviews
+        }
+    }
+}
+
 final class TypeListCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = String(describing: TypeListCollectionViewCell.self)
@@ -70,6 +90,10 @@ final class TypeListCollectionViewCell: UICollectionViewCell {
     }
     
     func setup(_ type: TypeListEnum) {
+        textLabel.text = type.text
+    }
+    
+    func setup(_ type: MovieDetailTypeEnum) {
         textLabel.text = type.text
     }
 }

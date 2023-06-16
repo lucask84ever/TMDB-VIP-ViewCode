@@ -14,6 +14,7 @@ protocol DetailMovieDisplaying {
     func setReleaseYear(_ releaseYear: String)
     func setMovieDuration(_ duration: String)
     func setGenre(_ genre: String)
+    func setNote(_ note: String)
 }
 
 class DetailMovieViewController: BaseViewController<DetailMovieInteracting, DetailMovieView> {
@@ -21,11 +22,20 @@ class DetailMovieViewController: BaseViewController<DetailMovieInteracting, Deta
         super.viewDidLoad()
         title = TMDBStrings.Detail.navigationTitle
         navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.topItem?.title = ""
+        let attributes = [NSAttributedString.Key.foregroundColor: ColorName.textColor.color]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        title = TMDBStrings.Detail.navigationTitle
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         interactor.fetchMovieDetails()
+        setInitialSelection()
+    }
+    
+    private func setInitialSelection() {
+        rootView.setInitialSelection()
     }
 }
 
@@ -55,5 +65,9 @@ extension DetailMovieViewController: DetailMovieDisplaying {
     
     func setGenre(_ genre: String) {
         rootView.setGenre(genre)
+    }
+    
+    func setNote(_ note: String) {
+        rootView.setNote(note)
     }
 }

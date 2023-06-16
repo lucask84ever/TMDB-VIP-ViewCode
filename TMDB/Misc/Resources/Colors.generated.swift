@@ -21,6 +21,12 @@ internal struct ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#242a32"></span>
   /// Alpha: 100% <br/> (0x242a32ff)
   internal static let backgroundColor = ColorName(rgbaValue: 0x242a32ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#252836"></span>
+  /// Alpha: 82% <br/> (0x252836d2)
+  internal static let backgroundColorWithAlpha = ColorName(rgbaValue: 0x252836d2)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ff8700"></span>
+  /// Alpha: 100% <br/> (0xff8700ff)
+  internal static let noteColor = ColorName(rgbaValue: 0xff8700ff)
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#0296e5"></span>
   /// Alpha: 100% <br/> (0x0296e5ff)
   internal static let tabBarLine = ColorName(rgbaValue: 0x0296e5ff)

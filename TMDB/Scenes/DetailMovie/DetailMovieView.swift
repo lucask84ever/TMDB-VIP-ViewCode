@@ -11,6 +11,10 @@ import SnapKit
 import UIKit
 
 final class DetailMovieView: UIView {
+    // MARK: Properties
+    var detailTypeDelegate: MovieDetailTypeDelegate?
+    var detailTypeDataSource: DetailMovieDatasource?
+    
     // MARK: View Properties
     private lazy var backdropImageLoader: ImageLoader = {
         let image = ImageLoader()
@@ -52,8 +56,7 @@ final class DetailMovieView: UIView {
     private lazy var movieReleaseYearLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.sizeToFit()
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 14)
         label.textColor = ColorName.textColor.color
         return label
     }()
@@ -74,7 +77,7 @@ final class DetailMovieView: UIView {
     private lazy var movieDurationLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 14)
         label.textColor = ColorName.textColor.color
         return label
     }()
@@ -95,9 +98,43 @@ final class DetailMovieView: UIView {
     private lazy var genreLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 14)
         label.textColor = ColorName.textColor.color
         return label
+    }()
+    
+    private lazy var detailTypeCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
+    
+    private lazy var noteBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorName.backgroundColorWithAlpha.color
+        view.layer.cornerRadius = 8
+        return view
+    }()
+    
+    private lazy var noteLabel: UILabel = {
+        let label = UILabel()
+        label.isSkeletonable = true
+        label.text = "9.6"
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = ColorName.noteColor.color
+        return label
+    }()
+    
+    private lazy var startImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "star")
+        imageView.tintColor = ColorName.noteColor.color
+        imageView.isSkeletonable = true
+        return imageView
     }()
     
     // MARK: Init
@@ -112,8 +149,8 @@ final class DetailMovieView: UIView {
     }
 }
 
+// MARK: Setting  values
 extension DetailMovieView {
-    
     func setMovieBackdrop(_ backdropPath: String) {
         let imageEndpoint = ImageEndpoint(path: backdropPath)
         backdropImageLoader.getImage(imageEndpoint)
@@ -151,17 +188,29 @@ extension DetailMovieView {
             self?.genreLabel.text = genre
         }
     }
+    
+    func setNote(_ note: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.noteLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
+            self?.noteLabel.text = note
+        }
+    }
 }
 
+// MARK: - Layout
 extension DetailMovieView: ViewCodeProtocol {
     private func setupLayout() {
         buildViewHierarchy()
         buildViewConstraints()
         additionalConfig()
+        setupDetailTypeCollectionView()
     }
     
     func buildViewHierarchy() {
         addSubview(backdropImageLoader)
+        backdropImageLoader.addSubview(noteBackgroundView)
+        noteBackgroundView.addSubview(noteLabel)
+        noteBackgroundView.addSubview(startImageView)
         addSubview(posterImageLoader)
         addSubview(movieTitleLabel)
         addSubview(calendarImageView)
@@ -172,7 +221,7 @@ extension DetailMovieView: ViewCodeProtocol {
         addSubview(separator2)
         addSubview(ticketImageView)
         addSubview(genreLabel)
-        
+        addSubview(detailTypeCollectionView)
     }
     
     func buildViewConstraints() {
@@ -180,6 +229,24 @@ extension DetailMovieView: ViewCodeProtocol {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(210)
+        }
+        
+        noteBackgroundView.snp.makeConstraints {
+            $0.bottom.right.equalToSuperview().inset(16)
+            $0.width.equalTo(56)
+            $0.height.equalTo(24)
+        }
+        
+        noteLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().inset(8)
+            $0.height.equalTo(18)
+        }
+        
+        startImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().offset(8)
+            $0.height.width.equalTo(18)
         }
         
         posterImageLoader.snp.makeConstraints {
@@ -245,11 +312,37 @@ extension DetailMovieView: ViewCodeProtocol {
             $0.height.equalTo(21)
             $0.centerY.equalTo(movieDurationLabel)
         }
+        
+        detailTypeCollectionView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(42)
+            $0.top.equalTo(movieDurationLabel.snp.bottom).offset(16)
+        }
     }
     
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
         movieTitleLabel.showSkeleton()
         movieReleaseYearLabel.showAnimatedGradientSkeleton()
+    }
+}
+
+// MARK: Setup Collection
+extension DetailMovieView {
+    private func setupDetailTypeCollectionView() {
+        detailTypeDelegate = MovieDetailTypeDelegate(detailTypeCollectionView, self)
+        detailTypeDataSource = DetailMovieDatasource(detailTypeCollectionView)
+    }
+    
+    func setInitialSelection() {
+        detailTypeDelegate?.setInitialValue()
+    }
+    
+}
+
+extension DetailMovieView: _MovieDetailTypeProtocol {
+    func selectedType(_ detailType: MovieDetailTypeEnum) {
+        print(detailType.text)
     }
 }
