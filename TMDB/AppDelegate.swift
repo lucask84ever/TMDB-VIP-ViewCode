@@ -17,9 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard #available(iOS 13, *) else {
             return true
         }
-        let tabbar = TMDB.initialSetup()
+        let navigationController = TMDB.initialSetup()
+        navigationController.navigationBar.isHidden = true
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = tabbar
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
     }
