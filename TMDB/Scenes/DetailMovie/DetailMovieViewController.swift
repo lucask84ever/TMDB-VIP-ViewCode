@@ -8,26 +8,52 @@
 import UIKit
 
 protocol DetailMovieDisplaying {
-    
+    func setMovieBackdrop(_ backdropPath: String?)
+    func setMoviePoster(_ posterPath: String)
+    func setMovieTitle(_ title: String)
+    func setReleaseYear(_ releaseYear: String)
+    func setMovieDuration(_ duration: String)
+    func setGenre(_ genre: String)
 }
 
 class DetailMovieViewController: BaseViewController<DetailMovieInteracting, DetailMovieView> {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = TMDBStrings.Detail.navigationTitle
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         interactor.fetchMovieDetails()
-        getMovieBackdrop()
-        getMoviePoster()
     }
 }
 
 extension DetailMovieViewController: DetailMovieDisplaying {
-    func getMovieBackdrop() {
-        if let backdrop = interactor.getMovieBackdrop() {
-            rootView.setMovieBackdrop(backdrop)
+    func setMovieBackdrop(_ backdropPath: String?) {
+        if let backdropPath = backdropPath {
+            rootView.setMovieBackdrop(backdropPath)
         }
     }
     
-    func getMoviePoster() {
-        rootView.setMoviePoster(interactor.getMoviePosterPath())
+    func setMoviePoster(_ posterPath: String) {
+        rootView.setMoviePoster(posterPath)
+    }
+    
+    
+    func setMovieTitle(_ title: String) {
+        rootView.setMovieTitle(title)
+    }
+    
+    func setReleaseYear(_ releaseYear: String) {
+        rootView.setMovieReleaseYear(releaseYear)
+    }
+    
+    func setMovieDuration(_ duration: String) {
+        rootView.setMovieDuration(duration)
+    }
+    
+    func setGenre(_ genre: String) {
+        rootView.setGenre(genre)
     }
 }

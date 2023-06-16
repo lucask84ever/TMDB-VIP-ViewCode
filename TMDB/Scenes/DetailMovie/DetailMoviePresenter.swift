@@ -8,36 +8,66 @@
 import Foundation
 
 protocol DetailMoviePresenting {
-    var viewController: DetailMovieViewController? { get set }
+    var viewController: DetailMovieDisplaying? { get set }
     var movie: Movie { get set }
+    var movieDetails: DetailedMovie? { get set }
     
-    func fetchMovieDetails(_ movie: DetailedMovie)
-    func fetchMovieTrailer(_ trailer: Video)
-    
-    func getBackdrop() -> String?
-    func getPosterPath() -> String
+    func setMovieBackdrop(_ backdropPath: String?)
+    func setMoviePoster(_ posterPath: String)
+    func setMovieTitle(_ title: String)
+    func setReleaseYear(_ year: String)
+    func setDuration(_ duration: String)
+    func setMainGenre(_ genre: String)
 }
 
 final class DetailMoviePresenter: DetailMoviePresenting {
-    weak var viewController: DetailMovieViewController?
+    var viewController: DetailMovieDisplaying?
     var movie: Movie
+    var movieDetails: DetailedMovie? {
+        didSet {
+            setMovieBackdrop(movie.backdropPath)
+            setMoviePoster(movie.posterPath)
+            setMovieTitle(movie.name)
+            setReleaseYear(movie.releaseDate)
+            if let details = movieDetails {
+                setDuration("\(details.duration) Minutes")
+            }
+            
+            if let mainGenre = movieDetails?.genres.first {
+                setMainGenre(mainGenre.name)
+            }
+        }
+    }
     
     init(movie: Movie) {
         self.movie = movie
     }
-    func fetchMovieDetails(_ movie: DetailedMovie) {
-        // chamada para a viewcontroller mandar para a view
+    
+    func setMovieBackdrop(_ backdropPath: String?) {
+        viewController?.setMovieBackdrop(backdropPath)
     }
     
-    func fetchMovieTrailer(_ trailer: Video) {
-        // chamada para a viewcontroller mandar para a view
+    func setMoviePoster(_ posterPath: String) {
+        viewController?.setMoviePoster(posterPath)
     }
     
-    func getBackdrop() -> String? {
-        return movie.backdropPath
+    
+    func setMovieTitle(_ title: String) {
+        viewController?.setMovieTitle(title)
     }
     
-    func getPosterPath() -> String {
-        return movie.posterPath
+    func setReleaseYear(_ year: String) {
+        let date = Date(string: year, format: .yyyyMMddHyphen)
+        if let date = date {
+            viewController?.setReleaseYear(date.asString(format: .yyyy, timeZone: nil))
+        }
+    }
+    
+    func setDuration(_ duration: String) {
+        viewController?.setMovieDuration(duration)
+    }
+    
+    func setMainGenre(_ genre: String) {
+        viewController?.setGenre(genre)
     }
 }

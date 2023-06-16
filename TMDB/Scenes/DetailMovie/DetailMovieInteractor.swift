@@ -14,9 +14,6 @@ protocol DetailMovieInteracting {
     
     func fetchMovieDetails()
     func fetchTrailer()
-    
-    func getMovieBackdrop() -> String?
-    func getMoviePosterPath() -> String
 }
 
 final class DetailMovieInteractor: DetailMovieInteracting {
@@ -33,18 +30,18 @@ final class DetailMovieInteractor: DetailMovieInteracting {
     }
     
     func fetchMovieDetails() {
-        
+        let id = presenter.movie.id
+        service.fetchMoviesDetails(id, completion: { [weak self] result in
+            switch result {
+            case .success(let detail):
+                self?.presenter.movieDetails = detail
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
     }
     
     func fetchTrailer() {
         
-    }
-    
-    func getMovieBackdrop() -> String? {
-        return presenter.getBackdrop()
-    }
-    
-    func getMoviePosterPath() -> String {
-        return presenter.getPosterPath()
     }
 }
