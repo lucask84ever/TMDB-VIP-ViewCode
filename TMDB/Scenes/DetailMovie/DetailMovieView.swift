@@ -117,6 +117,7 @@ final class DetailMovieView: UIView {
         let view = UIView()
         view.backgroundColor = ColorName.backgroundColorWithAlpha.color
         view.layer.cornerRadius = 8
+        view.isSkeletonable = true
         return view
     }()
     
@@ -136,11 +137,19 @@ final class DetailMovieView: UIView {
         return imageView
     }()
     
+    private lazy var overviewBackgroundView: UIView = {
+        let view = UIView()
+        view.isSkeletonable = true
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     private lazy var overviewLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14)
         label.textAlignment = .left
+        label.textColor = ColorName.textColor.color
         label.isSkeletonable = true
         return label
     }()
@@ -203,6 +212,13 @@ extension DetailMovieView {
             self?.noteLabel.text = note
         }
     }
+    
+    func setOverview(_ overview: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.overviewBackgroundView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
+            self?.overviewLabel.text = overview
+        }
+    }
 }
 
 // MARK: - Layout
@@ -230,6 +246,8 @@ extension DetailMovieView: ViewCodeProtocol {
         addSubview(ticketImageView)
         addSubview(genreLabel)
         addSubview(detailTypeCollectionView)
+        addSubview(overviewBackgroundView)
+        overviewBackgroundView.addSubview(overviewLabel)
     }
     
     func buildViewConstraints() {
@@ -326,6 +344,16 @@ extension DetailMovieView: ViewCodeProtocol {
             $0.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(42)
             $0.top.equalTo(movieDurationLabel.snp.bottom).offset(16)
+        }
+        
+        overviewBackgroundView.snp.makeConstraints {
+            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().inset(16)
+        }
+        
+        overviewLabel.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
     

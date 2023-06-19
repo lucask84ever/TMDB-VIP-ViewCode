@@ -19,6 +19,7 @@ protocol DetailMoviePresenting {
     func setDuration(_ duration: String)
     func setMainGenre(_ genre: String)
     func setNote(_ note: Double)
+    func setOverview(_ overview: String)
 }
 
 final class DetailMoviePresenter: DetailMoviePresenting {
@@ -31,6 +32,7 @@ final class DetailMoviePresenter: DetailMoviePresenting {
             setMovieTitle(movie.name)
             setReleaseYear(movie.releaseDate)
             setNote(movie.averageNote)
+            setOverview(movie.overview)
             if let details = movieDetails {
                 setDuration("\(details.duration) Minutes")
             }
@@ -76,5 +78,9 @@ final class DetailMoviePresenter: DetailMoviePresenting {
     func setNote(_ note: Double) {
         let formated = String(format: "%.1f", note)
         viewController?.setNote(formated)
+    }
+    
+    func setOverview(_ overview: String) {
+        viewController?.setOverview(overview)
     }
 }

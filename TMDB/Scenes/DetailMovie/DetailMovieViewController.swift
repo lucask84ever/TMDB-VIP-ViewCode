@@ -15,6 +15,7 @@ protocol DetailMovieDisplaying {
     func setMovieDuration(_ duration: String)
     func setGenre(_ genre: String)
     func setNote(_ note: String)
+    func setOverview(_ overview: String)
 }
 
 class DetailMovieViewController: BaseViewController<DetailMovieInteracting, DetailMovieView> {
@@ -73,5 +74,9 @@ extension DetailMovieViewController: DetailMovieDisplaying {
     
     func setNote(_ note: String) {
         rootView.setNote(note)
+    }
+    
+    func setOverview(_ overview: String) {
+        rootView.setOverview(overview)
     }
 }
