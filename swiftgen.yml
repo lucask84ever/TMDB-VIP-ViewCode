@@ -11,3 +11,8 @@ colors:
   outputs:
     templateName: swift5
     output: TMDB/Misc/Resources/Colors.generated.swift
+plist:
+  inputs: TMDB/Misc/Resources/Url.plist
+  outputs:
+    templateName: runtime-swift5
+    output: TMDB/Misc/Resources/PlistFile.generated.swift

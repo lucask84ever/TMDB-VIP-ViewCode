@@ -34,6 +34,10 @@ class DetailMovieViewController: BaseViewController<DetailMovieInteracting, Deta
         setInitialSelection()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
     private func setInitialSelection() {
         rootView.setInitialSelection()
     }

@@ -123,18 +123,26 @@ final class DetailMovieView: UIView {
     private lazy var noteLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.text = "9.6"
-        label.font = .systemFont(ofSize: 14)
+        label.font = .boldSystemFont(ofSize: 14)
         label.textColor = ColorName.noteColor.color
         return label
     }()
     
-    private lazy var startImageView: UIImageView = {
+    private lazy var starImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "star")
         imageView.tintColor = ColorName.noteColor.color
         imageView.isSkeletonable = true
         return imageView
+    }()
+    
+    private lazy var overviewLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 14)
+        label.textAlignment = .left
+        label.isSkeletonable = true
+        return label
     }()
     
     // MARK: Init
@@ -191,7 +199,7 @@ extension DetailMovieView {
     
     func setNote(_ note: String) {
         DispatchQueue.main.async { [weak self] in
-            self?.noteLabel.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
+            self?.noteBackgroundView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
             self?.noteLabel.text = note
         }
     }
@@ -210,7 +218,7 @@ extension DetailMovieView: ViewCodeProtocol {
         addSubview(backdropImageLoader)
         backdropImageLoader.addSubview(noteBackgroundView)
         noteBackgroundView.addSubview(noteLabel)
-        noteBackgroundView.addSubview(startImageView)
+        noteBackgroundView.addSubview(starImageView)
         addSubview(posterImageLoader)
         addSubview(movieTitleLabel)
         addSubview(calendarImageView)
@@ -233,7 +241,6 @@ extension DetailMovieView: ViewCodeProtocol {
         
         noteBackgroundView.snp.makeConstraints {
             $0.bottom.right.equalToSuperview().inset(16)
-            $0.width.equalTo(56)
             $0.height.equalTo(24)
         }
         
@@ -243,10 +250,11 @@ extension DetailMovieView: ViewCodeProtocol {
             $0.height.equalTo(18)
         }
         
-        startImageView.snp.makeConstraints {
+        starImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().offset(8)
-            $0.height.width.equalTo(18)
+            $0.right.equalTo(noteLabel.snp.left).offset(-8)
+            $0.height.width.equalTo(14)
         }
         
         posterImageLoader.snp.makeConstraints {
@@ -325,6 +333,7 @@ extension DetailMovieView: ViewCodeProtocol {
         backgroundColor = ColorName.backgroundColor.color
         movieTitleLabel.showSkeleton()
         movieReleaseYearLabel.showAnimatedGradientSkeleton()
+        noteBackgroundView.showSkeleton()
     }
 }
 

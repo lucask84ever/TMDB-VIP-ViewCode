@@ -9,15 +9,15 @@ import Foundation
 
 struct Endpoint {
     var path: String
-    var queryItems: [URLQueryItem] = [URLQueryItem(name: "api_key", value: "1f54bd990f1cdfb230adb312546d765d")]
+    var queryItems: [URLQueryItem] = [URLQueryItem(name: "api_key", value: PlistFiles.apiKey)]
 }
 
 extension Endpoint {
     var url: URL {
         var components = URLComponents()
-        components.scheme = "https"
-        components.host = "api.themoviedb.org"
-        components.path = "/3/" + path
+        components.scheme = PlistFiles.scheme
+        components.host = PlistFiles.host
+        components.path = PlistFiles.path + path
         components.queryItems = queryItems
         
         guard let url = components.url else {
@@ -29,26 +29,28 @@ extension Endpoint {
 
 extension Endpoint {
     static var upcomingMovies: Self {
-        Endpoint(path: "movie/upcoming")
+        Endpoint(path: PlistFiles.upcoming)
     }
     
     static var topRatedMovies: Self {
-        Endpoint(path: "movie/top_rated")
+        Endpoint(path: PlistFiles.topRated)
     }
     
     static var popularMovies: Self {
-        Endpoint(path: "movie/popular")
+        Endpoint(path: PlistFiles.popular)
     }
     
     static var nowPlayingMovies: Self {
-        Endpoint(path: "movie/now_playing")
+        Endpoint(path: PlistFiles.playingNow)
     }
     
     static func trailers(_ id: Int) -> Self {
-        Endpoint(path: "movie/\(id)/videos")
+        let url = PlistFiles.playingNow.replacingOccurrences(of: "{id}", with: id.description)
+        return Endpoint(path: url)
     }
     
     static func movieDetail(_ id: Int) -> Self {
-        Endpoint(path: "movie/\(id)")
+        let url = PlistFiles.detail.replacingOccurrences(of: "{id}", with: id.description)
+        return Endpoint(path: url)
     }
 }

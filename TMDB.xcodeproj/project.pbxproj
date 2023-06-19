@@ -68,6 +68,8 @@
 		3D60B2C02A3CCB0300F838CB /* Colors.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D60B2BE2A3CCB0300F838CB /* Colors.generated.swift */; };
 		3D60B2C22A3CD08100F838CB /* DetailMovieDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D60B2C12A3CD08100F838CB /* DetailMovieDatasource.swift */; };
 		3D60B2C42A3CE53E00F838CB /* MovieDetailTypeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D60B2C32A3CE53D00F838CB /* MovieDetailTypeDelegate.swift */; };
+		3D60B2C62A3FDABD00F838CB /* Url.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D60B2C52A3FDABD00F838CB /* Url.plist */; };
+		3D60B2C82A3FDB6200F838CB /* PlistFile.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D60B2C72A3FDB6200F838CB /* PlistFile.generated.swift */; };
 		EC73B78C9E4D6FD9254EE6C7 /* Pods_TMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B440D38331C1C8C058258C56 /* Pods_TMDB.framework */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +137,8 @@
 		3D60B2BE2A3CCB0300F838CB /* Colors.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.generated.swift; sourceTree = "<group>"; };
 		3D60B2C12A3CD08100F838CB /* DetailMovieDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMovieDatasource.swift; sourceTree = "<group>"; };
 		3D60B2C32A3CE53D00F838CB /* MovieDetailTypeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailTypeDelegate.swift; sourceTree = "<group>"; };
+		3D60B2C52A3FDABD00F838CB /* Url.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Url.plist; sourceTree = "<group>"; };
+		3D60B2C72A3FDB6200F838CB /* PlistFile.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistFile.generated.swift; sourceTree = "<group>"; };
 		64F376B7E260D80BD996661C /* Pods-TMDB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDB.release.xcconfig"; path = "Target Support Files/Pods-TMDB/Pods-TMDB.release.xcconfig"; sourceTree = "<group>"; };
 		B440D38331C1C8C058258C56 /* Pods_TMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB030982DCB8D7DFC5461238 /* Pods-TMDB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDB.debug.xcconfig"; path = "Target Support Files/Pods-TMDB/Pods-TMDB.debug.xcconfig"; sourceTree = "<group>"; };
@@ -156,9 +160,11 @@
 			isa = PBXGroup;
 			children = (
 				3D60B2BE2A3CCB0300F838CB /* Colors.generated.swift */,
-				3D60B2BD2A3CCB0300F838CB /* Strings.generated.swift */,
-				102B16FA2A26EF3A00ECBC6A /* Localizable.strings */,
 				102B175B2A2ABEA800ECBC6A /* Colors.txt */,
+				3D60B2C52A3FDABD00F838CB /* Url.plist */,
+				102B16FA2A26EF3A00ECBC6A /* Localizable.strings */,
+				3D60B2C72A3FDB6200F838CB /* PlistFile.generated.swift */,
+				3D60B2BD2A3CCB0300F838CB /* Strings.generated.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -466,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				105AA1432A1BFC4F00E52448 /* LaunchScreen.storyboard in Resources */,
+				3D60B2C62A3FDABD00F838CB /* Url.plist in Resources */,
 				102B16FB2A26EF3A00ECBC6A /* Localizable.strings in Resources */,
 				102B175C2A2ABEA800ECBC6A /* Colors.txt in Resources */,
 				105AA1402A1BFC4F00E52448 /* Assets.xcassets in Resources */,
@@ -550,6 +557,7 @@
 				102B172C2A27DDD400ECBC6A /* TMDB.swift in Sources */,
 				102B170E2A27008100ECBC6A /* SearchMoviePresenter.swift in Sources */,
 				102B17532A29216D00ECBC6A /* Genre.swift in Sources */,
+				3D60B2C82A3FDB6200F838CB /* PlistFile.generated.swift in Sources */,
 				105AA1392A1BFC4D00E52448 /* SceneDelegate.swift in Sources */,
 				3D32D5572A3A0AA000D43C9E /* DetailMoviePresenter.swift in Sources */,
 				105AA1602A1BFEED00E52448 /* ViewCodeProtocol.swift in Sources */,
