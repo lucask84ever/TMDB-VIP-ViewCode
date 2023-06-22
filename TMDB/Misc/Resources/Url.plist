@@ -22,5 +22,9 @@
 	<string>movie/{id}/videos</string>
 	<key>detail</key>
 	<string>movie/{id}</string>
+	<key>cast</key>
+	<string>movie/{id}/credits</string>
+	<key>reviews</key>
+	<string>movie/{id}/reviews</string>
 </dict>
 </plist>

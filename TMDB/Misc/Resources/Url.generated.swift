@@ -12,11 +12,13 @@ import Foundation
 internal enum PlistFiles {
   private static let _document = PlistDocument(path: "Url.plist")
   internal static let apiKey: String = _document["api_key"]
+  internal static let cast: String = _document["cast"]
   internal static let detail: String = _document["detail"]
   internal static let host: String = _document["host"]
   internal static let path: String = _document["path"]
   internal static let playingNow: String = _document["playingNow"]
   internal static let popular: String = _document["popular"]
+  internal static let reviews: String = _document["reviews"]
   internal static let scheme: String = _document["scheme"]
   internal static let topRated: String = _document["topRated"]
   internal static let trailers: String = _document["trailers"]

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol DetailMovieDisplaying {
+protocol MovieDetailDisplaying {
     func setMovieBackdrop(_ backdropPath: String?)
     func setMoviePoster(_ posterPath: String)
     func setMovieTitle(_ title: String)
@@ -16,21 +16,19 @@ protocol DetailMovieDisplaying {
     func setGenre(_ genre: String)
     func setNote(_ note: String)
     func setOverview(_ overview: String)
+    func setTrailer(_ url: String)
+    func setReviews(_ reviews: [UserReview])
 }
 
-class DetailMovieViewController: BaseViewController<DetailMovieInteracting, DetailMovieView> {
+class MovieDetailViewController: BaseViewController<DetailMovieInteracting, DetailMovieView> {
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = TMDBStrings.Detail.navigationTitle
-        navigationController?.navigationBar.isHidden = false
-        navigationController?.navigationBar.topItem?.title = ""
-        let attributes = [NSAttributedString.Key.foregroundColor: ColorName.textColor.color]
-        navigationController?.navigationBar.titleTextAttributes = attributes
-        title = TMDBStrings.Detail.navigationTitle
+        setupNavigation()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupClosure()
         interactor.fetchMovieDetails()
         setInitialSelection()
     }
@@ -39,12 +37,40 @@ class DetailMovieViewController: BaseViewController<DetailMovieInteracting, Deta
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+    
+    private func setupNavigation() {
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.topItem?.title = ""
+        let attributes = [NSAttributedString.Key.foregroundColor: ColorName.textColor.color]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        title = TMDBStrings.Detail.navigationTitle
+    }
+    
     private func setInitialSelection() {
         rootView.setInitialSelection()
     }
+    
+    private func setupClosure() {
+        rootView.selectDetailType = { [weak self] type in
+            switch type {
+            case .cast:
+                print("Cast")
+            case .trailer:
+                self?.interactor.fetchTrailer()
+            case .about:
+                return
+            case .reviews:
+                self?.interactor.fetchReviews()
+            }
+        }
+        
+        rootView.selectDetailReview = { [weak self] review in
+            self?.interactor.showReviewDetails(review)
+        }
+    }
 }
 
-extension DetailMovieViewController: DetailMovieDisplaying {
+extension MovieDetailViewController: MovieDetailDisplaying {
     func setMovieBackdrop(_ backdropPath: String?) {
         if let backdropPath = backdropPath {
             rootView.setMovieBackdrop(backdropPath)
@@ -78,5 +104,13 @@ extension DetailMovieViewController: DetailMovieDisplaying {
     
     func setOverview(_ overview: String) {
         rootView.setOverview(overview)
+    }
+    
+    func setTrailer(_ url: String) {
+        rootView.setTrailer(url)
+    }
+    
+    func setReviews(_ reviews: [UserReview]) {
+        rootView.setReviws(reviews)
     }
 }

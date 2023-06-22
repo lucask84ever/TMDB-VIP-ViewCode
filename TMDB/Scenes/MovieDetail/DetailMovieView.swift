@@ -9,13 +9,27 @@ import Foundation
 import SkeletonView
 import SnapKit
 import UIKit
+import youtube_ios_player_helper
+
+protocol SelectReviewProtocol {
+    func selectedReview(_ review: UserReview)
+}
 
 final class DetailMovieView: UIView {
     // MARK: Properties
     var detailTypeDelegate: MovieDetailTypeDelegate?
     var detailTypeDataSource: DetailMovieDatasource?
     
+    var userReviewDelegate: UserReviewDelegate?
+    var userReviewDataSource: UserReviewDataSource?
+    
+    var selectDetailType: ((MovieDetailTypeEnum) -> Void)?
+    var selectDetailReview: ((UserReview) -> Void)?
+    
     // MARK: View Properties
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIView()
+    
     private lazy var backdropImageLoader: ImageLoader = {
         let image = ImageLoader()
         image.contentMode = .scaleAspectFill
@@ -154,6 +168,51 @@ final class DetailMovieView: UIView {
         return label
     }()
     
+    private lazy var trailerBackgroundView: UIView = {
+        let view = UIView()
+        view.isSkeletonable = true
+        view.backgroundColor = .clear
+        view.isHidden = true
+        return view
+    }()
+    
+    private lazy var trailerView: YTPlayerView = {
+        let trailerView = YTPlayerView()
+        trailerView.isSkeletonable = true
+        return trailerView
+    }()
+    
+    private lazy var reviewBackgroundView: UIView = {
+        let view = UIView()
+        view.isSkeletonable = true
+        view.backgroundColor = .red
+        view.isHidden = true
+        view.sizeToFit()
+        return view
+    }()
+    
+//    private lazy var reviewTableView: UITableView = {
+//        let tableview = UITableView()
+//        tableview.isSkeletonable = true
+////        tableview.allowsSelection = false
+//        tableview.estimatedRowHeight = 80
+//        tableview.rowHeight = UITableView.automaticDimension
+//        tableview.separatorStyle = .none
+////        tableview.backgroundColor = .clear
+//        tableview.isHidden = true
+//        return tableview
+//    }()
+    
+    private lazy var reviewTableView: ContentSizeTableView = {
+        let tableview = ContentSizeTableView()
+        tableview.isSkeletonable = true//        tableview.estimatedRowHeight = 80
+        tableview.rowHeight = UITableView.automaticDimension
+        tableview.separatorStyle = .none
+        tableview.backgroundColor = .clear
+        tableview.isHidden = true
+        return tableview
+    }()
+    
     // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -169,13 +228,18 @@ final class DetailMovieView: UIView {
 // MARK: Setting  values
 extension DetailMovieView {
     func setMovieBackdrop(_ backdropPath: String) {
-        let imageEndpoint = ImageEndpoint(path: backdropPath)
-        backdropImageLoader.getImage(imageEndpoint)
+        DispatchQueue.main.async { [weak self] in
+            let imageEndpoint = ImageEndpoint(path: backdropPath)
+            self?.backdropImageLoader.getImage(imageEndpoint)
+            
+        }
     }
     
     func setMoviePoster(_ posterPath: String) {
-        let imageEndpoint = ImageEndpoint(path: posterPath)
-        posterImageLoader.getImage(imageEndpoint)
+        DispatchQueue.main.async { [weak self] in
+            let imageEndpoint = ImageEndpoint(path: posterPath)
+            self?.posterImageLoader.getImage(imageEndpoint)
+        }
     }
     
     func setMovieTitle(_ title: String) {
@@ -219,6 +283,23 @@ extension DetailMovieView {
             self?.overviewLabel.text = overview
         }
     }
+    
+    func setTrailer(_ url: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.trailerView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
+            self?.trailerView.load(withVideoId: url)
+        }
+    }
+    
+    func setReviws(_ reviews: [UserReview]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.reviewBackgroundView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
+            self?.setupUserReviewsTableView()
+            self?.userReviewDataSource?.setItems(reviews)
+            self?.userReviewDelegate?.setItems(reviews)
+            self?.reviewTableView.reloadData()
+        }
+    }
 }
 
 // MARK: - Layout
@@ -227,141 +308,184 @@ extension DetailMovieView: ViewCodeProtocol {
         buildViewHierarchy()
         buildViewConstraints()
         additionalConfig()
-        setupDetailTypeCollectionView()
     }
     
     func buildViewHierarchy() {
-        addSubview(backdropImageLoader)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(backdropImageLoader)
         backdropImageLoader.addSubview(noteBackgroundView)
         noteBackgroundView.addSubview(noteLabel)
         noteBackgroundView.addSubview(starImageView)
-        addSubview(posterImageLoader)
-        addSubview(movieTitleLabel)
-        addSubview(calendarImageView)
-        addSubview(movieReleaseYearLabel)
-        addSubview(separator1)
-        addSubview(clockImageView)
-        addSubview(movieDurationLabel)
-        addSubview(separator2)
-        addSubview(ticketImageView)
-        addSubview(genreLabel)
-        addSubview(detailTypeCollectionView)
-        addSubview(overviewBackgroundView)
+        contentView.addSubview(posterImageLoader)
+        contentView.addSubview(movieTitleLabel)
+        contentView.addSubview(calendarImageView)
+        contentView.addSubview(movieReleaseYearLabel)
+        contentView.addSubview(separator1)
+        contentView.addSubview(clockImageView)
+        contentView.addSubview(movieDurationLabel)
+        contentView.addSubview(separator2)
+        contentView.addSubview(ticketImageView)
+        contentView.addSubview(genreLabel)
+        contentView.addSubview(detailTypeCollectionView)
+        contentView.addSubview(overviewBackgroundView)
         overviewBackgroundView.addSubview(overviewLabel)
+        contentView.addSubview(trailerBackgroundView)
+        trailerBackgroundView.addSubview(trailerView)
+        contentView.addSubview(reviewTableView)
+//        reviewBackgroundView.addSubview(reviewTableView)
     }
     
     func buildViewConstraints() {
-        backdropImageLoader.snp.makeConstraints {
+        
+        scrollView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
+            $0.width.left.right.bottom.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.greaterThanOrEqualTo(safeAreaLayoutGuide)
+            $0.height.equalTo(safeAreaLayoutGuide).priority(.low)
+        }
+        
+        backdropImageLoader.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(210)
         }
-        
+
         noteBackgroundView.snp.makeConstraints {
             $0.bottom.right.equalToSuperview().inset(16)
             $0.height.equalTo(24)
         }
-        
+
         noteLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(8)
             $0.height.equalTo(18)
         }
-        
+
         starImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().offset(8)
             $0.right.equalTo(noteLabel.snp.left).offset(-8)
             $0.height.width.equalTo(14)
         }
-        
+
         posterImageLoader.snp.makeConstraints {
             $0.top.equalTo(backdropImageLoader.snp.bottom).inset(60)
             $0.leading.equalTo(backdropImageLoader).offset(32)
             $0.height.equalTo(120)
             $0.width.equalTo(95)
         }
-        
+
         movieTitleLabel.snp.makeConstraints {
             $0.top.equalTo(backdropImageLoader.snp.bottom)
             $0.leading.equalTo(posterImageLoader.snp.trailing).offset(16)
             $0.trailing.equalToSuperview().inset(16)
             $0.bottom.equalTo(posterImageLoader)
         }
-        
+
         movieDurationLabel.snp.makeConstraints {
             $0.height.equalTo(21)
             $0.top.equalTo(movieTitleLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
         }
-        
+
         clockImageView.snp.makeConstraints {
             $0.width.height.equalTo(16)
             $0.centerY.equalTo(movieDurationLabel)
             $0.right.equalTo(movieDurationLabel.snp.left).offset(-8)
         }
-        
+
         separator1.snp.makeConstraints {
             $0.width.equalTo(2)
             $0.height.equalTo(21)
             $0.right.equalTo(clockImageView.snp.left).offset(-16)
             $0.centerY.equalTo(movieDurationLabel)
         }
-        
+
         movieReleaseYearLabel.snp.makeConstraints {
             $0.right.equalTo(separator1.snp.left).inset(-16)
             $0.height.equalTo(21)
             $0.centerY.equalTo(movieDurationLabel)
         }
-        
+
         calendarImageView.snp.makeConstraints {
             $0.right.equalTo(movieReleaseYearLabel.snp.left).inset(-16)
             $0.height.width.equalTo(21)
             $0.centerY.equalTo(movieDurationLabel)
         }
-        
+
         separator2.snp.makeConstraints {
             $0.width.equalTo(2)
             $0.height.equalTo(21)
             $0.left.equalTo(movieDurationLabel.snp.right).offset(16)
             $0.centerY.equalTo(movieDurationLabel)
         }
-        
+
         ticketImageView.snp.makeConstraints {
             $0.left.equalTo(separator2.snp.right).offset(16)
             $0.width.height.equalTo(21)
             $0.centerY.equalTo(movieDurationLabel)
         }
-        
+
         genreLabel.snp.makeConstraints {
             $0.left.equalTo(ticketImageView.snp.right).offset(8)
             $0.height.equalTo(21)
             $0.centerY.equalTo(movieDurationLabel)
         }
-        
+
         detailTypeCollectionView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(42)
             $0.top.equalTo(movieDurationLabel.snp.bottom).offset(16)
         }
-        
+
         overviewBackgroundView.snp.makeConstraints {
             $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().inset(16)
         }
-        
+
         overviewLabel.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+
+        trailerBackgroundView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(overviewBackgroundView)
+            $0.height.equalTo(trailerBackgroundView.snp.width).multipliedBy(9.0/16.0)
+        }
+
+        trailerView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+//        reviewBackgroundView.snp.makeConstraints {
+//            $0.trailing.equalToSuperview().inset(16)
+//            $0.leading.equalToSuperview().offset(16)
+//            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
+//            $0.bottom.equalToSuperview().inset(16)
+//        }
+
+        reviewTableView.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().offset(16)
+            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
+            $0.bottom.equalToSuperview().inset(16)
         }
     }
     
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
+        setupDetailTypeCollectionView()
         movieTitleLabel.showSkeleton()
         movieReleaseYearLabel.showAnimatedGradientSkeleton()
-        noteBackgroundView.showSkeleton()
+        noteBackgroundView.showAnimatedGradientSkeleton()
+        trailerView.showAnimatedGradientSkeleton()
     }
 }
 
@@ -376,10 +500,57 @@ extension DetailMovieView {
         detailTypeDelegate?.setInitialValue()
     }
     
+    
+    func setupUserReviewsTableView() {
+        userReviewDelegate = UserReviewDelegate(tableView: reviewTableView, delegate: self)
+        userReviewDataSource = UserReviewDataSource(tableView: reviewTableView)
+    }
+    
 }
 
 extension DetailMovieView: _MovieDetailTypeProtocol {
     func selectedType(_ detailType: MovieDetailTypeEnum) {
-        print(detailType.text)
+        switch detailType {
+        case .about:
+            enablePreview()
+        case .trailer:
+            enableTrailer()
+        case .cast:
+            enableCast()
+        case .reviews:
+            enableReviews()
+        }
+        selectDetailType?(detailType)
+    }
+    
+    private func enablePreview() {
+        overviewBackgroundView.isHidden = false
+        trailerBackgroundView.isHidden = true
+        reviewTableView.isHidden = true
+    }
+    
+    private func enableTrailer() {
+        overviewBackgroundView.isHidden = true
+        trailerBackgroundView.isHidden = false
+        reviewTableView.isHidden = true
+    }
+    
+    private func enableCast() {
+        overviewBackgroundView.isHidden = true
+        trailerBackgroundView.isHidden = true
+        reviewTableView.isHidden = true
+    }
+    
+    private func enableReviews() {
+        reviewBackgroundView.showAnimatedGradientSkeleton()
+        overviewBackgroundView.isHidden = true
+        trailerBackgroundView.isHidden = true
+        reviewTableView.isHidden = false
+    }
+}
+
+extension DetailMovieView: SelectReviewProtocol {
+    func selectedReview(_ review: UserReview) {
+        selectDetailReview?(review)
     }
 }

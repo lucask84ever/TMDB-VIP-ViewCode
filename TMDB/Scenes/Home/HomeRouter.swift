@@ -7,13 +7,13 @@
 
 import UIKit
 
-enum Route {
+enum HomeRoute {
     case detail(Movie)
 }
 
 protocol HomeRouting {
     var viewController: UIViewController? { get set }
-    func routeTo(_ route: Route)
+    func routeTo(_ route: HomeRoute)
 }
 
 final class HomeRouter {
@@ -21,11 +21,11 @@ final class HomeRouter {
 }
 
 extension HomeRouter: HomeRouting {
-    func routeTo(_ route: Route) {
+    func routeTo(_ route: HomeRoute) {
         let navigation = viewController?.navigationController
         switch route {
         case .detail(let movie):
-            let viewController = DetailMovieFactory.make(movie)
+            let viewController = MovieDetailFactory.make(movie)
             navigation?.pushViewController(viewController, animated: true)
         }
     }

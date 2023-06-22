@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        guard #available(iOS 13, *) else {
+        if #available(iOS 13, *) {
             return true
         }
         let navigationController = TMDB.initialSetup()

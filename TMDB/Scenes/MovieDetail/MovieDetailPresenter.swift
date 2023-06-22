@@ -8,9 +8,12 @@
 import Foundation
 
 protocol DetailMoviePresenting {
-    var viewController: DetailMovieDisplaying? { get set }
+    var viewController: MovieDetailDisplaying? { get set }
+    var router: MovieDetailRouting? { get set }
     var movie: Movie { get set }
     var movieDetails: DetailedMovie? { get set }
+    var trailer: Video? { get set }
+    var reviews: Reviews? { get set }
     
     func setMovieBackdrop(_ backdropPath: String?)
     func setMoviePoster(_ posterPath: String)
@@ -20,10 +23,15 @@ protocol DetailMoviePresenting {
     func setMainGenre(_ genre: String)
     func setNote(_ note: Double)
     func setOverview(_ overview: String)
+    func setTrailer(_ url: String)
+    func setReviews(_ reviews: [UserReview])
+    
+    func showReviewDetails(_ review: UserReview)
 }
 
-final class DetailMoviePresenter: DetailMoviePresenting {
-    var viewController: DetailMovieDisplaying?
+final class MovieDetailPresenter: DetailMoviePresenting {
+    var viewController: MovieDetailDisplaying?
+    var router: MovieDetailRouting?
     var movie: Movie
     var movieDetails: DetailedMovie? {
         didSet {
@@ -39,6 +47,22 @@ final class DetailMoviePresenter: DetailMoviePresenting {
             
             if let mainGenre = movieDetails?.genres.first {
                 setMainGenre(mainGenre.name)
+            }
+        }
+    }
+    
+    var trailer: Video? {
+        didSet {
+            if let url = trailer?.urlEnd {
+                setTrailer(url)
+            }
+        }
+    }
+    
+    var reviews: Reviews? {
+        didSet {
+            if let reviews = reviews?.results {
+                setReviews(reviews)
             }
         }
     }
@@ -82,5 +106,17 @@ final class DetailMoviePresenter: DetailMoviePresenting {
     
     func setOverview(_ overview: String) {
         viewController?.setOverview(overview)
+    }
+    
+    func setTrailer(_ url: String) {
+        viewController?.setTrailer(url)
+    }
+    
+    func setReviews(_ reviews: [UserReview]) {
+        viewController?.setReviews(reviews)
+    }
+    
+    func showReviewDetails(_ review: UserReview) {
+        router?.routeTo(.review(review))
     }
 }

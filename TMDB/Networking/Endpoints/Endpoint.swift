@@ -45,7 +45,17 @@ extension Endpoint {
     }
     
     static func trailers(_ id: Int) -> Self {
-        let url = PlistFiles.playingNow.replacingOccurrences(of: "{id}", with: id.description)
+        let url = PlistFiles.trailers.replacingOccurrences(of: "{id}", with: id.description)
+        return Endpoint(path: url)
+    }
+    
+    static func casting(_ id: Int) -> Self {
+        let url = PlistFiles.cast.replacingOccurrences(of: "{id}", with: id.description)
+        return Endpoint(path: url)
+    }
+    
+    static func revies(_ id: Int) -> Self {
+        let url = PlistFiles.reviews.replacingOccurrences(of: "{id}", with: id.description)
         return Endpoint(path: url)
     }
     
