@@ -34,8 +34,9 @@ extension MovieDetailTypeDelegate: UICollectionViewDelegate {
 
 extension MovieDetailTypeDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.width - 32)/4
+        let averageWidth = (collectionView.frame.width - 32)/4
         let height = collectionView.frame.height
+        let width = indexPath.row == 0 ? averageWidth + 12 : averageWidth - 4
         return CGSize(width: width, height: height)
     }
     

@@ -31,7 +31,7 @@ final class HomeView: UIView {
     var bottomMoviesDataSource: TypeMovieDataSource?
     
     var typeMovies = Dictionary<TypeListEnum, [Movie]>()
-    var selectedCategory: TypeListEnum = .nowPlaying
+    var selectedCategory: TypeListEnum? = nil
     
     // MARK: Actions
     var changeListType: ((TypeListEnum) -> Void)?
@@ -49,7 +49,7 @@ final class HomeView: UIView {
     private lazy var wantToWatchLabel: UILabel = {
         let label = UILabel()
         label.text = TMDBStrings.Home.Label.wantToWatch
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = FontFamily.Poppins.semiBold.font(size: 18)
         label.textColor = ColorName.textColor.color
         return label
     }()
@@ -146,8 +146,8 @@ extension HomeView: ViewCodeProtocol {
     func buildViewConstraints() {
         
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide)
-            $0.width.left.right.bottom.equalToSuperview()
+            $0.top.bottom.equalTo(safeAreaLayoutGuide)
+            $0.width.left.right.equalToSuperview()
         }
         
         contentView.snp.makeConstraints {
@@ -201,7 +201,9 @@ extension HomeView: ViewCodeProtocol {
 
 extension HomeView {
     func setInitialSelection() {
-        typeMovieListDelegate?.setInitialValue()
+        if selectedCategory == nil {
+            typeMovieListDelegate?.setInitialValue()
+        }
     }
 }
 

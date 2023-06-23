@@ -1,3 +1,4 @@
+# Strings
 strings:
   inputs: TMDB/Misc/Resources/Localizable.strings
   outputs:
@@ -6,13 +7,21 @@ strings:
     params:
       publicAccess: false
       enumName: "TMDBStrings"
+  # Colors
 colors:
   inputs: TMDB/Misc/Resources/Colors.txt
   outputs:
     templateName: swift5
     output: TMDB/Misc/Resources/Colors.generated.swift
+# Plist
 plist:
   inputs: TMDB/Misc/Resources/Url.plist
   outputs:
     templateName: runtime-swift5
     output: TMDB/Misc/Resources/Url.generated.swift
+# Fonts
+fonts:
+    inputs: TMDB/Misc/Fonts
+    outputs:
+        templateName: swift5
+        output: TMDB/Misc/Resources/Fonts.generated.swift

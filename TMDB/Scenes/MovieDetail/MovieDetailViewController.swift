@@ -28,6 +28,7 @@ class MovieDetailViewController: BaseViewController<DetailMovieInteracting, Deta
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = false
         setupClosure()
         interactor.fetchMovieDetails()
         setInitialSelection()

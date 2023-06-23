@@ -53,7 +53,7 @@ final class DetailMovieView: UIView {
     
     private lazy var movieTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 18)
+        label.font = FontFamily.Poppins.bold.font(size: 18)//.boldSystemFont(ofSize: 18)
         label.numberOfLines = 0
         label.textColor = ColorName.textColor.color
         label.isSkeletonable = true
@@ -63,6 +63,7 @@ final class DetailMovieView: UIView {
     private lazy var calendarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "calendar")
+        imageView.tintColor = ColorName.subtitleColor.color
         imageView.isSkeletonable = true
         return imageView
     }()
@@ -70,8 +71,8 @@ final class DetailMovieView: UIView {
     private lazy var movieReleaseYearLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = ColorName.textColor.color
+        label.font = FontFamily.Montserrat.medium.font(size: 12)
+        label.textColor = ColorName.subtitleColor.color
         return label
     }()
     
@@ -84,6 +85,7 @@ final class DetailMovieView: UIView {
     private lazy var clockImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "clock")
+        imageView.tintColor = ColorName.subtitleColor.color
         imageView.isSkeletonable = true
         return imageView
     }()
@@ -91,8 +93,8 @@ final class DetailMovieView: UIView {
     private lazy var movieDurationLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = ColorName.textColor.color
+        label.font = FontFamily.Montserrat.medium.font(size: 12)
+        label.textColor = ColorName.subtitleColor.color
         return label
     }()
     
@@ -105,6 +107,7 @@ final class DetailMovieView: UIView {
     private lazy var ticketImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "ticket")
+        imageView.tintColor = ColorName.subtitleColor.color
         imageView.isSkeletonable = true
         return imageView
     }()
@@ -112,8 +115,8 @@ final class DetailMovieView: UIView {
     private lazy var genreLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = ColorName.textColor.color
+        label.font = FontFamily.Montserrat.medium.font(size: 12)
+        label.textColor = ColorName.subtitleColor.color
         return label
     }()
     
@@ -138,7 +141,7 @@ final class DetailMovieView: UIView {
     private lazy var noteLabel: UILabel = {
         let label = UILabel()
         label.isSkeletonable = true
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = FontFamily.Montserrat.semiBold.font(size: 12)
         label.textColor = ColorName.noteColor.color
         return label
     }()
@@ -161,7 +164,7 @@ final class DetailMovieView: UIView {
     private lazy var overviewLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 14)
+        label.font = FontFamily.Poppins.regular.font(size: 12)
         label.textAlignment = .left
         label.textColor = ColorName.textColor.color
         label.isSkeletonable = true
@@ -190,18 +193,6 @@ final class DetailMovieView: UIView {
         view.sizeToFit()
         return view
     }()
-    
-//    private lazy var reviewTableView: UITableView = {
-//        let tableview = UITableView()
-//        tableview.isSkeletonable = true
-////        tableview.allowsSelection = false
-//        tableview.estimatedRowHeight = 80
-//        tableview.rowHeight = UITableView.automaticDimension
-//        tableview.separatorStyle = .none
-////        tableview.backgroundColor = .clear
-//        tableview.isHidden = true
-//        return tableview
-//    }()
     
     private lazy var reviewTableView: ContentSizeTableView = {
         let tableview = ContentSizeTableView()
@@ -333,7 +324,6 @@ extension DetailMovieView: ViewCodeProtocol {
         contentView.addSubview(trailerBackgroundView)
         trailerBackgroundView.addSubview(trailerView)
         contentView.addSubview(reviewTableView)
-//        reviewBackgroundView.addSubview(reviewTableView)
     }
     
     func buildViewConstraints() {
@@ -463,13 +453,6 @@ extension DetailMovieView: ViewCodeProtocol {
         trailerView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-//        reviewBackgroundView.snp.makeConstraints {
-//            $0.trailing.equalToSuperview().inset(16)
-//            $0.leading.equalToSuperview().offset(16)
-//            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
-//            $0.bottom.equalToSuperview().inset(16)
-//        }
 
         reviewTableView.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(16)
@@ -482,7 +465,9 @@ extension DetailMovieView: ViewCodeProtocol {
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
         setupDetailTypeCollectionView()
-        movieTitleLabel.showSkeleton()
+        movieTitleLabel.showAnimatedGradientSkeleton()
+        backdropImageLoader.showAnimatedGradientSkeleton()
+        posterImageLoader.showAnimatedGradientSkeleton()
         movieReleaseYearLabel.showAnimatedGradientSkeleton()
         noteBackgroundView.showAnimatedGradientSkeleton()
         trailerView.showAnimatedGradientSkeleton()
@@ -527,18 +512,21 @@ extension DetailMovieView: _MovieDetailTypeProtocol {
         overviewBackgroundView.isHidden = false
         trailerBackgroundView.isHidden = true
         reviewTableView.isHidden = true
+        disableScroll()
     }
     
     private func enableTrailer() {
         overviewBackgroundView.isHidden = true
         trailerBackgroundView.isHidden = false
         reviewTableView.isHidden = true
+        disableScroll()
     }
     
     private func enableCast() {
         overviewBackgroundView.isHidden = true
         trailerBackgroundView.isHidden = true
         reviewTableView.isHidden = true
+        disableScroll()
     }
     
     private func enableReviews() {
@@ -546,6 +534,12 @@ extension DetailMovieView: _MovieDetailTypeProtocol {
         overviewBackgroundView.isHidden = true
         trailerBackgroundView.isHidden = true
         reviewTableView.isHidden = false
+        scrollView.isScrollEnabled = true
+    }
+    
+    private func disableScroll() {
+        scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentInset.top), animated: true)
+        scrollView.isScrollEnabled = false
     }
 }
 

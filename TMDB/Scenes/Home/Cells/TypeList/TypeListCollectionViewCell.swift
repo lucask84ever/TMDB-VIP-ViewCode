@@ -60,7 +60,7 @@ final class TypeListCollectionViewCell: UICollectionViewCell {
     private lazy var textLabel: UILabel = {
         let label = UILabel()
         label.textColor = ColorName.textColor.color
-        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.font = FontFamily.Poppins.regular.font(size: 14)
         label.textAlignment = .center
         return label
     }()

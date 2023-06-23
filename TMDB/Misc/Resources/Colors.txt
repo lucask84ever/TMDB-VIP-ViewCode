@@ -6,6 +6,8 @@ backgroundColorWithAlpha: #252836D2
 # Text Color
 textColor               : #FFFFFFFF
 noteColor               : #FF8700FF
+avaliationColor         : #0296E5FF
+subtitleColor           : #92929DFF
 
 # Textfield
 textfieldBackground     : #3A3F47FF

@@ -12,8 +12,8 @@ final class TypeListDelegate: NSObject {
         static let cellHeight: CGFloat = 42
         static let spaceBetweenCell: CGFloat = 4
         static let defaultWidth: CGFloat = 68
-        static let nowPlayingWidth: CGFloat = 84
-        static let upcomingWidth: CGFloat = 88
+        static let nowPlayingWidth: CGFloat = 88
+        static let upcomingWidth: CGFloat = 84
     }
     
     internal enum Constants {

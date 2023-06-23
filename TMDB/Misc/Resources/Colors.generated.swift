@@ -18,6 +18,9 @@ internal struct ColorName {
   internal let rgbaValue: UInt32
   internal var color: Color { return Color(named: self) }
 
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#0296e5"></span>
+  /// Alpha: 100% <br/> (0x0296e5ff)
+  internal static let avaliationColor = ColorName(rgbaValue: 0x0296e5ff)
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#242a32"></span>
   /// Alpha: 100% <br/> (0x242a32ff)
   internal static let backgroundColor = ColorName(rgbaValue: 0x242a32ff)
@@ -27,6 +30,9 @@ internal struct ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ff8700"></span>
   /// Alpha: 100% <br/> (0xff8700ff)
   internal static let noteColor = ColorName(rgbaValue: 0xff8700ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#92929d"></span>
+  /// Alpha: 100% <br/> (0x92929dff)
+  internal static let subtitleColor = ColorName(rgbaValue: 0x92929dff)
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#0296e5"></span>
   /// Alpha: 100% <br/> (0x0296e5ff)
   internal static let tabBarLine = ColorName(rgbaValue: 0x0296e5ff)

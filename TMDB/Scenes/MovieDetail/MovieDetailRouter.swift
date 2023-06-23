@@ -24,7 +24,7 @@ final class MovieDetailRouter: MovieDetailRouting {
         let navigation = viewController?.navigationController
         switch route {
         case .review(let review):
-            let viewController = ReviewDetailFactory.make()
+            let viewController = ReviewDetailFactory.make(review)
             viewController.title = review.details.username
             navigation?.present(viewController, animated: true, completion: nil)
         }
