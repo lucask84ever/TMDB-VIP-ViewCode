@@ -16,7 +16,12 @@ extension URLSession {
             return
         }
         
-        let task = dataTask(with: url) { data, _, error in
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(PlistFiles.authorization)", forHTTPHeaderField: "Authorization")
+        
+        let task = dataTask(with: request) { data, _, error in
             guard let data = data else {
                 if let error = error {
                     completion(.failure(NSError(domain: error.localizedDescription, code: -2)))
