@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Authorization</key>
-	<string>eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzVmMDhiM2IwYTVmOGFiYzMzNDhlNTc2Mjc5Y2Q5NSIsInN1YiI6IjVjZTZkNzY0YzNhMzY4NjQ5NDIzNjQwYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WSuJmtC85xz0CkZWhsr9v-szXidBob992BVBJn7RQNk</string>
+	<string>Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzVmMDhiM2IwYTVmOGFiYzMzNDhlNTc2Mjc5Y2Q5NSIsInN1YiI6IjVjZTZkNzY0YzNhMzY4NjQ5NDIzNjQwYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WSuJmtC85xz0CkZWhsr9v-szXidBob992BVBJn7RQNk</string>
 	<key>scheme</key>
 	<string>https</string>
 	<key>host</key>
@@ -26,5 +26,9 @@
 	<string>movie/{id}/credits</string>
 	<key>reviews</key>
 	<string>movie/{id}/reviews</string>
+	<key>imageHost</key>
+	<string>image.tmdb.org</string>
+	<key>imagePath</key>
+	<string>/t/p/w1280/</string>
 </dict>
 </plist>

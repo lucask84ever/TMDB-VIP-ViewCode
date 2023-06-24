@@ -286,10 +286,10 @@
 				102B17092A26FFE300ECBC6A /* SearchMovieFactory.swift */,
 				102B170B2A27006F00ECBC6A /* SearchMovieInteractor.swift */,
 				102B170D2A27008100ECBC6A /* SearchMoviePresenter.swift */,
+				104F47F22A2EC55800DFF113 /* SearchMovieRouter.swift */,
 				102B170F2A27008F00ECBC6A /* SearchMovieService.swift */,
 				102B17112A27009A00ECBC6A /* SearchMovieView.swift */,
 				102B17132A2700BD00ECBC6A /* SearchMovieViewController.swift */,
-				104F47F22A2EC55800DFF113 /* SearchMovieRouter.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";

@@ -71,22 +71,41 @@ final class ReviewDetailPresenter: ReviewDetailPresenting {
     
     private func formatDateToDiff(recentDate: Date, pastDate: Date) -> String {
         let diff = recentDate - pastDate
+        
         if let year = diff.year, year > 0 {
-            return "\(year) year(s) ago"
+            if year > 1 {
+                return TMDBStrings.Detail.Review.yearReviewPlural(year)
+            }
+            return TMDBStrings.Detail.Review.yearReviewSingular(year)
         }
         
         if let month = diff.month, month > 0 {
-            return "\(month) month(s) ago"
+            if month > 1 {
+                return TMDBStrings.Detail.Review.monthReviewPlural(month)
+            }
+            return TMDBStrings.Detail.Review.monthReviewSingular(month)
         }
         
         if let day = diff.day, day > 0 {
-            return "\(day) day(s) ago"
+            if day > 1 {
+                return TMDBStrings.Detail.Review.dayReviewPlural(day)
+            }
+            return TMDBStrings.Detail.Review.dayReviewSingular(day)
         }
         
         if let hour = diff.hour, hour > 0 {
-            return "\(hour) hour(s) ago"
+            if hour > 1 {
+                return TMDBStrings.Detail.Review.hourReviewPlural(hour)
+            }
+            return TMDBStrings.Detail.Review.hourReviewSingular(hour)
         }
-        return "\(diff.minute ?? 0) minute(s) ago"
+        if let minute = diff.minute, minute > 0 {
+            if minute > 1 {
+                return TMDBStrings.Detail.Review.minuteReviewPlural(minute)
+            }
+            return TMDBStrings.Detail.Review.minuteReviewSingular(minute)
+        }
+        return ""
     }
     
 }

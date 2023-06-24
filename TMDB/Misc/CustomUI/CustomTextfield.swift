@@ -18,17 +18,15 @@ final class CustomTextfield: UITextField {
     
     func setupSearch() {
         if let image = UIImage(named: "search") {
-            
             let lensImage = UIImageView(image: image)
             lensImage.tintColor = ColorName.textfieldTextIcon.color
             lensImage.transform = CGAffineTransform(scaleX: -1, y: 1)
             rightView = lensImage
-            
             rightViewMode = .always
         }
         layer.cornerRadius = Constants.cornerRadius
         textColor = ColorName.textColor.color
-        let _attributedPlaceholder = NSAttributedString(string: TMDBStrings.Home.Textfield.searchPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: ColorName.textfieldTextIcon.color])
+        let _attributedPlaceholder = NSAttributedString(string: TMDBStrings.Search.Textfield.searchPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: ColorName.textfieldTextIcon.color])
         attributedPlaceholder = _attributedPlaceholder
         backgroundColor = ColorName.textfieldBackground.color
         leftView = UIView()
@@ -47,5 +45,13 @@ final class CustomTextfield: UITextField {
         var textfieldRect = super.rightViewRect(forBounds: bounds)
         textfieldRect.origin.x += Constants.xOrigin
         return textfieldRect
+    }
+    
+    @objc
+    private func lensAction() {
+        print("BUSCANDO")
+//        if let text = text, !text.isEmpty {
+//            searchAction?(text)
+//        }
     }
 }

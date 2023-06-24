@@ -241,6 +241,7 @@ extension HomeView: HomeTopRatedMoviesDelegate {
 
 extension HomeView: HomeMovieListDelegate {
     func selectedType(_ listType: TypeListEnum) {
+        scrollToInit()
         selectedCategory = listType
         guard let movies = typeMovies[listType], !movies.isEmpty else {
             changeListType?(listType)
@@ -249,5 +250,10 @@ extension HomeView: HomeMovieListDelegate {
         topRatedDelegate?.addMovies(movies)
         topRatedDataSource?.addMovies(movies)
         addMoviesBottomCollection(movies)
+    }
+    
+    private func scrollToInit() {
+        scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentInset.top), animated: true)
+        topMoviesCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .right, animated: true)
     }
 }

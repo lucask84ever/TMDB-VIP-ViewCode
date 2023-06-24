@@ -15,6 +15,8 @@ internal enum PlistFiles {
   internal static let cast: String = _document["cast"]
   internal static let detail: String = _document["detail"]
   internal static let host: String = _document["host"]
+  internal static let imageHost: String = _document["imageHost"]
+  internal static let imagePath: String = _document["imagePath"]
   internal static let path: String = _document["path"]
   internal static let playingNow: String = _document["playingNow"]
   internal static let popular: String = _document["popular"]

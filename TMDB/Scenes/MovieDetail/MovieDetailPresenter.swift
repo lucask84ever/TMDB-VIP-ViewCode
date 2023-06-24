@@ -22,7 +22,7 @@ protocol DetailMoviePresenting {
     func setReleaseYear(_ year: String)
     func setDuration(_ duration: String)
     func setMainGenre(_ genre: String)
-    func setNote(_ note: Double)
+    func setNote(_ note: Float)
     func setOverview(_ overview: String)
     
     func setTrailer(_ url: String)
@@ -47,7 +47,7 @@ final class MovieDetailPresenter: DetailMoviePresenting {
             setNote(movie.averageNote)
             setOverview(movie.overview)
             if let details = movieDetails {
-                setDuration("\(details.duration) Minutes")
+                setDuration(TMDBStrings.Detail.Detail.durationFormat(details.duration))
             }
             
             if let mainGenre = movieDetails?.genres.first {
@@ -112,8 +112,8 @@ final class MovieDetailPresenter: DetailMoviePresenting {
         viewController?.setGenre(genre)
     }
     
-    func setNote(_ note: Double) {
-        let formated = String(format: "%.1f", note)
+    func setNote(_ note: Float) {
+        let formated = TMDBStrings.Detail.Detail.averageNoteFormat(note)
         viewController?.setNote(formated)
     }
     
