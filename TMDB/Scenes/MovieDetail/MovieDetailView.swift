@@ -1,5 +1,5 @@
 //
-//  DetailMovieView.swift
+//  MovieDetailView.swift
 //  TMDB
 //
 //  Created by Lucas on 14/06/23.
@@ -15,7 +15,7 @@ protocol SelectReviewProtocol {
     func selectedReview(_ review: UserReview)
 }
 
-final class DetailMovieView: UIView {
+final class MovieDetailView: UIView {
     // MARK: Properties
     var detailTypeDelegate: MovieDetailTypeDelegate?
     var detailTypeDataSource: MovieDetailTypeDatasource?
@@ -28,6 +28,9 @@ final class DetailMovieView: UIView {
     
     var selectDetailType: ((MovieDetailTypeEnum) -> Void)?
     var selectDetailReview: ((UserReview) -> Void)?
+    
+    var youtubeDelegate = YoutubePlayerDelegate()
+    var isLoaded: Bool = false
     
     // MARK: View Properties
     private lazy var scrollView = UIScrollView()
@@ -183,9 +186,11 @@ final class DetailMovieView: UIView {
     }()
     
     private lazy var trailerView: YTPlayerView = {
-        let trailerView = YTPlayerView()
-        trailerView.isSkeletonable = true
-        return trailerView
+        let playerView = YTPlayerView()
+        playerView.delegate = youtubeDelegate
+        playerView.showAnimatedGradientSkeleton()
+        playerView.isSkeletonable = true
+        return playerView
     }()
     
     private lazy var castCollectionView: ContentSizeCollectionView = {
@@ -222,7 +227,7 @@ final class DetailMovieView: UIView {
 }
 
 // MARK: Setting  values
-extension DetailMovieView {
+extension MovieDetailView {
     func setMovieBackdrop(_ backdropPath: String) {
         DispatchQueue.main.async { [weak self] in
             let imageEndpoint = ImageEndpoint(path: backdropPath)
@@ -282,6 +287,7 @@ extension DetailMovieView {
     
     func setTrailer(_ url: String) {
         DispatchQueue.main.async { [weak self] in
+            self?.isLoaded = true
             self?.trailerView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
             self?.trailerView.load(withVideoId: url)
         }
@@ -305,7 +311,7 @@ extension DetailMovieView {
 }
 
 // MARK: - Layout
-extension DetailMovieView: ViewCodeProtocol {
+extension MovieDetailView: ViewCodeProtocol {
     private func setupLayout() {
         buildViewHierarchy()
         buildViewConstraints()
@@ -495,7 +501,7 @@ extension DetailMovieView: ViewCodeProtocol {
 }
 
 // MARK: Setup Collection
-extension DetailMovieView {
+extension MovieDetailView {
     private func setupDetailTypeCollectionView() {
         detailTypeDelegate = MovieDetailTypeDelegate(detailTypeCollectionView, self)
         detailTypeDataSource = MovieDetailTypeDatasource(detailTypeCollectionView)
@@ -518,7 +524,7 @@ extension DetailMovieView {
     
 }
 
-extension DetailMovieView: _MovieDetailTypeProtocol {
+extension MovieDetailView: _MovieDetailTypeProtocol {
     func selectedType(_ detailType: MovieDetailTypeEnum) {
         switch detailType {
         case .about:
@@ -539,6 +545,7 @@ extension DetailMovieView: _MovieDetailTypeProtocol {
         reviewTableView.isHidden = true
         castCollectionView.isHidden = true
         disableScroll()
+        pauseVideoIfNeeded()
     }
     
     private func enableTrailer() {
@@ -555,6 +562,7 @@ extension DetailMovieView: _MovieDetailTypeProtocol {
         reviewTableView.isHidden = true
         castCollectionView.isHidden = false
         scrollView.isScrollEnabled = true
+        pauseVideoIfNeeded()
     }
     
     private func enableReviews() {
@@ -562,16 +570,29 @@ extension DetailMovieView: _MovieDetailTypeProtocol {
         overviewBackgroundView.isHidden = true
         trailerBackgroundView.isHidden = true
         reviewTableView.isHidden = false
+        castCollectionView.isHidden = true
         scrollView.isScrollEnabled = true
+        pauseVideoIfNeeded()
     }
     
     private func disableScroll() {
         scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentInset.top), animated: true)
         scrollView.isScrollEnabled = false
     }
+    
+    private func pauseVideoIfNeeded() {
+        trailerView.playerState { [weak self] state, _ in
+            switch state {
+            case .playing:
+                self?.trailerView.pauseVideo()
+            default:
+                return
+            }
+        }
+    }
 }
 
-extension DetailMovieView: SelectReviewProtocol {
+extension MovieDetailView: SelectReviewProtocol {
     func selectedReview(_ review: UserReview) {
         selectDetailReview?(review)
     }
