@@ -17,11 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13, *) {
             return true
         }
+        
         let navigationController = TMDB.initialSetup()
         navigationController.navigationBar.isHidden = true
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        
         return true
     }
 }

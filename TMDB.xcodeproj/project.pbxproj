@@ -382,17 +382,12 @@
 		105AA1352A1BFC4D00E52448 /* TMDB */ = {
 			isa = PBXGroup;
 			children = (
-				105AA1362A1BFC4D00E52448 /* AppDelegate.swift */,
-				105AA13F2A1BFC4F00E52448 /* Assets.xcassets */,
-				105AA1442A1BFC4F00E52448 /* Info.plist */,
-				105AA1412A1BFC4F00E52448 /* LaunchScreen.storyboard */,
+				3D60E2AD2A4756C5004F1F55 /* App setup */,
 				105AA18D2A1D0A9700E52448 /* Misc */,
 				105AA17F2A1C490700E52448 /* Models */,
 				105AA1822A1C4A5200E52448 /* Networking */,
 				105AA15D2A1BFE9A00E52448 /* Protocols */,
-				105AA1382A1BFC4D00E52448 /* SceneDelegate.swift */,
 				105AA15E2A1BFEB200E52448 /* Scenes */,
-				102B172B2A27DDD400ECBC6A /* TMDB.swift */,
 			);
 			path = TMDB;
 			sourceTree = "<group>";
@@ -552,6 +547,19 @@
 				3D60E2A32A473172004F1F55 /* YoutubePlayerDelegate.swift */,
 			);
 			path = Youtube;
+			sourceTree = "<group>";
+		};
+		3D60E2AD2A4756C5004F1F55 /* App setup */ = {
+			isa = PBXGroup;
+			children = (
+				105AA1442A1BFC4F00E52448 /* Info.plist */,
+				105AA1362A1BFC4D00E52448 /* AppDelegate.swift */,
+				105AA1382A1BFC4D00E52448 /* SceneDelegate.swift */,
+				102B172B2A27DDD400ECBC6A /* TMDB.swift */,
+				105AA13F2A1BFC4F00E52448 /* Assets.xcassets */,
+				105AA1412A1BFC4F00E52448 /* LaunchScreen.storyboard */,
+			);
+			name = "App setup";
 			sourceTree = "<group>";
 		};
 		3D9EC3D42A44C5B000714879 /* ReviewDetail */ = {
