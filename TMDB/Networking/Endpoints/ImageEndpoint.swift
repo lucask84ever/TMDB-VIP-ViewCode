@@ -9,15 +9,14 @@ import Foundation
 
 struct ImageEndpoint {
     var path: String
-    let queryItems = [URLQueryItem(name: "language", value: "pt-BR")]
 }
 
 extension ImageEndpoint {
     var url: URL {
         var components = URLComponents()
-        components.scheme = "https"
-        components.host = "image.tmdb.org"
-        components.path = "/t/p/w1280/" + path
+        components.scheme = PlistFiles.scheme
+        components.host = PlistFiles.imageHost
+        components.path = PlistFiles.imagePath + path
         guard let url = components.url else {
             preconditionFailure("invalid URL components \(components)")
         }

@@ -13,6 +13,58 @@ internal enum TMDBStrings {
   internal enum Detail {
     /// Detail
     internal static let navigationTitle = TMDBStrings.tr("Localizable", "Detail.navigationTitle", fallback: "Detail")
+    internal enum Detail {
+      /// %.1f
+      internal static func averageNoteFormat(_ p1: Float) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.detail.averageNoteFormat", p1, fallback: "%.1f")
+      }
+      /// %d Minutes
+      internal static func durationFormat(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.detail.durationFormat", p1, fallback: "%d Minutes")
+      }
+    }
+    internal enum Review {
+      /// %d days ago
+      internal static func dayReviewPlural(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.dayReviewPlural", p1, fallback: "%d days ago")
+      }
+      /// %d month ago
+      internal static func dayReviewSingular(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.dayReviewSingular", p1, fallback: "%d month ago")
+      }
+      /// %d hours ago
+      internal static func hourReviewPlural(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.hourReviewPlural", p1, fallback: "%d hours ago")
+      }
+      /// %d hour ago
+      internal static func hourReviewSingular(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.hourReviewSingular", p1, fallback: "%d hour ago")
+      }
+      /// %d minutes ago
+      internal static func minuteReviewPlural(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.minuteReviewPlural", p1, fallback: "%d minutes ago")
+      }
+      /// %d minute ago
+      internal static func minuteReviewSingular(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.minuteReviewSingular", p1, fallback: "%d minute ago")
+      }
+      /// %d months ago
+      internal static func monthReviewPlural(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.monthReviewPlural", p1, fallback: "%d months ago")
+      }
+      /// %d month ago
+      internal static func monthReviewSingular(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.monthReviewSingular", p1, fallback: "%d month ago")
+      }
+      /// %d years ago
+      internal static func yearReviewPlural(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.yearReviewPlural", p1, fallback: "%d years ago")
+      }
+      /// %d year ago
+      internal static func yearReviewSingular(_ p1: Int) -> String {
+        return TMDBStrings.tr("Localizable", "Detail.review.yearReviewSingular", p1, fallback: "%d year ago")
+      }
+    }
     internal enum Selection {
       /// About Movie
       internal static let about = TMDBStrings.tr("Localizable", "Detail.selection.about", fallback: "About Movie")
@@ -39,9 +91,19 @@ internal enum TMDBStrings {
       /// Upcoming
       internal static let upcoming = TMDBStrings.tr("Localizable", "Home.ListMovie.Upcoming", fallback: "Upcoming")
     }
+  }
+  internal enum Search {
+    internal enum EmptyList {
+      /// Find your movie by Type title,
+      /// categories, years, etc
+      internal static let subTitle = TMDBStrings.tr("Localizable", "Search.EmptyList.subTitle", fallback: "Find your movie by Type title,\ncategories, years, etc")
+      /// We are sorry, we can
+      /// not find the movie :(
+      internal static let title = TMDBStrings.tr("Localizable", "Search.EmptyList.title", fallback: "We are sorry, we can\nnot find the movie :(")
+    }
     internal enum Textfield {
       /// Search
-      internal static let searchPlaceHolder = TMDBStrings.tr("Localizable", "Home.Textfield.SearchPlaceHolder", fallback: "Search")
+      internal static let searchPlaceHolder = TMDBStrings.tr("Localizable", "Search.Textfield.SearchPlaceHolder", fallback: "Search")
     }
   }
   internal enum Tabbar {

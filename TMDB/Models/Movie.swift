@@ -14,7 +14,7 @@ struct Movie: Decodable {
     let posterPath: String
     let releaseDate: String
     let genres: [Int]
-    let averageNote: Double
+    let averageNote: Float
     let backdropPath: String?
     
     enum CodingKeys: String, CodingKey {

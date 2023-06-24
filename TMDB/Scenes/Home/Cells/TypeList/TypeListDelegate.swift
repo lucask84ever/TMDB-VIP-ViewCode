@@ -11,9 +11,8 @@ final class TypeListDelegate: NSObject {
     internal enum Layout {
         static let cellHeight: CGFloat = 42
         static let spaceBetweenCell: CGFloat = 4
-        static let defaultWidth: CGFloat = 68
-        static let nowPlayingWidth: CGFloat = 88
-        static let upcomingWidth: CGFloat = 84
+        static let insetSpacing: CGFloat = 16
+        static let zero: CGFloat = 0
     }
     
     internal enum Constants {
@@ -49,14 +48,18 @@ extension TypeListDelegate: UICollectionViewDelegate {
 
 extension TypeListDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row == Constants.nowPlayingIndex {
-            return CGSize(width: Layout.nowPlayingWidth, height: Layout.cellHeight)
+        let averageWidth = (collectionView.frame.width - 32)/4
+        let height = collectionView.frame.height
+        var width: CGFloat
+        switch indexPath.row {
+        case 0:
+            width = averageWidth + 16
+        case 3:
+            width = averageWidth - 16
+        default:
+            width = averageWidth
         }
-        
-        if indexPath.row == Constants.upcomingIndex {
-            return CGSize(width: Layout.upcomingWidth, height: Layout.cellHeight)
-        }
-        return CGSize(width: Layout.defaultWidth, height: Layout.cellHeight)
+        return CGSize(width: width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

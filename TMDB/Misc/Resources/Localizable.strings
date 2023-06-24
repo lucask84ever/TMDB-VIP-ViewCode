@@ -5,7 +5,6 @@
 
 // MARK: Home
 "Home.Label.WantToWatch" = "What do you want to watch?";
-"Home.Textfield.SearchPlaceHolder" = "Search";
 
 // MARK: List Movies
 "Home.ListMovie.NowPlaying" = "Now playing";
@@ -19,3 +18,21 @@
 "Detail.selection.reviews" = "Reviews";
 "Detail.selection.cast" = "Cast";
 "Detail.selection.trailer" = "Trailer";
+"Detail.detail.durationFormat" = "%d Minutes";
+"Detail.detail.averageNoteFormat" = "%.1f";
+
+// MARK: Detail - Review
+"Detail.review.yearReviewSingular" = "%d year ago";
+"Detail.review.yearReviewPlural" = "%d years ago";
+"Detail.review.monthReviewSingular" = "%d month ago";
+"Detail.review.monthReviewPlural" = "%d months ago";
+"Detail.review.dayReviewSingular" = "%d month ago";
+"Detail.review.dayReviewPlural" = "%d days ago";
+"Detail.review.hourReviewSingular" = "%d hour ago";
+"Detail.review.hourReviewPlural" = "%d hours ago";
+"Detail.review.minuteReviewSingular" = "%d minute ago";
+"Detail.review.minuteReviewPlural" = "%d minutes ago";
+
+"Search.Textfield.SearchPlaceHolder" = "Search";
+"Search.EmptyList.title" = "We are sorry, we can\nnot find the movie :(";
+"Search.EmptyList.subTitle" = "Find your movie by Type title,\ncategories, years, etc";

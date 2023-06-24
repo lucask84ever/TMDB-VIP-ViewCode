@@ -10,16 +10,16 @@ import Foundation
 extension URLSession {
     func request<T: Decodable>(url: URL?,
                              expecting: T.Type,
-                             completion: @escaping(Result<T, Error>) -> Void) {
+                               completion: @escaping(Result<T, Error>) -> Void, httpMethod: String = "GET") {
         guard let url = url else {
             completion(.failure(NSError(domain: "", code: -1)))
             return
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = httpMethod
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(PlistFiles.authorization)", forHTTPHeaderField: "Authorization")
+        request.setValue(PlistFiles.authorization, forHTTPHeaderField: "Authorization")
         
         let task = dataTask(with: request) { data, _, error in
             guard let data = data else {
