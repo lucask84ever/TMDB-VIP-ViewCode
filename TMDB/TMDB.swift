@@ -7,11 +7,7 @@
 
 import UIKit
 
-protocol ParentRouting {
-    static func initialSetup() -> UINavigationController 
-}
-
-final class TMDB: ParentRouting {
+final class TMDB {
     static func initialSetup() -> UINavigationController {
         let tabbar = UITabBarController()
         setupTabBar(tabbar.tabBar)
@@ -38,7 +34,7 @@ final class TMDB: ParentRouting {
         return UINavigationController(rootViewController: tabbar)
     }
     
-    static private func setupTabBar(_ tabbar: UITabBar?) {
+    private static func setupTabBar(_ tabbar: UITabBar?) {
         tabbar?.barTintColor = ColorName.backgroundColor.color
         tabbar?.tintColor = ColorName.tabBarLine.color
         let line = UIView(frame: CGRect(x: 0, y: 0, width: tabbar?.frame.width ?? 0.0, height: 1))
