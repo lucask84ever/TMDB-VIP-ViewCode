@@ -10,8 +10,6 @@
 	<string>api.themoviedb.org</string>
 	<key>path</key>
 	<string>/3/</string>
-	<key>api_key</key>
-	<string>1f54bd990f1cdfb230adb312546d765d</string>
 	<key>upcoming</key>
 	<string>movie/upcoming</string>
 	<key>topRated</key>

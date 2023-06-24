@@ -9,7 +9,6 @@ import Foundation
 
 struct Endpoint {
     var path: String
-//    var queryItems: [URLQueryItem] = [URLQueryItem(name: "api_key", value: PlistFiles.apiKey)]
 }
 
 extension Endpoint {
@@ -18,7 +17,6 @@ extension Endpoint {
         components.scheme = PlistFiles.scheme
         components.host = PlistFiles.host
         components.path = PlistFiles.path + path
-//        components.queryItems = queryItems
         
         guard let url = components.url else {
             preconditionFailure("invalid URL components \(components)")

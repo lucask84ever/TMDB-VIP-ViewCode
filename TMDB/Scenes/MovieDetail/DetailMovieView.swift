@@ -18,10 +18,13 @@ protocol SelectReviewProtocol {
 final class DetailMovieView: UIView {
     // MARK: Properties
     var detailTypeDelegate: MovieDetailTypeDelegate?
-    var detailTypeDataSource: DetailMovieDatasource?
+    var detailTypeDataSource: MovieDetailTypeDatasource?
     
     var userReviewDelegate: UserReviewDelegate?
     var userReviewDataSource: UserReviewDataSource?
+    
+    var castDelegate: CastDelegate?
+    var castDatasource: CastDatasource?
     
     var selectDetailType: ((MovieDetailTypeEnum) -> Void)?
     var selectDetailReview: ((UserReview) -> Void)?
@@ -185,18 +188,20 @@ final class DetailMovieView: UIView {
         return trailerView
     }()
     
-    private lazy var reviewBackgroundView: UIView = {
-        let view = UIView()
-        view.isSkeletonable = true
-        view.backgroundColor = .red
-        view.isHidden = true
-        view.sizeToFit()
-        return view
+    private lazy var castCollectionView: ContentSizeCollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        let collectionView = ContentSizeCollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.isSkeletonable = true
+        collectionView.backgroundColor = .clear
+        collectionView.isHidden = true
+        return collectionView
     }()
     
     private lazy var reviewTableView: ContentSizeTableView = {
         let tableview = ContentSizeTableView()
-        tableview.isSkeletonable = true//        tableview.estimatedRowHeight = 80
+        tableview.isSkeletonable = true
         tableview.rowHeight = UITableView.automaticDimension
         tableview.separatorStyle = .none
         tableview.backgroundColor = .clear
@@ -284,11 +289,17 @@ extension DetailMovieView {
     
     func setReviws(_ reviews: [UserReview]) {
         DispatchQueue.main.async { [weak self] in
-            self?.reviewBackgroundView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
+            self?.reviewTableView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.5))
             self?.setupUserReviewsTableView()
             self?.userReviewDataSource?.setItems(reviews)
             self?.userReviewDelegate?.setItems(reviews)
             self?.reviewTableView.reloadData()
+        }
+    }
+    
+    func setCasting(_ casting: [Cast]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.castDatasource?.setItems(casting)
         }
     }
 }
@@ -324,6 +335,7 @@ extension DetailMovieView: ViewCodeProtocol {
         contentView.addSubview(trailerBackgroundView)
         trailerBackgroundView.addSubview(trailerView)
         contentView.addSubview(reviewTableView)
+        contentView.addSubview(castCollectionView)
     }
     
     func buildViewConstraints() {
@@ -453,6 +465,13 @@ extension DetailMovieView: ViewCodeProtocol {
         trailerView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        castCollectionView.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().offset(16)
+            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
+            $0.bottom.equalToSuperview().inset(16)
+        }
 
         reviewTableView.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(16)
@@ -465,6 +484,7 @@ extension DetailMovieView: ViewCodeProtocol {
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
         setupDetailTypeCollectionView()
+        setupCastCollectionView()
         movieTitleLabel.showAnimatedGradientSkeleton()
         backdropImageLoader.showAnimatedGradientSkeleton()
         posterImageLoader.showAnimatedGradientSkeleton()
@@ -478,7 +498,7 @@ extension DetailMovieView: ViewCodeProtocol {
 extension DetailMovieView {
     private func setupDetailTypeCollectionView() {
         detailTypeDelegate = MovieDetailTypeDelegate(detailTypeCollectionView, self)
-        detailTypeDataSource = DetailMovieDatasource(detailTypeCollectionView)
+        detailTypeDataSource = MovieDetailTypeDatasource(detailTypeCollectionView)
     }
     
     func setInitialSelection() {
@@ -489,6 +509,11 @@ extension DetailMovieView {
     func setupUserReviewsTableView() {
         userReviewDelegate = UserReviewDelegate(tableView: reviewTableView, delegate: self)
         userReviewDataSource = UserReviewDataSource(tableView: reviewTableView)
+    }
+    
+    func setupCastCollectionView() {
+        castDelegate = CastDelegate(collectionView: castCollectionView)
+        castDatasource = CastDatasource(collectView: castCollectionView)
     }
     
 }
@@ -512,6 +537,7 @@ extension DetailMovieView: _MovieDetailTypeProtocol {
         overviewBackgroundView.isHidden = false
         trailerBackgroundView.isHidden = true
         reviewTableView.isHidden = true
+        castCollectionView.isHidden = true
         disableScroll()
     }
     
@@ -519,6 +545,7 @@ extension DetailMovieView: _MovieDetailTypeProtocol {
         overviewBackgroundView.isHidden = true
         trailerBackgroundView.isHidden = false
         reviewTableView.isHidden = true
+        castCollectionView.isHidden = true
         disableScroll()
     }
     
@@ -526,11 +553,12 @@ extension DetailMovieView: _MovieDetailTypeProtocol {
         overviewBackgroundView.isHidden = true
         trailerBackgroundView.isHidden = true
         reviewTableView.isHidden = true
-        disableScroll()
+        castCollectionView.isHidden = false
+        scrollView.isScrollEnabled = true
     }
     
     private func enableReviews() {
-        reviewBackgroundView.showAnimatedGradientSkeleton()
+        reviewTableView.showAnimatedGradientSkeleton()
         overviewBackgroundView.isHidden = true
         trailerBackgroundView.isHidden = true
         reviewTableView.isHidden = false

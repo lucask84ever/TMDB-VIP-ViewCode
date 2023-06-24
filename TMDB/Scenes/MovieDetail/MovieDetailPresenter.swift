@@ -14,6 +14,7 @@ protocol DetailMoviePresenting {
     var movieDetails: DetailedMovie? { get set }
     var trailer: Video? { get set }
     var reviews: Reviews? { get set }
+    var casting: Casting? { get set }
     
     func setMovieBackdrop(_ backdropPath: String?)
     func setMoviePoster(_ posterPath: String)
@@ -23,8 +24,12 @@ protocol DetailMoviePresenting {
     func setMainGenre(_ genre: String)
     func setNote(_ note: Double)
     func setOverview(_ overview: String)
+    
     func setTrailer(_ url: String)
+    
     func setReviews(_ reviews: [UserReview])
+    
+    func setCast(_ cast: [Cast])
     
     func showReviewDetails(_ review: UserReview)
 }
@@ -63,6 +68,14 @@ final class MovieDetailPresenter: DetailMoviePresenting {
         didSet {
             if let reviews = reviews?.results {
                 setReviews(reviews)
+            }
+        }
+    }
+    
+    var casting: Casting? {
+        didSet {
+            if let casting = casting {
+                setCast(casting.filterCast("Acting"))
             }
         }
     }
@@ -114,6 +127,10 @@ final class MovieDetailPresenter: DetailMoviePresenting {
     
     func setReviews(_ reviews: [UserReview]) {
         viewController?.setReviews(reviews)
+    }
+    
+    func setCast(_ cast: [Cast]) {
+        viewController?.setCast(cast)
     }
     
     func showReviewDetails(_ review: UserReview) {

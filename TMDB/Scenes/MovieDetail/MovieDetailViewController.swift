@@ -18,6 +18,7 @@ protocol MovieDetailDisplaying {
     func setOverview(_ overview: String)
     func setTrailer(_ url: String)
     func setReviews(_ reviews: [UserReview])
+    func setCast(_ casting: [Cast])
 }
 
 class MovieDetailViewController: BaseViewController<DetailMovieInteracting, DetailMovieView> {
@@ -55,7 +56,7 @@ class MovieDetailViewController: BaseViewController<DetailMovieInteracting, Deta
         rootView.selectDetailType = { [weak self] type in
             switch type {
             case .cast:
-                print("Cast")
+                self?.interactor.fetchCast()
             case .trailer:
                 self?.interactor.fetchTrailer()
             case .about:
@@ -113,5 +114,9 @@ extension MovieDetailViewController: MovieDetailDisplaying {
     
     func setReviews(_ reviews: [UserReview]) {
         rootView.setReviws(reviews)
+    }
+    
+    func setCast(_ casting: [Cast]) {
+        rootView.setCasting(casting)
     }
 }

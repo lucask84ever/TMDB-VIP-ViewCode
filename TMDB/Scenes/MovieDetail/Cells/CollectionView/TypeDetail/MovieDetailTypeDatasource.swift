@@ -1,5 +1,5 @@
 //
-//  DetailMovieDatasource.swift
+//  MovieDetailTypeDatasource.swift
 //  TMDB
 //
 //  Created by Lucas on 16/06/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DetailMovieDatasource: NSObject {
+final class MovieDetailTypeDatasource: NSObject {
     typealias Cell = TypeListCollectionViewCell
     var collectionView: UICollectionView
     
@@ -23,7 +23,7 @@ final class DetailMovieDatasource: NSObject {
     }
 }
 
-extension DetailMovieDatasource: UICollectionViewDataSource {
+extension MovieDetailTypeDatasource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return MovieDetailTypeEnum.allCases.count
     }

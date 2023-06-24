@@ -11,11 +11,13 @@ typealias movieId = Int
 typealias DetailMovieResponse = (Result<DetailedMovie, Error>) -> Void
 typealias TrailerMovieResponse = (Result<VideosResponse, Error>) -> Void
 typealias MovieReviewResponse = (Result<Reviews, Error>) -> Void
+typealias MovieCastResponse = (Result<Casting, Error>) -> Void
 
 protocol DetailMovieServicing {
     func fetchMovieDetails(_ id: movieId, completion: @escaping DetailMovieResponse)
     func fetchMovieTrailer(_ id: movieId, completion: @escaping TrailerMovieResponse)
     func fetchReviews(_ id: movieId, completion: @escaping MovieReviewResponse)
+    func fetchCast(_ id: movieId, completion: @escaping MovieCastResponse)
 }
 
 final class MovieDetailService: DetailMovieServicing {
@@ -36,6 +38,13 @@ final class MovieDetailService: DetailMovieServicing {
     func fetchReviews(_ id: movieId, completion: @escaping MovieReviewResponse) {
         let session = URLSession.shared
         session.request(url: Endpoint.revies(id).url, expecting: Reviews.self) { result in
+            completion(result)
+        }
+    }
+    
+    func fetchCast(_ id: movieId, completion: @escaping MovieCastResponse) {
+        let session = URLSession.shared
+        session.request(url: Endpoint.casting(id).url, expecting: Casting.self) { result in
             completion(result)
         }
     }

@@ -15,6 +15,7 @@ protocol DetailMovieInteracting {
     func fetchMovieDetails()
     func fetchTrailer()
     func fetchReviews()
+    func fetchCast()
     
     func showReviewDetails(_ review: UserReview)
 }
@@ -50,7 +51,14 @@ final class MovieDetailInteractor: DetailMovieInteracting {
             switch result {
             case .success(let videos):
                 let video = videos.videos.filter { video in
-                    return video.name.lowercased().contains("official trailer")
+                    if video.name.lowercased().contains("official trailer") {
+                        return true
+                    }
+                    
+                    if video.name.lowercased().contains("trailer") {
+                        return true
+                    }
+                    return false
                 }.first
                 self?.presenter.trailer = video
             case .failure(let error):
@@ -65,6 +73,18 @@ final class MovieDetailInteractor: DetailMovieInteracting {
             switch result {
             case .success(let reviews):
                 self?.presenter.reviews = reviews
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func fetchCast() {
+        let id = presenter.movie.id
+        service.fetchCast(id) { [weak self] result in
+            switch result {
+            case .success(let casting):
+                self?.presenter.casting = casting
             case .failure(let error):
                 print(error.localizedDescription)
             }

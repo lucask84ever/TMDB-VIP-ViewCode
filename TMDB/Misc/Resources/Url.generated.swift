@@ -12,7 +12,6 @@ import Foundation
 internal enum PlistFiles {
   private static let _document = PlistDocument(path: "Url.plist")
   internal static let authorization: String = _document["Authorization"]
-  internal static let apiKey: String = _document["api_key"]
   internal static let cast: String = _document["cast"]
   internal static let detail: String = _document["detail"]
   internal static let host: String = _document["host"]
