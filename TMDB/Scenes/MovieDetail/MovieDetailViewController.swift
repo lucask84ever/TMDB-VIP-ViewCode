@@ -21,7 +21,7 @@ protocol MovieDetailDisplaying {
     func setCast(_ casting: [Cast])
 }
 
-class MovieDetailViewController: BaseViewController<DetailMovieInteracting, DetailMovieView> {
+class MovieDetailViewController: BaseViewController<DetailMovieInteracting, MovieDetailView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
@@ -58,7 +58,9 @@ class MovieDetailViewController: BaseViewController<DetailMovieInteracting, Deta
             case .cast:
                 self?.interactor.fetchCast()
             case .trailer:
-                self?.interactor.fetchTrailer()
+                if let isLoaded = self?.rootView.isLoaded, !isLoaded {
+                    self?.interactor.fetchTrailer()
+                }
             case .about:
                 return
             case .reviews:

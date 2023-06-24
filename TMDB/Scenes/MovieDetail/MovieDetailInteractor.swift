@@ -50,16 +50,15 @@ final class MovieDetailInteractor: DetailMovieInteracting {
         service.fetchMovieTrailer(id) { [weak self] result in
             switch result {
             case .success(let videos):
-                let video = videos.videos.filter { video in
-                    if video.name.lowercased().contains("official trailer") {
-                        return true
-                    }
-                    
-                    if video.name.lowercased().contains("trailer") {
-                        return true
-                    }
-                    return false
-                }.first
+                let filteredVideos = videos.videos.filter( { $0.name.lowercased().contains("official trailer")})
+                var video: Video?
+                
+                if filteredVideos.isEmpty {
+                    video = videos.videos.filter( {$0.name.lowercased().contains("trailer")}).first
+                } else {
+                    video = filteredVideos.first
+                }
+                
                 self?.presenter.trailer = video
             case .failure(let error):
                 print(error.localizedDescription)
