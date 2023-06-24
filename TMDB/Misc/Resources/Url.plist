@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Authorization</key>
+	<string>eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzVmMDhiM2IwYTVmOGFiYzMzNDhlNTc2Mjc5Y2Q5NSIsInN1YiI6IjVjZTZkNzY0YzNhMzY4NjQ5NDIzNjQwYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WSuJmtC85xz0CkZWhsr9v-szXidBob992BVBJn7RQNk</string>
+	<key>scheme</key>
+	<string>https</string>
+	<key>host</key>
+	<string>api.themoviedb.org</string>
+	<key>path</key>
+	<string>/3/</string>
+	<key>upcoming</key>
+	<string>movie/upcoming</string>
+	<key>topRated</key>
+	<string>movie/top_rated</string>
+	<key>popular</key>
+	<string>movie/popular</string>
+	<key>playingNow</key>
+	<string>movie/now_playing</string>
+	<key>trailers</key>
+	<string>movie/{id}/videos</string>
+	<key>detail</key>
+	<string>movie/{id}</string>
+	<key>cast</key>
+	<string>movie/{id}/credits</string>
+	<key>reviews</key>
+	<string>movie/{id}/reviews</string>
+</dict>
+</plist>

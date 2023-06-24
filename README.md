@@ -1,6 +1,6 @@
 # TMDB-VIP-ViewCode
 ## WIP
-A app based on [Figma](https://www.figma.com/community/file/1124835379376527920) from  [Francisco Santos](https://santosfrancisco.github.io) 
+A app based on [Figma](https://www.figma.com/community/file/1124835379376527920) from  [Francisco Santos](https://santosfrancisco.github.io) using [TMDB api](https://developer.themoviedb.org/docs)
 
 Technologies used:
 - VIP Archtecture

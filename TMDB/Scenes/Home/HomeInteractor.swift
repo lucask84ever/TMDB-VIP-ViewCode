@@ -15,6 +15,8 @@ protocol HomeInteracting {
     func fetchUpcoming()
     func fetchTopRatedMovies()
     func fetchPopularMovies()
+    
+    func routeToDetailMovie(_ movie: Movie)
 }
 
 final class HomeInteractor: HomeInteracting {
@@ -69,5 +71,9 @@ final class HomeInteractor: HomeInteracting {
                 print(error)
             }
         }
+    }
+    
+    func routeToDetailMovie(_ movie: Movie) {
+        presenter.presentMovieDetail(movie)
     }
 }

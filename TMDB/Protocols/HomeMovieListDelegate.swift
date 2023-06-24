@@ -10,3 +10,7 @@ import Foundation
 protocol HomeMovieListDelegate {
     func selectedType(_ listType: TypeListEnum)
 }
+
+protocol _MovieDetailTypeProtocol {
+    func selectedType(_ detailType: MovieDetailTypeEnum)
+}

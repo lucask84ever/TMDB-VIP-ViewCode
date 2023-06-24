@@ -10,7 +10,7 @@ def visual_pods
 end
 
 def helper_pods
-  pod 'SwiftGen', '~> 6.0'
+  pod 'SwiftGen', '~> 6.5'
 end
 
 def google_pods

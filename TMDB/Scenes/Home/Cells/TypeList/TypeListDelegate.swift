@@ -10,15 +10,15 @@ import UIKit
 final class TypeListDelegate: NSObject {
     internal enum Layout {
         static let cellHeight: CGFloat = 42
-        static let spaceBetweenCell: CGFloat = 8
-        static let defaultWidth: CGFloat = 77
+        static let spaceBetweenCell: CGFloat = 4
+        static let defaultWidth: CGFloat = 68
         static let nowPlayingWidth: CGFloat = 88
-        static let popularWidth: CGFloat = 72
+        static let upcomingWidth: CGFloat = 84
     }
     
     internal enum Constants {
         static let nowPlayingIndex: Int = 0
-        static let popularIndex: Int = 3
+        static let upcomingIndex: Int = 1
         static let zero: Int = 0
     }
     
@@ -53,8 +53,8 @@ extension TypeListDelegate: UICollectionViewDelegateFlowLayout {
             return CGSize(width: Layout.nowPlayingWidth, height: Layout.cellHeight)
         }
         
-        if indexPath.row == Constants.popularIndex {
-            return CGSize(width: Layout.popularWidth, height: Layout.cellHeight)
+        if indexPath.row == Constants.upcomingIndex {
+            return CGSize(width: Layout.upcomingWidth, height: Layout.cellHeight)
         }
         return CGSize(width: Layout.defaultWidth, height: Layout.cellHeight)
     }

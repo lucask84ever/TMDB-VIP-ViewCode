@@ -11,7 +11,7 @@ DEPENDENCIES:
   - SDWebImage
   - SkeletonView
   - SnapKit (~> 5.6.0)
-  - SwiftGen (~> 6.0)
+  - SwiftGen (~> 6.5)
   - youtube-ios-player-helper (~> 1.0.4)
 
 SPEC REPOS:
@@ -29,6 +29,6 @@ SPEC CHECKSUMS:
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
 
-PODFILE CHECKSUM: 0df2a6e5f1e5357b5e9c1e542c06ddad24931a24
+PODFILE CHECKSUM: 9db99a2708efd53f88feaa1d34bd0fb8651aa2ff
 
 COCOAPODS: 1.12.1

@@ -36,4 +36,11 @@ final class ImageLoader: UIImageView {
             self?.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(Constants.transitionTime))
         }
     }
+    
+    func getImage(_ imageUrl: String) {
+        sd_setImage(with: URL(string: imageUrl)) { [weak self] image, error, _, _ in
+            self?.image = image
+            self?.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(Constants.transitionTime))
+        }
+    }
 }

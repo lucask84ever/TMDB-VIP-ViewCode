@@ -70,5 +70,6 @@ extension TypeMovieCollectionViewCell: ViewCodeProtocol {
         isSkeletonable = true
         contentView.isSkeletonable = true
         posterImageLoader.isSkeletonable = true
+        posterImageLoader.showAnimatedGradientSkeleton()
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HomeFactory {
+final class HomeFactory {
     static func make() -> HomeViewController {
         let service = HomeService()
         let presenter = HomePresenter()
@@ -21,6 +21,7 @@ class HomeFactory {
         
         router.viewController = viewController
         presenter.viewController = viewController
+        presenter.router = router
         return viewController
     }
 }

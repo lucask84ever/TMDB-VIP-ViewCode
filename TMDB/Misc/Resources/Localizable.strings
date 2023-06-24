@@ -1,12 +1,3 @@
-// MARK: Upcoming movies
-"NavigationBarDetailMovieTitle" = "Detalhes";
-"TabbarUpcomingMovieTitle" = "Em breve";
-"TabbarSearchMovieTitle" = "Buscar filme";
-
-// MARK: Detail
-"DetailMovieReleaseYear" = "Lançamento";
-"DetailMovieDuration" = "Duração";
-
 // MARK: Tabbar titles
 "Tabbar.home" = "Home";
 "Tabbar.search" = "Search";
@@ -21,3 +12,10 @@
 "Home.ListMovie.Upcoming" = "Upcoming";
 "Home.ListMovie.TopRated" = "Top rated";
 "Home.ListMovie.Popular" = "Popular";
+
+// MARK: Detail
+"Detail.navigationTitle" = "Detail";
+"Detail.selection.about" = "About Movie";
+"Detail.selection.reviews" = "Reviews";
+"Detail.selection.cast" = "Cast";
+"Detail.selection.trailer" = "Trailer";
