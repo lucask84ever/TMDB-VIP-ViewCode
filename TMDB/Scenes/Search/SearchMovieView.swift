@@ -19,6 +19,16 @@ final class SearchMovieView: UIView {
         static let emptyListTitleHeight: CGFloat = 52
         static let emptyListSubTitleHeight: CGFloat = 38
         static let margins: CGFloat = 16
+        static let spaceInStackView: CGFloat = 8
+    }
+    
+    internal enum Constants {
+        static let emptyTitleNumberOfLines: Int = 2
+        static let emptySubtitleNumberOfLines: Int = 2
+        static let emptyTitleFontSize: CGFloat = 16
+        static let emptySubtitleFontSize: CGFloat = 12
+        
+        static let emptyListImageName: String = "emptyListImage"
     }
     
     lazy var searchTextfield: CustomTextfield = {
@@ -31,13 +41,13 @@ final class SearchMovieView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
-        stackView.spacing = 8
+        stackView.spacing = Layout.spaceInStackView
         return stackView
     }()
     
     lazy var emptyListImage: UIImageView = {
         let imageview = UIImageView()
-        imageview.image = UIImage(named: "empty")
+        imageview.image = UIImage(named: Constants.emptyListImageName)
         imageview.contentMode = .scaleAspectFit
         return imageview
     }()
@@ -46,9 +56,9 @@ final class SearchMovieView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .center
-        label.numberOfLines = 2
+        label.numberOfLines = Constants.emptyTitleNumberOfLines
         label.text = TMDBStrings.Search.EmptyList.title
-        label.font = FontFamily.Montserrat.semiBold.font(size: 16)
+        label.font = FontFamily.Montserrat.semiBold.font(size: Constants.emptyTitleFontSize)
         return label
     }()
     
@@ -56,8 +66,8 @@ final class SearchMovieView: UIView {
         let label = UILabel()
         label.textColor = ColorName.subtitleColor.color
         label.textAlignment = .center
-        label.numberOfLines = 2
-        label.font = FontFamily.Montserrat.medium.font(size: 12)
+        label.numberOfLines = Constants.emptySubtitleNumberOfLines
+        label.font = FontFamily.Montserrat.medium.font(size: Constants.emptySubtitleFontSize)
         label.text = TMDBStrings.Search.EmptyList.subTitle
         return label
     }()
