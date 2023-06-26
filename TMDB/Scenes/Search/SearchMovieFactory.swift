@@ -16,6 +16,7 @@ class SearchMovieFactory {
         let viewController = SearchMovieViewController(interactor: interactor)
         
         presenter.router = router
+        presenter.viewController = viewController
         viewController.title = TMDBStrings.Tabbar.search
         viewController.tabBarController?.tabBar.items?[1].image = UIImage(named: "search")
         return viewController

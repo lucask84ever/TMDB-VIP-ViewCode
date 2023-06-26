@@ -15,6 +15,7 @@ final class TypeMovieCollectionViewCell: UICollectionViewCell {
     // MARK: Layout constants
     internal enum Layout {
         static let posterCornerRadius: CGFloat = 16
+        static let posterSkeletonCornerRadius = Float(posterCornerRadius)
     }
     
     private lazy var posterImageLoader: ImageLoader = {
@@ -22,7 +23,7 @@ final class TypeMovieCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleToFill
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = Layout.posterCornerRadius
-        
+        imageView.skeletonCornerRadius = Layout.posterSkeletonCornerRadius
         imageView.isSkeletonable = true
         return imageView
     }()

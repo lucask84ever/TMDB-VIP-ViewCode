@@ -41,7 +41,7 @@ final class MovieDetailPresenter: DetailMoviePresenting {
     var movieDetails: DetailedMovie? {
         didSet {
             setMovieBackdrop(movie.backdropPath)
-            setMoviePoster(movie.posterPath)
+            setMoviePoster(movie.posterPath ?? "")
             setMovieTitle(movie.name)
             setReleaseYear(movie.releaseDate)
             setNote(movie.averageNote)

@@ -17,19 +17,20 @@ final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
         static let posterHeight: CGFloat = 210
         static let posterWidth: CGFloat = 144
         static let posterCornerRadius: CGFloat = 16
+        static let posterSkeletonCornerRadius: Float = Float(posterCornerRadius)
         static let positionHeight: CGFloat = 60
         static let positionWidth: CGFloat = 60
     }
     
     // MARK: UIElements
     private lazy var posterImageView: ImageLoader = {
-        let imageView = ImageLoader()
-        imageView.contentMode = .scaleToFill
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = Layout.posterCornerRadius
-        
-        imageView.isSkeletonable = true
-        return imageView
+        let imageLoader = ImageLoader()
+        imageLoader.contentMode = .scaleToFill
+        imageLoader.layer.masksToBounds = true
+        imageLoader.layer.cornerRadius = Layout.posterCornerRadius
+        imageLoader.skeletonCornerRadius = Layout.posterSkeletonCornerRadius
+        imageLoader.isSkeletonable = true
+        return imageLoader
     }()
     
     private lazy var positionImageView: UIImageView = {
@@ -66,8 +67,10 @@ final class TopFiveCategoryMovieCollectionViewCell: UICollectionViewCell {
     func setup(_ movie: Movie, _ position: Int) {
         positionImageView.image = UIImage(named: "\(position + 1)")
         positionImageView.isHidden = false
-        let imageUrl = ImageEndpoint(path: movie.posterPath)
-        posterImageView.getImage(imageUrl)
+        if let posterPath = movie.posterPath {
+            let imageUrl = ImageEndpoint(path: posterPath)
+            posterImageView.getImage(imageUrl)
+        }
     }
 }
 

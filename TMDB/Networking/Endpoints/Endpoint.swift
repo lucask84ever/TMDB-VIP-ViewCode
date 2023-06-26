@@ -9,6 +9,7 @@ import Foundation
 
 struct Endpoint {
     var path: String
+    var queryItems: [URLQueryItem] = []
 }
 
 extension Endpoint {
@@ -17,6 +18,7 @@ extension Endpoint {
         components.scheme = PlistFiles.scheme
         components.host = PlistFiles.host
         components.path = PlistFiles.path + path
+        components.queryItems = queryItems
         
         guard let url = components.url else {
             preconditionFailure("invalid URL components \(components)")
@@ -60,5 +62,11 @@ extension Endpoint {
     static func movieDetail(_ id: Int) -> Self {
         let url = PlistFiles.detail.replacingOccurrences(of: "{id}", with: id.description)
         return Endpoint(path: url)
+    }
+    
+    static func searchMovie(_ search: String) -> Self {
+        let url = PlistFiles.search
+        let query = URLQueryItem(name: "query", value: search)
+        return Endpoint(path: url, queryItems: [query])
     }
 }

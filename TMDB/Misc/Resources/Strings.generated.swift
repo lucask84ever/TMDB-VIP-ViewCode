@@ -93,6 +93,12 @@ internal enum TMDBStrings {
     }
   }
   internal enum Search {
+    internal enum Cell {
+      /// %.1f
+      internal static func averageNoteFormat(_ p1: Float) -> String {
+        return TMDBStrings.tr("Localizable", "Search.Cell.averageNoteFormat", p1, fallback: "%.1f")
+      }
+    }
     internal enum EmptyList {
       /// Find your movie by Type title,
       /// categories, years, etc

@@ -12,7 +12,9 @@ protocol SearchMoviePresenting {
     var viewController: SearchMovieDisplaying? { get set }
     var router: SearchMovieRouting? { get set }
     
-    func fetchedMovies(_ movies: MoviesResponse)
+    func setMovies(_ movies: [Movie])
+    
+    func presentMovieDetail(_ movie: Movie)
 }
 
 
@@ -20,7 +22,11 @@ final class SearchMoviePresenter: SearchMoviePresenting {
     var viewController: SearchMovieDisplaying?
     var router: SearchMovieRouting?
     
-    func fetchedMovies(_ movies: MoviesResponse) {
-        viewController?.fetchedMovies("", movies)
+    func setMovies(_ movies: [Movie]) {
+        viewController?.setMovies(movies)
+    }
+    
+    func presentMovieDetail(_ movie: Movie) {
+        print(movie.name)
     }
 }

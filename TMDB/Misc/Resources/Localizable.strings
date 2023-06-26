@@ -36,3 +36,5 @@
 "Search.Textfield.SearchPlaceHolder" = "Search";
 "Search.EmptyList.title" = "We are sorry, we can\nnot find the movie :(";
 "Search.EmptyList.subTitle" = "Find your movie by Type title,\ncategories, years, etc";
+
+"Search.Cell.averageNoteFormat" = "%.1f";

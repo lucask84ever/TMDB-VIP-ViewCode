@@ -9,7 +9,6 @@ import UIKit
 
 class UserReviewDelegate: NSObject {
     typealias Cell = UserReviewTableViewCell
-    var expandedIndexSet: IndexSet? = []
     private var tableView: UITableView
     var delegate: SelectReviewProtocol
     
@@ -24,10 +23,6 @@ class UserReviewDelegate: NSObject {
     
     func setItems(_ items: [UserReview]) {
         self.items = items
-    }
-    
-    func setInitialValue() {
-        
     }
 }
 

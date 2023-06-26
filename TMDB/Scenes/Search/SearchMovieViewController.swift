@@ -8,12 +8,25 @@
 import UIKit
 
 protocol SearchMovieDisplaying {
-    func fetchedMovies(_ searchedName: String,_ movies: MoviesResponse)
+    func setMovies(_ movies: [Movie])
 }
 
 final class SearchMovieViewController: BaseViewController<SearchMovieInteracting, SearchMovieView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupClosure()
+    }
+    
+    private func setupClosure() {
+        rootView.searchMovieAction = { [weak self] textToSearch in
+            self?.interactor.fetchSearchMovie(textToSearch)
+        }
+    }
+}
+
+extension SearchMovieViewController: SearchMovieDisplaying {
+    func setMovies(_ movies: [Movie]) {
+        rootView.setMovies(movies)
     }
 }

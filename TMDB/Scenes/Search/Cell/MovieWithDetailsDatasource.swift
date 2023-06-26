@@ -1,19 +1,17 @@
 //
-//  UserReviewDataSource.swift
+//  MovieWithDetailsDatasource.swift
 //  TMDB
 //
-//  Created by Lucas on 19/06/23.
+//  Created by Lucas on 25/06/23.
 //
 
+import Foundation
 import UIKit
 
-class UserReviewDataSource: NSObject {
-    
-    typealias Cell = UserReviewTableViewCell
-    
-    private var items: [UserReview] = []
-    
+final class MovieWithDetailsDatasource: NSObject {
+    typealias Cell = MovieWithDetailsTableViewCell
     private var tableView: UITableView
+    var items: [Movie]?
     
     init(tableView: UITableView) {
         self.tableView = tableView
@@ -21,31 +19,32 @@ class UserReviewDataSource: NSObject {
         setupTableView()
     }
     
-    func setItems(_ items: [UserReview]) {
-        self.items = items
-        tableView.reloadData()
+    func setItems(_ movies: [Movie]) {
+        self.items = movies
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     private func setupTableView() {
-        tableView.dataSource = self
         tableView.register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifier)
+        tableView.dataSource = self
     }
 }
 
-extension UserReviewDataSource: UITableViewDataSource {
+extension MovieWithDetailsDatasource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as? Cell else {
             return Cell()
         }
-        
-        if items.indices.contains(indexPath.row) {
-            cell.setupCell(items[indexPath.row])
+        let selected = indexPath.row
+        if let item = items?[selected] {
+            cell.setup(item)
         }
-        
         return cell
     }
 }

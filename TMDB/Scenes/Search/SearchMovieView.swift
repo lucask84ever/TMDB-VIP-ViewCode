@@ -9,7 +9,6 @@ import SnapKit
 import UIKit
 
 final class SearchMovieView: UIView {
-    var searchMovieAction: ((String) -> Void)?
     
     internal enum Layout {
         static let imageHeightAndWidth: CGFloat = 76
@@ -31,28 +30,48 @@ final class SearchMovieView: UIView {
         static let emptyListImageName: String = "emptyListImage"
     }
     
-    lazy var searchTextfield: CustomTextfield = {
+    var searchMovieAction: ((String) -> Void)?
+    var listSearchableMovieDelegate: MovieWithDetailsDelegate?
+    var listSearchableMovieDatasource: MovieWithDetailsDatasource?
+    
+    private lazy var scrollView = UIScrollView()
+    
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorName.backgroundColor.color
+        return view
+    }()
+    
+    private lazy var searchTextfield: CustomTextfield = {
         let textfield = CustomTextfield()
         textfield.setupSearch()
+        textfield.addTarget(self, action: #selector(returnPressed), for: .editingDidEndOnExit)
         return textfield
     }()
     
-    lazy var emptyListStackView: UIStackView = {
+    private lazy var listSearchableTableview: ContentSizeTableView = {
+        let tableView = ContentSizeTableView()
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        return tableView
+    }()
+    
+    private lazy var emptyListStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = Layout.spaceInStackView
+        stackView.isHidden = true
         return stackView
     }()
     
-    lazy var emptyListImage: UIImageView = {
+    private lazy var emptyListImage: UIImageView = {
         let imageview = UIImageView()
         imageview.image = UIImage(named: Constants.emptyListImageName)
         imageview.contentMode = .scaleAspectFit
         return imageview
     }()
     
-    lazy var emptyListTitle: UILabel = {
+    private lazy var emptyListTitle: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .center
@@ -62,7 +81,7 @@ final class SearchMovieView: UIView {
         return label
     }()
     
-    lazy var emptyListSubtitle: UILabel = {
+    private lazy var emptyListSubtitle: UILabel = {
         let label = UILabel()
         label.textColor = ColorName.subtitleColor.color
         label.textAlignment = .center
@@ -76,25 +95,64 @@ final class SearchMovieView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         buildViewLayout()
+        setupListSearchableMoviesTableView()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
+extension SearchMovieView {
+    @objc
+    func returnPressed() {
+        if let searchableText = searchTextfield.text {
+            searchMovieAction?(searchableText)
+        }
+        searchTextfield.resignFirstResponder()
+    }
+    
+    func setupListSearchableMoviesTableView() {
+        listSearchableMovieDelegate = MovieWithDetailsDelegate(tableView: listSearchableTableview)
+        listSearchableMovieDatasource = MovieWithDetailsDatasource(tableView: listSearchableTableview)
+    }
+    
+    func setMovies(_ movies: [Movie]) {
+        listSearchableMovieDelegate?.setItems(movies)
+        listSearchableMovieDatasource?.setItems(movies)
+    }
+}
+
 extension SearchMovieView: ViewCodeProtocol {
     func buildViewHierarchy() {
-        addSubview(searchTextfield)
-        addSubview(emptyListStackView)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(listSearchableTableview)
+        contentView.addSubview(searchTextfield)
+        contentView.addSubview(emptyListStackView)
         emptyListStackView.addArrangedSubview(emptyListImage)
         emptyListStackView.addArrangedSubview(emptyListTitle)
         emptyListStackView.addArrangedSubview(emptyListSubtitle)
+        
+        contentView.addSubview(listSearchableTableview)
     }
     
     func buildViewConstraints() {
+        scrollView.snp.makeConstraints {
+            $0.top.bottom.equalTo(safeAreaLayoutGuide)
+            $0.width.left.right.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.greaterThanOrEqualTo(safeAreaLayoutGuide)
+            $0.height.equalTo(safeAreaLayoutGuide).priority(.low)
+        }
+        
         searchTextfield.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(Layout.margins)
+            $0.top.equalToSuperview().offset(Layout.margins)
             $0.leading.equalToSuperview().offset(Layout.margins)
             $0.trailing.equalToSuperview().inset(Layout.margins)
             $0.height.equalTo(Layout.searchTextfieldHeight)
@@ -107,6 +165,13 @@ extension SearchMovieView: ViewCodeProtocol {
         
         emptyListImage.snp.makeConstraints {
             $0.height.equalTo(Layout.imageHeightAndWidth)
+        }
+        
+        listSearchableTableview.snp.makeConstraints {
+            $0.top.equalTo(searchTextfield.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(16)
         }
     }
     
