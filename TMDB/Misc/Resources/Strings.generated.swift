@@ -56,6 +56,8 @@ internal enum TMDBStrings {
       internal static func monthReviewSingular(_ p1: Int) -> String {
         return TMDBStrings.tr("Localizable", "Detail.review.monthReviewSingular", p1, fallback: "%d month ago")
       }
+      /// There is not reviews for this movie yet
+      internal static let noReviews = TMDBStrings.tr("Localizable", "Detail.review.noReviews", fallback: "There is not reviews for this movie yet")
       /// %d years ago
       internal static func yearReviewPlural(_ p1: Int) -> String {
         return TMDBStrings.tr("Localizable", "Detail.review.yearReviewPlural", p1, fallback: "%d years ago")

@@ -198,6 +198,7 @@ final class MovieDetailView: UIView {
         flowLayout.scrollDirection = .vertical
         flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = ContentSizeCollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isSkeletonable = true
         collectionView.backgroundColor = .clear
         collectionView.isHidden = true
@@ -206,12 +207,24 @@ final class MovieDetailView: UIView {
     
     private lazy var reviewTableView: ContentSizeTableView = {
         let tableview = ContentSizeTableView()
+        tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.isSkeletonable = true
         tableview.rowHeight = UITableView.automaticDimension
         tableview.separatorStyle = .none
         tableview.backgroundColor = .clear
         tableview.isHidden = true
         return tableview
+    }()
+    
+    private(set) lazy var noReviewsLabel: UILabel = {
+        let label = UILabel()
+        label.text = TMDBStrings.Detail.Review.noReviews
+        label.numberOfLines = 0
+        label.font = FontFamily.Poppins.regular.font(size: 12)
+        label.textAlignment = .center
+        label.textColor = ColorName.textColor.color
+        label.isHidden = true
+        return label
     }()
     
     // MARK: Init
@@ -299,6 +312,7 @@ extension MovieDetailView {
             self?.setupUserReviewsTableView()
             self?.userReviewDataSource?.setItems(reviews)
             self?.userReviewDelegate?.setItems(reviews)
+            self?.rebuildReviewTableViewLayout(reviews.count)
             self?.reviewTableView.reloadData()
         }
     }
@@ -342,6 +356,7 @@ extension MovieDetailView: ViewCodeProtocol {
         trailerBackgroundView.addSubview(trailerView)
         contentView.addSubview(reviewTableView)
         contentView.addSubview(castCollectionView)
+        contentView.addSubview(noReviewsLabel)
     }
     
     func buildViewConstraints() {
@@ -472,18 +487,8 @@ extension MovieDetailView: ViewCodeProtocol {
             $0.edges.equalToSuperview()
         }
         
-        castCollectionView.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().offset(16)
-            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
-            $0.bottom.equalToSuperview().inset(16)
-        }
-
-        reviewTableView.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().offset(16)
-            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
-            $0.bottom.equalToSuperview().inset(16)
+        noReviewsLabel.snp.makeConstraints {
+            $0.leading.trailing.top.equalTo(overviewBackgroundView)
         }
     }
     
@@ -563,6 +568,7 @@ extension MovieDetailView: _MovieDetailTypeProtocol {
         castCollectionView.isHidden = false
         scrollView.isScrollEnabled = true
         pauseVideoIfNeeded()
+        rebuildCastCollectionViewLayout()
     }
     
     private func enableReviews() {
@@ -588,6 +594,30 @@ extension MovieDetailView: _MovieDetailTypeProtocol {
             default:
                 return
             }
+        }
+    }
+    
+    private func rebuildCastCollectionViewLayout() {
+        castCollectionView.snp.remakeConstraints {
+            $0.trailing.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().offset(16)
+            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
+            $0.bottom.equalToSuperview().inset(16)
+        }
+    }
+    
+    private func rebuildReviewTableViewLayout(_ numberOfRows: Int) {
+        guard numberOfRows != 0 else {
+            noReviewsLabel.isHidden = false
+            disableScroll()
+            return
+        }
+        reviewTableView.snp.remakeConstraints {
+            $0.trailing.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().offset(16)
+            $0.height.equalTo(118 * numberOfRows)
+            $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
+            $0.bottom.equalToSuperview().inset(16)
         }
     }
 }
