@@ -7,14 +7,25 @@
 
 import UIKit
 
+enum SearchRoute {
+    case detail(Movie)
+}
+
 protocol SearchMovieRouting {
-    var navigationController: UINavigationController? { get set }
+    var viewController: UIViewController? { get set }
+    
+    func routeTo(_ route: SearchRoute)
 }
 
 final class SearchMovieRouter: SearchMovieRouting {
-    weak var navigationController: UINavigationController?
+    weak var viewController: UIViewController?
     
-    init(navigationController: UINavigationController?) {
-        self.navigationController = navigationController
+    func routeTo(_ route: SearchRoute) {
+        let navigation = viewController?.navigationController
+        switch route {
+        case .detail(let movie):
+            let viewController = MovieDetailFactory.make(movie)
+            navigation?.pushViewController(viewController, animated: true)
+        }
     }
 }

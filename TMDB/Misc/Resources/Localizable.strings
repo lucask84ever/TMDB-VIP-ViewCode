@@ -32,7 +32,11 @@
 "Detail.review.hourReviewPlural" = "%d hours ago";
 "Detail.review.minuteReviewSingular" = "%d minute ago";
 "Detail.review.minuteReviewPlural" = "%d minutes ago";
+"Detail.review.noReviews" = "There is not reviews for this movie yet";
 
+// MARK: Search Movies
 "Search.Textfield.SearchPlaceHolder" = "Search";
-"Search.EmptyList.title" = "We are sorry, we can\nnot find the movie :(";
-"Search.EmptyList.subTitle" = "Find your movie by Type title,\ncategories, years, etc";
+"Search.EmptyList.title" = "We are sorry, we can\nnot find the movie 😔";
+"Search.EmptyList.subTitle" = "Find your movie by title";
+
+"Search.Cell.averageNoteFormat" = "%.1f";

@@ -11,7 +11,7 @@ struct Movie: Decodable {
     let id: Int
     let name: String
     let overview: String
-    let posterPath: String
+    let posterPath: String?
     let releaseDate: String
     let genres: [Int]
     let averageNote: Float

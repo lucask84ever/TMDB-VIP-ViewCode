@@ -44,8 +44,9 @@ extension TypeMovieDataSource: UICollectionViewDataSource {
             return Cell()
         }
         let currentIndex = indexPath.row
-        let currentMoviePoster = items[currentIndex].posterPath
-        cell.setupPoster(currentMoviePoster)
+        if let currentMoviePoster = items[currentIndex].posterPath {
+            cell.setupPoster(currentMoviePoster)
+        }
         return cell
     }
 }

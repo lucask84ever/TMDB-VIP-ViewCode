@@ -11,7 +11,10 @@ final class TMDB {
     static func initialSetup() -> UINavigationController {
         let tabbar = UITabBarController()
         setupTabBar(tabbar.tabBar)
-        let navigationController = UINavigationController()
+        let homeNavigationController = UINavigationController()
+        let searchNavigationController = UINavigationController()
+        let watchListNavitaionController = UINavigationController()
+        
         let homeViewController = HomeFactory.make()
         
         homeViewController.title = TMDBStrings.Tabbar.home
@@ -25,8 +28,15 @@ final class TMDB {
         
         watchListViewController.title = TMDBStrings.Tabbar.watchList
         
-        navigationController.pushViewController(homeViewController,
+        homeNavigationController.pushViewController(homeViewController,
                                                 animated: true)
+        
+        searchNavigationController.pushViewController(searchViewController,
+                                                      animated: true)
+        
+        watchListNavitaionController.pushViewController(watchListViewController,
+                                                        animated: true)
+        
         tabbar.setViewControllers([homeViewController, searchViewController, watchListViewController], animated: true)
         homeViewController.tabBarController?.tabBar.items?[0].image = UIImage(named: "home")
         searchViewController.tabBarController?.tabBar.items?[1].image = UIImage(named: "search")

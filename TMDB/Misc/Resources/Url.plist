@@ -26,6 +26,8 @@
 	<string>movie/{id}/credits</string>
 	<key>reviews</key>
 	<string>movie/{id}/reviews</string>
+	<key>search</key>
+	<string>search/movie</string>
 	<key>imageHost</key>
 	<string>image.tmdb.org</string>
 	<key>imagePath</key>

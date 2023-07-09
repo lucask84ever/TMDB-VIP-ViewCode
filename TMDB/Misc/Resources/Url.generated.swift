@@ -22,6 +22,7 @@ internal enum PlistFiles {
   internal static let popular: String = _document["popular"]
   internal static let reviews: String = _document["reviews"]
   internal static let scheme: String = _document["scheme"]
+  internal static let search: String = _document["search"]
   internal static let topRated: String = _document["topRated"]
   internal static let trailers: String = _document["trailers"]
   internal static let upcoming: String = _document["upcoming"]

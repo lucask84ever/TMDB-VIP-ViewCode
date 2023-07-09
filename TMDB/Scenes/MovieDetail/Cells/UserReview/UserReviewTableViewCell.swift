@@ -64,7 +64,7 @@ class UserReviewTableViewCell: UITableViewCell {
     // MARK: Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupLayout()
+        buildViewLayout()
     }
     
     @available(*, unavailable)
@@ -102,13 +102,6 @@ class UserReviewTableViewCell: UITableViewCell {
             let imageEndpoint = ImageEndpoint(path: imagePath)
             avatarImageLoader.getImage(imageEndpoint)
         }
-    }
-    
-    // MARK: Custom methods
-    private func setupLayout() {
-        buildViewHierarchy()
-        buildViewConstraints()
-        additionalConfig()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

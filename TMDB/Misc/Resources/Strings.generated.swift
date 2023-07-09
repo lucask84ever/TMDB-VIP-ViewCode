@@ -56,6 +56,8 @@ internal enum TMDBStrings {
       internal static func monthReviewSingular(_ p1: Int) -> String {
         return TMDBStrings.tr("Localizable", "Detail.review.monthReviewSingular", p1, fallback: "%d month ago")
       }
+      /// There is not reviews for this movie yet
+      internal static let noReviews = TMDBStrings.tr("Localizable", "Detail.review.noReviews", fallback: "There is not reviews for this movie yet")
       /// %d years ago
       internal static func yearReviewPlural(_ p1: Int) -> String {
         return TMDBStrings.tr("Localizable", "Detail.review.yearReviewPlural", p1, fallback: "%d years ago")
@@ -93,13 +95,18 @@ internal enum TMDBStrings {
     }
   }
   internal enum Search {
+    internal enum Cell {
+      /// %.1f
+      internal static func averageNoteFormat(_ p1: Float) -> String {
+        return TMDBStrings.tr("Localizable", "Search.Cell.averageNoteFormat", p1, fallback: "%.1f")
+      }
+    }
     internal enum EmptyList {
-      /// Find your movie by Type title,
-      /// categories, years, etc
-      internal static let subTitle = TMDBStrings.tr("Localizable", "Search.EmptyList.subTitle", fallback: "Find your movie by Type title,\ncategories, years, etc")
+      /// Find your movie by title
+      internal static let subTitle = TMDBStrings.tr("Localizable", "Search.EmptyList.subTitle", fallback: "Find your movie by title")
       /// We are sorry, we can
-      /// not find the movie :(
-      internal static let title = TMDBStrings.tr("Localizable", "Search.EmptyList.title", fallback: "We are sorry, we can\nnot find the movie :(")
+      /// not find the movie 😔
+      internal static let title = TMDBStrings.tr("Localizable", "Search.EmptyList.title", fallback: "We are sorry, we can\nnot find the movie 😔")
     }
     internal enum Textfield {
       /// Search
