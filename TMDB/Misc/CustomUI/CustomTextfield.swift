@@ -9,6 +9,8 @@ import UIKit
 
 final class CustomTextfield: UITextField {
     
+    var searchAction: ((String) -> Void)?
+    
     internal enum Constants {
         static let dx: CGFloat = 16
         static let dy: CGFloat = 10
@@ -17,20 +19,25 @@ final class CustomTextfield: UITextField {
     }
     
     func setupSearch() {
-        if let image = UIImage(named: "search") {
+        setupAccessoryImage("lens")
+        layer.cornerRadius = Constants.cornerRadius
+        textColor = ColorName.textColor.color
+        let _attributedPlaceholder = NSAttributedString(string: TMDBStrings.Search.Textfield.searchPlaceHolder,
+                                                        attributes: [NSAttributedString.Key.foregroundColor: ColorName.textfieldTextIcon.color])
+        attributedPlaceholder = _attributedPlaceholder
+        backgroundColor = ColorName.textfieldBackground.color
+        leftView = UIView()
+        leftViewMode = .always
+    }
+    
+    private func setupAccessoryImage(_ imageName: String) {
+        if let image = UIImage(named: imageName) {
             let lensImage = UIImageView(image: image)
             lensImage.tintColor = ColorName.textfieldTextIcon.color
             lensImage.transform = CGAffineTransform(scaleX: -1, y: 1)
             rightView = lensImage
             rightViewMode = .always
         }
-        layer.cornerRadius = Constants.cornerRadius
-        textColor = ColorName.textColor.color
-        let _attributedPlaceholder = NSAttributedString(string: TMDBStrings.Search.Textfield.searchPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: ColorName.textfieldTextIcon.color])
-        attributedPlaceholder = _attributedPlaceholder
-        backgroundColor = ColorName.textfieldBackground.color
-        leftView = UIView()
-        leftViewMode = .always
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -50,8 +57,8 @@ final class CustomTextfield: UITextField {
     @objc
     private func lensAction() {
         print("BUSCANDO")
-//        if let text = text, !text.isEmpty {
-//            searchAction?(text)
-//        }
+        if let text = text, !text.isEmpty {
+            searchAction?(text)
+        }
     }
 }

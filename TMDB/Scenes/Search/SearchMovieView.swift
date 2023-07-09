@@ -46,12 +46,16 @@ final class SearchMovieView: UIView {
         let textfield = CustomTextfield()
         textfield.setupSearch()
         textfield.addTarget(self, action: #selector(returnPressed), for: .editingDidEndOnExit)
+        textfield.searchAction = { [weak self] textToSearch in
+            self?.searchMovieAction?(textToSearch)
+        }
         return textfield
     }()
     
     private lazy var listSearchableTableview: ContentSizeTableView = {
         let tableView = ContentSizeTableView()
         tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = ColorName.backgroundColor.color
         return tableView
     }()
     
@@ -96,6 +100,7 @@ final class SearchMovieView: UIView {
         super.init(frame: frame)
         buildViewLayout()
         setupListSearchableMoviesTableView()
+        scrollView.keyboardDismissMode = .onDrag
     }
     
     @available(*, unavailable)
@@ -119,8 +124,19 @@ extension SearchMovieView {
     }
     
     func setMovies(_ movies: [Movie]) {
-        listSearchableMovieDelegate?.setItems(movies)
-        listSearchableMovieDatasource?.setItems(movies)
+        if !movies.isEmpty {
+            DispatchQueue.main.async { [weak self] in
+                self?.emptyListStackView.isHidden = true
+                self?.listSearchableTableview.isHidden = false
+            }
+            listSearchableMovieDelegate?.setItems(movies)
+            listSearchableMovieDatasource?.setItems(movies)
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self?.emptyListStackView.isHidden = false
+                self?.listSearchableTableview.isHidden = true
+            }
+        }
     }
 }
 
@@ -168,10 +184,10 @@ extension SearchMovieView: ViewCodeProtocol {
         }
         
         listSearchableTableview.snp.makeConstraints {
-            $0.top.equalTo(searchTextfield.snp.bottom).offset(16)
-            $0.leading.equalToSuperview().offset(16)
-            $0.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(16)
+            $0.top.equalTo(searchTextfield.snp.bottom).offset(Layout.margins)
+            $0.leading.equalToSuperview().offset(Layout.margins)
+            $0.trailing.equalToSuperview().inset(Layout.margins)
+            $0.bottom.equalToSuperview().inset(Layout.margins)
         }
     }
     
