@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol HomeTopRatedMoviesDelegate {
+protocol SelectMoviesDelegate {
     func selectMovie(_ movie: Movie)
 }

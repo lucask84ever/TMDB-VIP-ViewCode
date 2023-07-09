@@ -31,6 +31,8 @@ final class SearchMovieView: UIView {
     }
     
     var searchMovieAction: ((String) -> Void)?
+    var selectMovieClosure: ((Movie) -> Void)?
+    
     var listSearchableMovieDelegate: MovieWithDetailsDelegate?
     var listSearchableMovieDatasource: MovieWithDetailsDatasource?
     
@@ -119,7 +121,7 @@ extension SearchMovieView {
     }
     
     func setupListSearchableMoviesTableView() {
-        listSearchableMovieDelegate = MovieWithDetailsDelegate(tableView: listSearchableTableview)
+        listSearchableMovieDelegate = MovieWithDetailsDelegate(tableView: listSearchableTableview, delegate: self)
         listSearchableMovieDatasource = MovieWithDetailsDatasource(tableView: listSearchableTableview)
     }
     
@@ -193,5 +195,11 @@ extension SearchMovieView: ViewCodeProtocol {
     
     func additionalConfig() {
         backgroundColor = ColorName.backgroundColor.color
+    }
+}
+
+extension SearchMovieView: SelectMoviesDelegate {
+    func selectMovie(_ movie: Movie) {
+        selectMovieClosure?(movie)
     }
 }

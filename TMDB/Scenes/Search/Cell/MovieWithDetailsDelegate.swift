@@ -11,10 +11,12 @@ import UIKit
 final class MovieWithDetailsDelegate: NSObject {
     typealias Cell = MovieWithDetailsTableViewCell
     private var tableView: UITableView
+    private var delegate: SelectMoviesDelegate
     var items: [Movie]?
     
-    init(tableView: UITableView) {
+    init(tableView: UITableView, delegate: SelectMoviesDelegate) {
         self.tableView = tableView
+        self.delegate = delegate
         super.init()
         setupTableView()
     }
@@ -31,8 +33,9 @@ final class MovieWithDetailsDelegate: NSObject {
 extension MovieWithDetailsDelegate: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selected = indexPath.row
+        
         if let item = items?[selected] {
-            print(item)
+            delegate.selectMovie(item)
         }
     }
 }

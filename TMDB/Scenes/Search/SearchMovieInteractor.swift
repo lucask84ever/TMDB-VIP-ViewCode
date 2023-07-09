@@ -12,6 +12,8 @@ protocol SearchMovieInteracting {
     var service: SearchMovieServicing { get set }
     
     func fetchSearchMovie(_ searchText: String)
+    
+    func routeToDetailMovie(_ movie: Movie)
 }
 
 class SearchMovieInteractor: SearchMovieInteracting {
@@ -33,5 +35,9 @@ class SearchMovieInteractor: SearchMovieInteracting {
                 print(error)
             }
         }
+    }
+    
+    func routeToDetailMovie(_ movie: Movie) {
+        presenter.presentMovieDetail(movie)
     }
 }

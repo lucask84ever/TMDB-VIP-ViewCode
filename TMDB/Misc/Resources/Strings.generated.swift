@@ -102,12 +102,11 @@ internal enum TMDBStrings {
       }
     }
     internal enum EmptyList {
-      /// Find your movie by Type title,
-      /// categories, years, etc
-      internal static let subTitle = TMDBStrings.tr("Localizable", "Search.EmptyList.subTitle", fallback: "Find your movie by Type title,\ncategories, years, etc")
+      /// Find your movie by title
+      internal static let subTitle = TMDBStrings.tr("Localizable", "Search.EmptyList.subTitle", fallback: "Find your movie by title")
       /// We are sorry, we can
-      /// not find the movie :(
-      internal static let title = TMDBStrings.tr("Localizable", "Search.EmptyList.title", fallback: "We are sorry, we can\nnot find the movie :(")
+      /// not find the movie 😔
+      internal static let title = TMDBStrings.tr("Localizable", "Search.EmptyList.title", fallback: "We are sorry, we can\nnot find the movie 😔")
     }
     internal enum Textfield {
       /// Search

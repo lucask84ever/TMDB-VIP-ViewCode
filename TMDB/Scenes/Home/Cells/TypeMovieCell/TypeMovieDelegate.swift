@@ -29,10 +29,12 @@ final class TypeMovieDelegate: NSObject {
     
     var collectionView: UICollectionView?
     var items: [Movie]
+    var delegate: SelectMoviesDelegate
     
-    init(items: [Movie], collectionView: UICollectionView?) {
+    init(items: [Movie], collectionView: UICollectionView?, delegate: SelectMoviesDelegate) {
         self.items = items
         self.collectionView = collectionView
+        self.delegate = delegate
         super.init()
         setupCollectionView()
     }
@@ -63,9 +65,10 @@ final class TypeMovieDelegate: NSObject {
 extension TypeMovieDelegate: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedItem = indexPath.row
+        
         if items.indices.contains(selectedItem) {
-            let selectedMovieName = items[selectedItem].name
-            print(selectedMovieName)
+            let selectedItem = items[selectedItem]
+            delegate.selectMovie(selectedItem)
         }
     }
 }

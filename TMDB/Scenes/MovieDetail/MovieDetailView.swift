@@ -313,13 +313,13 @@ extension MovieDetailView {
             self?.userReviewDataSource?.setItems(reviews)
             self?.userReviewDelegate?.setItems(reviews)
             self?.rebuildReviewTableViewLayout(reviews.count)
-            self?.reviewTableView.reloadData()
         }
     }
     
     func setCasting(_ casting: [Cast]) {
         DispatchQueue.main.async { [weak self] in
             self?.castDatasource?.setItems(casting)
+            self?.rebuildCastCollectionViewLayout()
         }
     }
 }
@@ -376,7 +376,7 @@ extension MovieDetailView: ViewCodeProtocol {
         backdropImageLoader.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(210)
+            $0.height.equalTo(210).priority(.high)
         }
 
         noteBackgroundView.snp.makeConstraints {
@@ -549,6 +549,7 @@ extension MovieDetailView: _MovieDetailTypeProtocol {
         trailerBackgroundView.isHidden = true
         reviewTableView.isHidden = true
         castCollectionView.isHidden = true
+        noReviewsLabel.isHidden =  true
         disableScroll()
         pauseVideoIfNeeded()
     }
@@ -558,6 +559,7 @@ extension MovieDetailView: _MovieDetailTypeProtocol {
         trailerBackgroundView.isHidden = false
         reviewTableView.isHidden = true
         castCollectionView.isHidden = true
+        noReviewsLabel.isHidden =  true
         disableScroll()
     }
     
@@ -567,6 +569,7 @@ extension MovieDetailView: _MovieDetailTypeProtocol {
         reviewTableView.isHidden = true
         castCollectionView.isHidden = false
         scrollView.isScrollEnabled = true
+        noReviewsLabel.isHidden =  true
         pauseVideoIfNeeded()
         rebuildCastCollectionViewLayout()
     }
@@ -612,12 +615,15 @@ extension MovieDetailView: _MovieDetailTypeProtocol {
             disableScroll()
             return
         }
+        
         reviewTableView.snp.remakeConstraints {
             $0.trailing.equalToSuperview().inset(16)
             $0.leading.equalToSuperview().offset(16)
             $0.height.equalTo(118 * numberOfRows)
             $0.top.equalTo(detailTypeCollectionView.snp.bottom).offset(16)
-            $0.bottom.equalToSuperview().inset(16)
+            if numberOfRows > 3 {
+                $0.bottom.equalToSuperview().inset(16)
+            }
         }
     }
 }

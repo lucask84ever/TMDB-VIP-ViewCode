@@ -18,11 +18,11 @@ final class TopFiveCategoryMovieDelegate: NSObject {
     }
     
     var collectionView: UICollectionView?
-    var delegate: HomeTopRatedMoviesDelegate
+    var delegate: SelectMoviesDelegate
     var items: [Movie]?
     
     init(collectionView: UICollectionView,
-         delegate: HomeTopRatedMoviesDelegate) {
+         delegate: SelectMoviesDelegate) {
         self.collectionView = collectionView
         self.delegate = delegate
         super.init()

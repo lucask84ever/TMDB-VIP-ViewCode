@@ -27,6 +27,6 @@ final class SearchMoviePresenter: SearchMoviePresenting {
     }
     
     func presentMovieDetail(_ movie: Movie) {
-        print(movie.name)
+        router?.routeTo(.detail(movie))
     }
 }

@@ -113,7 +113,7 @@ final class MovieDetailPresenter: DetailMoviePresenting {
     }
     
     func setNote(_ note: Float) {
-        let formated = TMDBStrings.Detail.Detail.averageNoteFormat(note)
+        let formated = TMDBStrings.Detail.Detail.averageNoteFormat(floor(note))
         viewController?.setNote(formated)
     }
     

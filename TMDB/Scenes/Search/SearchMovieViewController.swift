@@ -22,6 +22,10 @@ final class SearchMovieViewController: BaseViewController<SearchMovieInteracting
         rootView.searchMovieAction = { [weak self] textToSearch in
             self?.interactor.fetchSearchMovie(textToSearch)
         }
+        
+        rootView.selectMovieClosure = { [weak self] movie in
+            self?.interactor.routeToDetailMovie(movie)
+        }
     }
 }
 

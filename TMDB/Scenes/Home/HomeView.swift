@@ -38,11 +38,7 @@ final class HomeView: UIView {
     var selectMovie: ((Movie) -> Void)?
     
     // MARK: UIElements
-    private lazy var scrollView: UIScrollView =  {
-        let scroll = UIScrollView()
-        scroll.keyboardDismissMode = .onDrag
-        return scroll
-    }()
+    private lazy var scrollView = UIScrollView()
     
     private lazy var contentView: UIView = UIView()
     
@@ -114,7 +110,7 @@ final class HomeView: UIView {
     }
     
     private func setupBottomMoviesCollectionView() {
-        bottomMoviesDelegate = TypeMovieDelegate(items: [], collectionView: bottomMoviesCollectionView)
+        bottomMoviesDelegate = TypeMovieDelegate(items: [], collectionView: bottomMoviesCollectionView, delegate: self)
         bottomMoviesDataSource = TypeMovieDataSource(items: [], collectionView: bottomMoviesCollectionView)
         
     }
@@ -233,7 +229,7 @@ extension HomeView {
     }
 }
 
-extension HomeView: HomeTopRatedMoviesDelegate {
+extension HomeView: SelectMoviesDelegate {
     func selectMovie(_ movie: Movie) {
         selectMovie?(movie)
     }

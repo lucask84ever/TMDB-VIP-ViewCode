@@ -9,7 +9,7 @@ import UIKit
 
 class SearchMovieFactory {
     static func make() -> SearchMovieViewController {
-        let router = SearchMovieRouter(navigationController: UIApplication.shared.inputViewController?.navigationController)
+        let router = SearchMovieRouter()
         let presenter = SearchMoviePresenter()
         let service = SearchMovieService()
         let interactor = SearchMovieInteractor(presenter: presenter, service: service)
@@ -17,6 +17,8 @@ class SearchMovieFactory {
         
         presenter.router = router
         presenter.viewController = viewController
+        router.viewController = viewController
+        
         viewController.title = TMDBStrings.Tabbar.search
         viewController.tabBarController?.tabBar.items?[1].image = UIImage(named: "search")
         return viewController
